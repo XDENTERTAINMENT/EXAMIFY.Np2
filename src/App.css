@@ -1,0 +1,22 @@
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body,#root{
+  width:100%;
+  min-height:100vh;
+  font-family:"Segoe UI",sans-serif;
+}
+
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+button{
+  cursor:pointer;
+}

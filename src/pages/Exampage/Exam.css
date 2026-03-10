@@ -1,0 +1,86 @@
+
+
+
+.title input{
+    font-size: 20px;
+    border-radius: 5px;
+}
+.title h1{
+    text-align: center;
+}
+.title input{
+  width: 100%;
+  border: 3px solid black ;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.formsection input{
+    text-align: center;
+    width: 100%;
+  border: 3px solid black ;
+  border-radius: 10px;
+  padding: 10px;
+}
+ 
+.formsection form button {
+   width: 100%;
+   margin-left: 0px;
+   border: 3px solid black ;
+
+}
+
+.formsection form select {
+    text-align: center;
+   padding: 10px;
+    border: 3px solid black ;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.formsection form{
+     text-align: center;
+}
+.question-preview button{
+    width: 60%;
+}
+
+.question-preview{
+    margin-top: 40px;
+}
+
+
+
+@media (max-width:768px){
+
+.title h1 {
+    text-align: center;
+    
+}
+
+.formsection form {
+    display: grid;
+    
+}
+
+.formsection form button {
+   width: 100%;
+   margin-left: 0px;
+   border: 3px solid black ;
+
+}
+
+.formsection form select {
+   padding: 10px;
+    border: 3px solid black ;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.question-preview button{
+    width: 100%;
+}
+
+}
