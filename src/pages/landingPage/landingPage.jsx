@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react'
 import bg from "./education.png"
-import "./landingPage.css"
+import "./LandingPage.css"
+
 
 
 
