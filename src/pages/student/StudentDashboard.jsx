@@ -36,7 +36,7 @@ function StudentDashboard() {
     <div className="page"> 
        <h1>Welcome Student</h1>
        
-    <div>
+    <div >
       <h2>Enter Quiz Code</h2>
       <input
         type="text"

@@ -82,6 +82,51 @@ button{
 }
 
 
+.teacherdashboard{
+
+  width: 100%;
+   min-height: 90vh;
+ 
+}
+  
+
+
+.btn-teacher{
+width: 25% ;
+  border-radius: 3px;
+  min-height: 80vh;
+  background-color: white;
+
+}
+
+.btn-teacher:hover{
+
+   border: 1px solid #FFE4B5;
+  transform:translateY(-8px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+.teacherdashboard h1{
+  
+  text-align: center;
+
+}
+
+.btn-teacher button{
+  width: 100%;
+   border: 2px solid white;
+  border-radius: 10px;
+  
+  
+}
+
+.btn-teacher button:hover{
+  transform: translateY(-8px);
+ box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+
+
+
 
 
 @media (max-width:768px){
@@ -117,5 +162,26 @@ button{
 
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
  }
+
+ .teacherdashboard{
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  display: grid;
+   min-height: 80vh;
+   
+
+
+}
+
+.btn-teacher{
+
+width: 100% ;
+min-height: 60vh;
+
+
+
+}
+
 
 }
