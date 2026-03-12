@@ -16,7 +16,7 @@ function LandingPage() {
   <div className="homepage">
      
       <h1>Welcome to the Exam Platform</h1>
-
+       <p>Create quizzes, test students, and track performance easily.</p>
        <p> Select User Type </p> 
      <div  className="hero">
           <div className='user-options'>
@@ -34,6 +34,41 @@ function LandingPage() {
      
    </div>
 
+     <div className="sectiontable">
+          <section className="features">
+                <h2>Features</h2>
+            <p>Easy Quiz Creation</p>
+            <p>Create quizzes in minutes using a simple interface.</p>
+            <p>Instant Quiz Sharing</p>
+            <p>Share quizzes with students using a secure link.</p>
+            <p>Real-Time Results</p>
+            <p>Students receive immediate feedback after submission.</p>
+            <p>Performance Tracking</p>
+            <p>Monitor and analyze student progress easily.</p>
+       </section>
+
+       <section className="howitworks">
+              <h2>How It Works</h2>
+            
+             <p>1. Create a Quiz</p> 
+  <p>Teachers create quizzes with questions and answers.</p>
+
+                <p>2. Share the Quiz</p>
+        <p>Send the quiz link or code to students.</p> 
+
+            <p>3. Students Take the Quiz</p>
+
+           <p>Students log in and complete the quiz.</p>
+
+            <p>4. View Results</p>
+      <p>Scores and feedback are generated automatically.</p>
+
+              
+        </section>
+
+       
+     </div>
+
    
 
    <div  className="education">
@@ -41,8 +76,14 @@ function LandingPage() {
      <img src={bg}/>
     
    </div>
+
      
-     
+     <footer class="footer">
+  <p>
+    © 2026 Examify.Np |  
+   <a  href="https://my-portfolio-site-d.vercel.app/"   target="_blank">View Developer Portfolio</a>
+  </p>
+</footer>
   </div>
     
   )

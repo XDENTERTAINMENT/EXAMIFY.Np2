@@ -22,7 +22,8 @@ const styles={
 
         },
         logo:{
-             margin: 0
+             margin: 0,
+             
         },
         links:{
              display: "flex",
