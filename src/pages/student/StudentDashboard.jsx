@@ -23,7 +23,7 @@ function StudentDashboard() {
   };
 
   const handleJoin = () => {
-    navigate(`/exampage`)
+    navigate(`/exampage/${quizCode}`)
   };
 
   return (

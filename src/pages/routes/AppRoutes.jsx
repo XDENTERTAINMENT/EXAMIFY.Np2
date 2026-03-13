@@ -34,7 +34,7 @@ function AppRoutes() {
       <Route path="/teachersignup" element={<TeacherSignup/>}/>
       <Route path="/teacherdashboard" element={<TeacherDashboard/>}/>
       <Route path="/examexampage"    element={<CreateExamPage/>}/>
-      <Route path="/exampage"    element={<Exampage/>}/>
+      <Route path="/exampage/:quizCode"    element={<Exampage/>}/>
       
     
    
