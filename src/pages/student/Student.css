@@ -1,14 +1,15 @@
   .student-loginpage{
+   
  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 1200px;
   width: 100%;
   margin: auto;
   min-height:100vh;
   background-color: white;
   font-family: "Segoe UI",sans-serif;
+
  }
  
  .container{
@@ -17,10 +18,12 @@
 
 }
 
+
+
  /* Layout */
  .login-container{
     display:flex;
-  gap:40px;
+     gap:40px;
  }
 
  .students h1{
@@ -67,6 +70,7 @@
 }
 
 .profile{
+  
   margin: 5px;
   border-radius: 5px;
   height: 85vh;
@@ -76,7 +80,7 @@
 
 .page{
   height: 85vh;
-  width: 85%;
+  width: 100%;
   display:flex;
   justify-content: center;
   text-align: center;
@@ -85,10 +89,10 @@
 .page div{
   margin-top:10px;
  justify-content: center;
- width:100%;
+ width:30%;
  display: grid;
   height: 85vh;
-  margin:0px;
+  margin:10px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
@@ -108,52 +112,61 @@
   border-radius: 10px;
     width:100%
 }
+/* EXAMPAGE */
 
-.exampage{
-  display: grid;
-  margin:10px ;
+.examstudentpageContainer{
+  width: 100%;
+  height: 90vh;
+ 
+}
+
+
+.examstudentpage form{
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  font-size: 15px;
+  font-size: 20px;
 
 }
- .exampage button{
-  width: 6%;
-  border-radius: 10px;
- 
- }
-
- .timer{
+.timer{
      display: flex;
-     justify-content:flex-end;
+      justify-content:flex-end;
      font-size: 50px;
-     
-     
+    
  }
- .submit{
+ 
+
+
+ 
+ .examstudentpagesubmit{
+  margin-top: 9rem;
+ 
   display: flex;
-  justify-content: flex-end;
+  justify-content:flex-end;
+
+  
  }
- .submit button{
-  width: 6%;
+  .examstudentpagesubmit button{
+    width: 10%;
   border-radius: 10px;
-  margin-top: 8rem;
-  position: relative;
-  
 
-  
-
-
- 
- 
  }
- 
+
  .scores{
  display: flex;
  justify-content: center;
  text-align: center;
  margin-top: 20rem;
 
+ }
 
+
+
+  .examstudentpage form button{
+   width: 10%;
+  border-radius: 10px;
+ 
  }
 
 
@@ -174,7 +187,6 @@
     justify-content:center;
    display: grid;
    align-items:center;
-    margin: 3px;
    height: 100vh;
    width:100%;
    }
@@ -182,19 +194,59 @@
    .profile{
   width:100%;
   height: 50vh;
+  padding: 0px 0px;
  
   }
+ 
+
 
   .login-container{
     display: grid;
   }
   .page div{
-    margin-top:70px;
+    margin-top:6cap;
    height: 50vh;
   width:100%;
- 
-  
   
 }
+
+
+
+ .examstudentpage form{
+  display: grid;
+  gap: 20px;
+  font-size: 15px;
+  justify-content: center;
+
+}
+
+.timer{
+     display: grid;
+      justify-content:center;
+     font-size: 50px;
+       
+ }
+ 
+
+
+ .examstudentpage form button{
+   width: 100%;
+  border-radius: 10px;
+ 
+ }
+ .examstudentpagesubmit{
+  
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+    
+ 
+ }
+
+ .examstudentpagesubmit button{
+  width: 100%;
+  
+ }
+ 
 
 }

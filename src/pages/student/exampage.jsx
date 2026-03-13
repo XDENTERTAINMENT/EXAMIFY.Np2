@@ -13,12 +13,13 @@ function Exampage() {
 
 
   return (
-    <div className='EXAM'>
+    <div className='examstudentpageContainer'>
       {stopTime? <h2 className='scores'> you scored 30%</h2>
        : (
-        <div className='exampage' >
+        <div className='examstudentpage' >
        <div className='timer'> 30 </div>
-       <h2> what is a noun</h2>
+       <form>
+               <h2> what is a noun</h2>
       
       <label htmlFor=" Option A">
         <input type='radio' id=' Option A' name= 'question1' />
@@ -36,16 +37,21 @@ function Exampage() {
         <input type='radio' id=' Option D' name= 'question1'/>
             Option D
       </label>
-      <div>
-        
-      </div>
+     
       <button>Next</button>
 
-    </div>)
-    }
-    <div className='submit'>
+       </form>
+       
+
+        <div className='examstudentpagesubmit'>
        <button onClick={  handlesubmit} >Submit</button>
-    </div >
+       </div >
+
+    </div>)
+
+    
+    }
+  
    
     </div>
     
