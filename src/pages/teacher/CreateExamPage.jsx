@@ -40,7 +40,61 @@ function CreateExamPage() {
     setEditingIndex(null);
   };
 
+  const saveExam=()=>{
+
+    const Exam=  {
+      Title:examTitle,
+      Question: questions,
+    }
+
+   
+
+   if(!examTitle){
+      alert("Please add exam title");
+      return;
+     }
+
+     if(questions.length===0){
+      alert("Add at least one question");
+      return;
+     }
+
+      alert("Exam saved",Exam)
+
+  };
+
+  const GenerateID =()=>{
+     return Math.random().toString(36).substring(2,8)
+  }
   
+
+   const PublishQuiz=()=>{
+
+     const quizid = GenerateID();
+
+     const Exam={
+      id:quizid,
+      Title:examTitle,
+      Question: questions,
+     }
+
+     
+
+     if(!examTitle){
+      alert("Please add exam title");
+      return;
+     }
+
+     if(questions.length===0){
+      alert("Add at least one question");
+      return;
+     }
+     alert( "Quiz published:",Exam)
+     
+   }
+  
+
+
   return (
     <div  className="exampage">
 
@@ -77,8 +131,8 @@ function CreateExamPage() {
         </div>
         
       <div  className="saveExam"> 
-        <button>Save Exam</button>
-      <button>Publish Quiz</button>
+        <button onClick={saveExam}>Save Exam</button>
+      <button onClick={PublishQuiz}>Publish Quiz</button>
      
       </div>
       
