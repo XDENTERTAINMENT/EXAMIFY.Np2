@@ -10,30 +10,31 @@
 }
 .title input{
   width: 100%;
-  border: 3px solid black ;
+  border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px;
 }
 
 .formsection input{
-    text-align: center;
-    width: 100%;
-  border: 3px solid black ;
-  border-radius: 10px;
+     width: 100%;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  outline: none;
 }
  
 .formsection form button {
    width: 100%;
    margin-left: 0px;
-   border: 3px solid black ;
+   border: 1px solid #ccc;
 
 }
 
 .formsection form select {
     text-align: center;
    padding: 10px;
-    border: 3px solid black ;
+    border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
     width: 100%;
@@ -68,13 +69,13 @@
 .formsection form button {
    width: 100%;
    margin-left: 0px;
-   border: 3px solid black ;
+   border: 1px solid #ccc;
 
 }
 
 .formsection form select {
    padding: 10px;
-    border: 3px solid black ;
+   border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
 }

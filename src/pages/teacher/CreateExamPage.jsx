@@ -96,7 +96,7 @@ function CreateExamPage() {
 
 
   return (
-    <div  className="exampage">
+    <div  className="exampage2">
 
       
         <div className="question-title">

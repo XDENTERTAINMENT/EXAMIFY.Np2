@@ -1,5 +1,6 @@
  
- .exampage{
+ .exampage2{
+   background-color: red;
    display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,23 +12,23 @@
   font-family: "Segoe UI",sans-serif;
  }
  .question-title{
-  
+    
  display: grid;
-  padding: 10px 100px;
-  margin: 40px;
+   width: 70%;
+  margin: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
  }
  .question-form{
   display: flex;
-  padding: 10px 100px;
-  margin: 40px;
+   width: 70%;
+  margin: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
  }
  .preview{
  
  display: flex;
-  padding: 10px 100px;
-  margin: 40px;
+  width: 70%;
+  margin: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
    display: flex;
   flex-wrap: wrap;
@@ -39,14 +40,18 @@
    
  }
  .saveExam{
-   display: flex;
-  padding: 10px 100px;
+ 
+   justify-content: center;
+   display:flex;
+  width: 70%;
   margin: 40px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
  }
 
  .saveExam button{
+  border-radius: 15px;
   width: 100%;
+  border: 1px solid #ccc;
  }
 
 
