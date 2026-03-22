@@ -6,9 +6,9 @@ function TeacherSignup() {
    const navigate = useNavigate();
   return (
      <div className='container'>
-             <div className='form'>
-       
-        <p> Sign Up</p>
+             <div className='classicform'>
+         <form>
+                <p> Sign Up</p>
         <label htmlFor="UserName">
             <input type='text' placeholder='UserName' name='UserName'/>
         </label>
@@ -18,6 +18,8 @@ function TeacherSignup() {
          <button onClick={()=> navigate("/teacherlogin")}>Sign up</button>
       
       
+         </form>
+       
     </div>     
     </div>
  

@@ -63,7 +63,7 @@ function TeacherLogin() {
   
   return (
      <div className='container'>
-          <div className='form'>
+          <div className='classicform'>
           <form   onSubmit={submithandle}>      
               <p> Sign In</p>
         <label htmlFor="UserName">
