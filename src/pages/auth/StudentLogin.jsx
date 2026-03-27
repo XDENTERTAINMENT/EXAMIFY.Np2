@@ -65,8 +65,8 @@ function StudentLogin() {
 
 
   return (
-    <div className='container'>
-      <div className='classicform'>
+    <div className='containerauth'>
+      <div className='classic2'>
         <form onSubmit={submithandle}>
 
           <p> Sign In</p>
