@@ -151,7 +151,9 @@ body{
   margin-top: 20px;
 }
 .howitworks{
-  width: 100%;
+  align-items: center;
+  text-align: center; 
+   width:70%; 
    margin-top: 15rem;
  justify-items: center;
  
