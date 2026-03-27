@@ -122,25 +122,19 @@ body{
 
 
 .sectiontable{
-  display: grid;
   margin-top: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* THIS centers everything */
   width: 100%;
-  justify-items: center;
     
-
-  
 }
+ .features{
+    text-align: center; 
+     width:70%;
+ }
 
 
-
-.features{
-
-   flex-wrap:wrap;
-  justify-items: center;
-  align-items: center;
-  text-align: center; 
-   width:70%; 
-}
 .features:hover{
    border: 1px solid #FFE4B5;
   transform:translateY(-8px);
@@ -151,27 +145,17 @@ body{
   margin-top: 20px;
 }
 .howitworks{
-  align-items: center;
-  text-align: center; 
-   width:100%; 
-   margin-top: 15rem;
- justify-items: center;
  
-   
+  text-align: center; 
+   width:70%; 
+   margin-top: 15rem;
     
 }
 
-.howitworks div{
-    align-items: center;
-      text-align: center; 
-       align-items: center;
-      text-align: center; 
-     width:70%; 
-      
-}
 
 
-.howitworks div:hover{
+
+.howitworks:hover{
    border: 1px solid #FFE4B5;
   transform:translateY(-8px);
   box-shadow:0 15px 35px rgba(0,0,0,0.15);

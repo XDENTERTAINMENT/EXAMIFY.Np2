@@ -48,7 +48,7 @@ function LandingPage() {
         </section>
 
         <section className="howitworks">
-          <div>
+       
               <h2>How It Works</h2>
 
           <p>1. Create a Quiz</p>
@@ -64,7 +64,7 @@ function LandingPage() {
           <p>4. View Results</p>
           <p>Scores and feedback are generated automatically.</p>
 
-          </div>
+         
          
 
         </section>
