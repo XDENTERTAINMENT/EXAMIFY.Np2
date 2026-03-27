@@ -153,7 +153,7 @@ body{
 .howitworks{
   align-items: center;
   text-align: center; 
-   width:70%; 
+   width:100%; 
    margin-top: 15rem;
  justify-items: center;
  
@@ -163,8 +163,10 @@ body{
 
 .howitworks div{
     align-items: center;
-      text-align: center;
-      width:70%; 
+      text-align: center; 
+       align-items: center;
+      text-align: center; 
+     width:70%; 
       
 }
 
