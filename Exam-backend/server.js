@@ -2,7 +2,7 @@
   const mongoose = require("mongoose");
   const cors  = require("cors");
   const submissionRoute = require("./routes/submissionRoutes");
-
+   require('dotenv').config();
    
 
 
@@ -24,9 +24,8 @@ app.use("/api", submissionRoute);
 
 // connect DB 
 
-const ExamPlatformDB = "mongodb+srv://PENFUND:nnabuike16@nodedev.zuga4jb.mongodb.net/NODEDEV?appName=NODEDEV";
 
-mongoose.connect(ExamPlatformDB)
+mongoose.connect(process.env.MONGO_URI)
 .then(() =>{
     console.log("DB connected ✅")
     app.listen(3000, ()=>{
