@@ -2,6 +2,7 @@ import React from 'react'
 import "./auth.css"
 import { useNavigate, } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
 
 function StudentSignup() {
     const [errorusername, setErrorUsername] = useState("");
@@ -17,17 +18,89 @@ function StudentSignup() {
 
     const navigate = useNavigate();
 
-     const submithandle = (e) => {
-        e.preventDefault;
+    const submithandle = async (e) => {
+        e.preventDefault();
 
-        if(FirstName || LastName || username  >=10 ){
+        // RESET ERRORS
+        setErrorFirstName("");
+        setErrorLastName("");
+        setErrorUsername("");
+        setErrorPassword("");
+        setErrorConfirmpassword("");
 
+        let hasError = false;
+
+        // ✅ FIRST NAME
+        if (!FirstName) {
+            setErrorFirstName("First name is required");
+            hasError = true;
+        } else if (FirstName.length < 4) {
+            setErrorFirstName("First name must be at least 4 characters");
+            hasError = true;
         }
-        else if( FirstName || LastName || username <=3){
 
+        // ✅ LAST NAME
+        if (!LastName) {
+            setErrorLastName("Last name is required");
+            hasError = false;
+        } else if (LastName.length < 4) {
+            setErrorLastName("Last name must be at least 4 characters");
+            hasError = false;
         }
 
+        // ✅ USERNAME
+        if (!username) {
+            setErrorUsername("Username is required");
+            hasError = false;
+        } else if (username.length < 4 || username.length > 10) {
+            setErrorUsername("Username must be 4–10 characters");
+            hasError = false;
         }
+
+        // ✅ PASSWORD
+        if (!password) {
+            setErrorPassword("Password is required");
+            hasError = true;
+        } else if (password.length < 8 || password.length > 10) {
+            setErrorPassword("Password must be 8–10 characters");
+            hasError = true;
+        }
+
+        // ✅ CONFIRM PASSWORD
+        if (!Confirmpassword) {
+            setErrorConfirmpassword("Confirm your password");
+            hasError = true;
+        } else if (password !== Confirmpassword) {
+            setErrorConfirmpassword("Passwords do not match");
+            hasError = true;
+        }
+
+        // ❌ STOP if error
+        if (hasError) return;
+
+        // ✅ SEND TO BACKEND
+        try {
+            const res = await axios.post("http://localhost:3000/api/signup", {
+                FirstName: FirstName,
+                LastName: LastName,
+                UserName: username,
+                Password: password,
+              
+
+            });
+            console.log(res);
+
+            alert(res.data.message);
+            navigate("/studentlogin");
+
+        } catch (err) {
+            console.log(err);
+            alert(err.response?.data?.message || "Signup failed");
+        }
+    };
+
+
+
 
 
 
@@ -36,56 +109,71 @@ function StudentSignup() {
             <div className='classicform2'>
                 <p> Sign Up</p>
                 <form onSubmit={submithandle}>
+                    <div>
+                        <label htmlFor="FirstName">
+                            <input type='text'
+                                placeholder='FirstName'
+                                name='FirstName'
+                                value={FirstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                        </label>
+                        <p className='error'>{errorFirstName}</p>
+                    </div>
+                    <div>
+                        <label htmlFor="LastName">
+                            <input type='text'
+                                placeholder='LastName'
+                                name='LastName'
+                                value={LastName}
+                                onChange={(e) => setLastName(e.target.value)}
 
-                    <label htmlFor="FirstName">
-                        <input type='text'
-                            placeholder='FirstName'
-                            name='FirstName'
-                            value={FirstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                    </label>
-                    <p className='error'>{errorFirstName}</p>
-                    <label htmlFor="LastName">
-                        <input type='text'
-                            placeholder='LastName'
-                            name='LastName'
-                            value={LastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </label>
+                        <p className='error'>{errorLastName}</p>
+                    </div>
 
-                        />
-                    </label>
-                    <p className='error'>{errorLastName}</p>
-                    <label htmlFor="UserName">
-                        <input type='text'
-                            placeholder='UserName'
-                            name='UserName'
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                    <div>
+                        <label htmlFor="UserName">
+                            <input type='text'
+                                placeholder='UserName'
+                                name='UserName'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
 
-                        />
-                    </label>
-                    <p className='error'>{errorusername}</p>
+                            />
+                        </label>
+                        <p className='error'>{errorusername}</p>
+                    </div>
 
-                    <label htmlFor="Password">
-                        <input type='Password'
-                            placeholder='Password'
-                            name='Password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
 
-                        />
-                    </label>
-                    <p className='error'>{errorpassword}</p>
-                    <label htmlFor="Confirm Password">
-                        <input type='Password'
-                            placeholder='Confirm Password'
-                            name='ConfirmPassword'
-                            value={Confirmpassword}
-                            onChange={(e) => setConfirmpassword(e.target.value)}
-                        />
-                    </label>
-                    <p className='error'>{errorConfirmpassword}</p>
+                    <div>
+                        <label htmlFor="Password">
+                            <input type='Password'
+                                placeholder='Password'
+                                name='Password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+
+                            />
+                        </label>
+                        <p className='error'>{errorpassword}</p>
+                    </div>
+
+
+
+                    <div>
+                        <label htmlFor="Confirm Password">
+                            <input type='Password'
+                                placeholder='Confirm Password'
+                                name='ConfirmPassword'
+                                value={Confirmpassword}
+                                onChange={(e) => setConfirmpassword(e.target.value)}
+                            />
+                        </label>
+                        <p className='error'>{errorConfirmpassword}</p>
+                    </div>
+
                     <button type='submit'>Sign up</button>
                 </form>
 

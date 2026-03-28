@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const submissiondb = require("../models/Submission");
 
-router.post("/submit", async (req,res) =>{
+
+router.post("/submit", async (req,res) =>{ 
     try{
         const submission = new submissiondb(req.body);
         await submission.save();
