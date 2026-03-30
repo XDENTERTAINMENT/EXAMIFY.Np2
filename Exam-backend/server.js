@@ -1,10 +1,12 @@
+  
+  require("dotenv").config();
   const express = require("express");
   const mongoose = require("mongoose");
   const cors  = require("cors");
   const submissionRoute = require("./routes/submissionRoutes");
-   require('dotenv').config();
    const userRoute = require("./routes/authRoutes");
-   
+   const loginuser =require("./routes/loginRoute");
+
 
 
 
@@ -16,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 
+
 // test route
 app.get("/",(req,res) => {
     res.send("Backend is working 🚀");
@@ -25,14 +28,18 @@ app.use("/api", submissionRoute);
 app.use("/api", userRoute);
 
 
+// my controller route
+
+app.use("/api", loginuser);
+
 // connect DB 
 
+ const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() =>{
     console.log("DB connected ✅")
-    app.listen(3000, ()=>{
-        console.log("server running on port 3000");
-    });
+    app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`)});
 })
 .catch(err => console.log(err));

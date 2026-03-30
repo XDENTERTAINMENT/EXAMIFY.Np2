@@ -26,42 +26,42 @@ function TeacherSignup() {
         setErrorPassword("");
         setErrorConfirmpassword("");
 
-        let hasError = false;
+        let hasError = true;
 
         // ✅ FIRST NAME
         if (!FirstName) {
             setErrorFirstName("First name is required");
-            hasError = true;
+            hasError = false;
         } else if (FirstName.length < 4) {
             setErrorFirstName("First name must be at least 4 characters");
-            hasError = true;
+            hasError = false;
         }
 
         // ✅ LAST NAME
         if (!LastName) {
             setErrorLastName("Last name is required");
-            hasError = true;
+            hasError = false;
         } else if (LastName.length < 4) {
             setErrorLastName("Last name must be at least 4 characters");
-            hasError = true;
+            hasError = false;
         }
 
         // ✅ USERNAME
         if (!username) {
             setErrorUsername("Username is required");
-            hasError = true;
+            hasError = false;
         } else if (username.length < 4 || username.length > 10) {
             setErrorUsername("Username must be 4–10 characters");
-            hasError = true;
+            hasError = false;
         }
 
         // ✅ PASSWORD
         if (!password) {
             setErrorPassword("Password is required");
-            hasError = true;
+            hasError = false;
         } else if (password.length < 8 || password.length > 10) {
             setErrorPassword("Password must be 8–10 characters");
-            hasError = true;
+            hasError = false;
         }
 
         // ✅ CONFIRM PASSWORD
@@ -70,19 +70,19 @@ function TeacherSignup() {
             hasError = false;
         } else if (password !== Confirmpassword) {
             setErrorConfirmpassword("Passwords do not match");
-            hasError = true;
+            hasError = false;
         }
 
         // ❌ STOP if error
-        if (hasError) return;
+        if (!hasError) return;
 
         // ✅ SEND TO BACKEND
         try {
             const res = await axios.post("http://localhost:3000/api/signup", {
-                FirstName: FirstName,
-                LastName: LastName,
-                UserName: username,
-                Password: password,
+                firstname: FirstName,
+                lastname: LastName,
+                username: username,
+                password: password,
 
             });
 

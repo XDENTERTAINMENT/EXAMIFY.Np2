@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import "./auth.css"
 import { useState } from 'react';
+import axios from "axios";
 
 function StudentLogin() {
   const [username, setUsername] = useState("");
@@ -13,20 +14,19 @@ function StudentLogin() {
 
   const navigate = useNavigate();
 
-  const submithandle = (e) => {
+  const submithandle = async (e) => {
 
     let valid = true
 
     e.preventDefault();
 
-    if (username.length > 10) {
-      setErrorUsername("username shouldn't be higher than 10 characters");
-      valid = false
+    if (!username) {
+      setErrorUsername("Username is required");
+      hasError = false;
 
-    }
-    else if (username.length <= 4) {
-      setErrorUsername(" username shouldn't be  less than 5 characters ");
-      valid = false
+    } else if (username.length < 4 || username.length > 10) {
+      setErrorUsername("Username must be 4–10 characters");
+      hasError = false;
     }
 
 
@@ -50,14 +50,28 @@ function StudentLogin() {
       setErrorPassword("");
     }
 
-    if (valid) {
+    // ❌ STOP if error
+    if (!valid) {
+      return
+    };
+
+
+    try {
+      const res = await axios.post("http://localhost:3000/api/login", {
+        username: username,
+        password: password,
+      });
+      // ✅ Save token
+      localStorage.setItem("token", res.data.token);
+      console.log(res);
+      alert(res.data.message);
       navigate("/studentdashboard")
-
-
     }
 
-
-
+    catch (err) {
+      console.log(err);
+      alert(err.response?.data?.message || "login failed");
+    }
 
   }
 
@@ -71,12 +85,16 @@ function StudentLogin() {
 
           <p> Sign In</p>
           <label htmlFor="UserName">
-            <input type='text' placeholder='UserName' name='UserName' onChange={(e) => setUsername(e.target.value)} />
+            <input type='text' placeholder='UserName' name='UserName'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)} />
 
           </label>
           <p className='error'>{errorusername}</p>
           <label htmlFor="Password">
-            <input type='Password' placeholder='Password' name='Password' onChange={(e) => setPassword(e.target.value)} />
+            <input type='Password' placeholder='Password' name='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
           </label>
           <p className='error'>{errorpassword}</p>
           <button type='submit'>Login</button>
