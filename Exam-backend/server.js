@@ -18,6 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 
+// / 🔍 DEBUG HERE
+console.log("MONGO:", process.env.MONGO_URI);
+console.log("JWT:", process.env.JWT_SECRET);
 
 // test route
 app.get("/",(req,res) => {
