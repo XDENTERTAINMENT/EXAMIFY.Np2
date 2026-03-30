@@ -14,7 +14,7 @@ function Exampage() {
   const handlesubmit = async () => {
     //  backend calls
     try {
-      await axios.post("http://localhost:3000/api/submit", {
+      await axios.post("https://examify-np2.onrender.com/api/submit", {
         userId: "student1",
         quizId: "quiz123",
         answers: [answer]

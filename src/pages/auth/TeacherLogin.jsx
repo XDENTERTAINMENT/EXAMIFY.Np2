@@ -35,13 +35,13 @@ function TeacherLogin() {
 
 
 
-     if (!username) {
-            setErrorUsername("Username is required");
-            hasError = false;
-        } else if (username.length < 4 || username.length > 10) {
-            setErrorUsername("Username must be 4–10 characters");
-            hasError = false;
-        }
+    if (!username) {
+      setErrorUsername("Username is required");
+      hasError = false;
+    } else if (username.length < 4 || username.length > 10) {
+      setErrorUsername("Username must be 4–10 characters");
+      hasError = false;
+    }
 
     else {
       setErrorPassword("");
@@ -52,7 +52,7 @@ function TeacherLogin() {
 
 
     try {
-      const res = await axios.post("http://localhost:3000/api/login", {
+      const res = await axios.post("https://examify-np2.onrender.com/api/login", {
         username: username,
         password: password,
       });

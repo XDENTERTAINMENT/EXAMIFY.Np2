@@ -78,7 +78,7 @@ function TeacherSignup() {
 
         // ✅ SEND TO BACKEND
         try {
-            const res = await axios.post("http://localhost:3000/api/signup", {
+            const res = await axios.post("https://examify-np2.onrender.com/api/signup", {
                 firstname: FirstName,
                 lastname: LastName,
                 username: username,
