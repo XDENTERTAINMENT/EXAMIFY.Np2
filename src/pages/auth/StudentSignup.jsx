@@ -81,13 +81,14 @@ function StudentSignup() {
         // ✅ SEND TO BACKEND
         try {
             const res = await axios.post("https://examify-np2.onrender.com/api/signup", {
-               firstname: FirstName,
+                firstname: FirstName,
                 lastname: LastName,
                 username: username,
                 password: password,
-              
+
 
             });
+
             console.log(res);
 
             alert(res.data.message);
@@ -95,7 +96,9 @@ function StudentSignup() {
 
         } catch (err) {
             console.log(err);
-            alert(err.response?.data?.message || "Signup failed");
+            res.status(500).json({
+                message: "Server error during signup"
+            });
         }
     };
 

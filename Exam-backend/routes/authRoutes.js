@@ -26,7 +26,8 @@ router.post("/signup", async (req,res) =>
   
     // 3. hash password
     const hashedpassword = await bcrypt.hash(password, 10);
-
+     console.log("Incoming signup:", req.body);
+     
      const userdb1 = new userdb({
        firstname,
       lastname,

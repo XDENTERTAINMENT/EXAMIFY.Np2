@@ -1,30 +1,34 @@
-  
-  require("dotenv").config();
-  const express = require("express");
-  const mongoose = require("mongoose");
-  const cors  = require("cors");
-  const submissionRoute = require("./routes/submissionRoutes");
-   const userRoute = require("./routes/authRoutes");
-   const loginuser =require("./routes/loginRoute");
+
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const submissionRoute = require("./routes/submissionRoutes");
+const userRoute = require("./routes/authRoutes");
+const loginuser = require("./routes/loginRoute");
 
 
 
 
-  const app = express();
+const app = express();
 
 //  middleware
 
-app.use(cors());
+
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
 
 
-// / 🔍 DEBUG HERE
-console.log("MONGO:", process.env.MONGO_URI);
-console.log("JWT:", process.env.JWT_SECRET);
+
 
 // test route
-app.get("/",(req,res) => {
-    res.send("Backend is working 🚀");
+app.get("/", (req, res) => {
+  res.send("Backend is working 🚀");
 });
 //  my model route
 app.use("/api", submissionRoute);
@@ -37,12 +41,13 @@ app.use("/api", loginuser);
 
 // connect DB 
 
- const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGO_URI)
-.then(() =>{
+  .then(() => {
     console.log("DB connected ✅")
     app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`)});
-})
-.catch(err => console.log(err));
+      console.log(`Server running on port ${PORT}`)
+    });
+  })
+  .catch(err => console.log(err));
