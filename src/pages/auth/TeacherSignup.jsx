@@ -92,9 +92,11 @@ function TeacherSignup() {
 
         } catch (err) {
             console.log(err);
-            res.status(500).json({
-                message: "Server error during signup"
-            });
+
+            alert(
+                err.response?.data?.message ||
+                "Signup failed. Try again."
+            );
         }
     };
 
