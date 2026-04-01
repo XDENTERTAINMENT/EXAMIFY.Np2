@@ -88,7 +88,7 @@ function TeacherSignup() {
             });
 
             alert(res.data.message);
-            navigate("/teacherloginpage");
+            navigate("/teacherlogin");
 
         } catch (err) {
             console.log(err);

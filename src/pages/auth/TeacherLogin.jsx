@@ -9,23 +9,22 @@ function TeacherLogin() {
   const [password, setPassword] = useState("");
 
 
+
   const navigate = useNavigate();
 
   const submithandle = async (e) => {
-
 
     let valid = true
 
     e.preventDefault();
 
-    if (username.length > 10) {
-      setErrorUsername("username shouldn't be higher than 10 characters");
-      valid = false
+    if (!username) {
+      setErrorUsername("Username is required");
+      hasError = false;
 
-    }
-    else if (username.length <= 4) {
-      setErrorUsername(" username shouldn't be  less than 5 characters ");
-      valid = false
+    } else if (username.length < 4 || username.length > 10) {
+      setErrorUsername("Username must be 4–10 characters");
+      hasError = false;
     }
 
 
@@ -35,17 +34,21 @@ function TeacherLogin() {
 
 
 
-    if (!username) {
-      setErrorUsername("Username is required");
-      hasError = false;
-    } else if (username.length < 4 || username.length > 10) {
-      setErrorUsername("Username must be 4–10 characters");
-      hasError = false;
+    if ((password.length <= 7)) {
+      setErrorPassword("password shouldn't be less than 8 characters");
+      valid = false
+    }
+
+    else if (password.length > 10) {
+      setErrorPassword("password shouldn't be higher than 10 characters");
+      valid = false
     }
 
     else {
       setErrorPassword("");
     }
+
+    // ❌ STOP if error
     if (!valid) {
       return
     };
@@ -60,7 +63,7 @@ function TeacherLogin() {
       localStorage.setItem("token", res.data.token);
       console.log(res);
       alert(res.data.message);
-      navigate("/teacherdashboard")
+      navigate("/studentdashboard")
     }
 
     catch (err) {
@@ -68,20 +71,22 @@ function TeacherLogin() {
       alert(err.response?.data?.message || "login failed");
     }
 
-
-
-
   }
+
+
+
 
   return (
     <div className='containerauth'>
       <div className='classic2'>
         <form onSubmit={submithandle}>
+
           <p> Sign In</p>
           <label htmlFor="UserName">
             <input type='text' placeholder='UserName' name='UserName'
               value={username}
               onChange={(e) => setUsername(e.target.value)} />
+
           </label>
           <p className='error'>{errorusername}</p>
           <label htmlFor="Password">
@@ -92,9 +97,7 @@ function TeacherLogin() {
           <p className='error'>{errorpassword}</p>
           <button type='submit'>Login</button>
 
-
         </form>
-
 
       </div>
     </div>
