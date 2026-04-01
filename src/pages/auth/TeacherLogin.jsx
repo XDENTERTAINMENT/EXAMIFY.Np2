@@ -60,7 +60,7 @@ function TeacherLogin() {
       localStorage.setItem("token", res.data.token);
       console.log(res);
       alert(res.data.message);
-      navigate("/studentdashboard")
+      navigate("/teacherdashboard")
     }
 
     catch (err) {

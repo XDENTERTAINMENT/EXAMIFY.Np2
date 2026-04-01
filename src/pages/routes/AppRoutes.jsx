@@ -37,7 +37,7 @@ function AppRoutes() {
       <Route path="/exampage/:quizCode"    element={<Exampage/>}/>
       
     
-   
+
 
 
      
