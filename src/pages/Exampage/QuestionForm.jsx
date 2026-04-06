@@ -56,7 +56,7 @@ function QuestionForm({ addQuestion, updateQuestion, editingIndex, questionToEdi
     setCorrectAnswer("");
 
     try {
-    const res = await axios.post(" http://localhost:3000/api/questions", {
+    const res = await API.post("/questions", {
       exam: examTitle,
       questionText: questionText,
       options: [optionA, optionB, optionC, optionD],
