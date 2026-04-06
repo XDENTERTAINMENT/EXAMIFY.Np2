@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Student.css";
 import { useState, useEffect } from 'react';
-import axios from "axios";
+import API from '../../services/api';
 
 function Exampage() {
 
@@ -14,7 +14,7 @@ function Exampage() {
   const handlesubmit = async () => {
     //  backend calls
     try {
-      await axios.post("https://examify-np2.onrender.com/api/submit", {
+      await API.post("/submit", {
         userId: "student1",
         quizId: "quiz123",
         answers: [answer]

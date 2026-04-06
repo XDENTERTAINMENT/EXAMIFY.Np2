@@ -2,7 +2,9 @@ const Question = require("../models/Question.js");
 
 // ➕ CREATE QUESTION
 exports.createQuestion = async (req, res) => {
+    console.log("🔥 HIT createQuestion route");   // 👈 ADD THIS
     try {
+        console.log("📦 BODY:", req.body);       // 👈 ADD THIS
         const { exam, questionText, options, correctAnswer, marks } = req.body;
 
         console.log(req.body);

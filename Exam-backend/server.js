@@ -9,6 +9,7 @@ const loginuser = require("./routes/loginRoute");
 const question = require("./routes/questionRoutes")
 
 
+console.log("🔥 HIT server");   // 👈 ADD THIS
 
 const app = express();
 

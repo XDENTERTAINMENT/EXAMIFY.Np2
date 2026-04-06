@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from "axios";
 import "./auth.css"
+import API from '../../services/api';
 
 
 function TeacherSignup() {
@@ -81,7 +81,7 @@ function TeacherSignup() {
 
         // ✅ SEND TO BACKEND
         try {
-            const res = await axios.post("https://examify-np2.onrender.com/api/signup", {
+            const res = await API.post("/signup", {
                 firstname: FirstName,
                 lastname: LastName,
                 username: username,

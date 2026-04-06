@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "./auth.css"
-import axios from "axios";
+import API from '../../services/api';
 
 function TeacherLogin() {
   const [username, setUsername] = useState("");
@@ -57,7 +57,7 @@ function TeacherLogin() {
 
 
     try {
-      const res = await axios.post("https://examify-np2.onrender.com/api/login", {
+      const res = await API.post("/login", {
         username: username,
         password: password,
       });

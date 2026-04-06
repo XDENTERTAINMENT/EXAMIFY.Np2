@@ -2,7 +2,7 @@ import React from 'react'
 import "./auth.css"
 import { useNavigate, } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import API from '../../services/api';
 
 function StudentSignup() {
     const [errorusername, setErrorUsername] = useState("");
@@ -80,7 +80,7 @@ function StudentSignup() {
 
         // ✅ SEND TO BACKEND
         try {
-            const res = await axios.post("https://examify-np2.onrender.com/api/signup", {
+            const res = await API.post("/signup", {
                 firstname: FirstName,
                 lastname: LastName,
                 username: username,
