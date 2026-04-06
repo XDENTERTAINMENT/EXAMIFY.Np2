@@ -1,7 +1,18 @@
 const express = require("express");
-const questiondb = require("../models/Question");
-const router = express.router();
+const router = express.Router();
+const questionController = require("../controllers/questionController.js");
 
 
 
-router.post("/")
+console.log("✅ Question route loaded");
+
+// ➕ Create question
+router.post("/", questionController.createQuestion);
+
+// 📥 Get questions by exam
+router.get("/exam/:examId", questionController.getQuestionsByExam);
+
+// ❌ Delete question
+router.delete("/:questionId", questionController.deleteQuestion);
+
+module.exports = router;

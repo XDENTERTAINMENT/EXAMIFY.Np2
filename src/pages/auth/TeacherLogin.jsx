@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import "./auth.css"
+import axios from "axios";
 
 function TeacherLogin() {
   const [username, setUsername] = useState("");
@@ -63,7 +65,7 @@ function TeacherLogin() {
       localStorage.setItem("token", res.data.token);
       console.log(res);
       alert(res.data.message);
-      navigate("/studentdashboard")
+      navigate("/teacherdashboard")
     }
 
     catch (err) {

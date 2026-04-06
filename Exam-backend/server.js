@@ -6,7 +6,7 @@ const cors = require("cors");
 const submissionRoute = require("./routes/submissionRoutes");
 const userRoute = require("./routes/authRoutes");
 const loginuser = require("./routes/loginRoute");
-
+const question = require("./routes/questionRoutes")
 
 
 
@@ -33,6 +33,8 @@ app.get("/", (req, res) => {
 //  my model route
 app.use("/api", submissionRoute);
 app.use("/api", userRoute);
+app.use("/api/questions", question)
+
 
 
 // my controller route

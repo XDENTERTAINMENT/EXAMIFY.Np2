@@ -108,6 +108,7 @@ function CreateExamPage() {
 
           <div className="question-form">
              <QuestionForm
+             examTitle={examTitle}
          addQuestion={addQuestion}
          updateQuestion={updateQuestion}
         editingIndex={editingIndex}
