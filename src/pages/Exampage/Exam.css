@@ -28,6 +28,7 @@
    width: 100%;
    margin-left: 0px;
    border: 1px solid #ccc;
+    color: black;
 
 }
 
@@ -41,16 +42,23 @@
 }
 
 
-.formsection form{
+.formsection form {
      text-align: center;
 }
 .question-preview button{
     width: 60%;
+   
 }
 
 .question-preview{
     margin-top: 40px;
 }
+.question-preview ul{
+  list-style: none;
+    
+}
+
+
 
 
 
@@ -70,6 +78,7 @@
    width: 100%;
    margin-left: 0px;
    border: 1px solid #ccc;
+    color: black;
 
 }
 
@@ -82,6 +91,11 @@
 
 .question-preview button{
     width: 100%;
+}
+
+.question-preview ul{
+  list-style: none;
+    
 }
 
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Exam.css"
-import axios from "axios";
 import API from "../../services/api";
+import axios from "axios";
 
 function QuestionForm({ addQuestion, updateQuestion, editingIndex, questionToEdit, examTitle }) {
 
@@ -56,27 +56,26 @@ function QuestionForm({ addQuestion, updateQuestion, editingIndex, questionToEdi
     setCorrectAnswer("");
 
     try {
-    const quest = await API.post("/questions", {
+    const res = await axios.post(" http://localhost:3000/api/questions", {
       exam: examTitle,
       questionText: questionText,
       options: [optionA, optionB, optionC, optionD],
       correctAnswer: correctAnswer,
       marks: 1
     })
-    console.log(quest.data);
-    console.log(res.data);
-    alert("✅ Question added");
+    
+    console.log("✅ RESPONSE:",res.data);
+     alert(res.data.message);
 
 
   }
-  catch (err) {
-    console.log(err);
-    alert("❌ Failed to add question");
+   catch (err) {
+  console.log("❌ ERROR:", err.response?.data || err.message);
+
+  alert(err.response?.data?.message || "❌ Failed to add question");
+}
+
   }
-
-  };
-
-
   
 
 

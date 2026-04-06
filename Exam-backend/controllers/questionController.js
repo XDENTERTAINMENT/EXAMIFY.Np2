@@ -2,6 +2,7 @@ const Question = require("../models/Question.js");
 
 // ➕ CREATE QUESTION
 exports.createQuestion = async (req, res) => {
+
     console.log("🔥 HIT createQuestion route");   // 👈 ADD THIS
     try {
         console.log("📦 BODY:", req.body);       // 👈 ADD THIS
@@ -17,17 +18,19 @@ exports.createQuestion = async (req, res) => {
             marks
         });
 
-        if (!options || options.length < 4) {
+        if (!options || options.length < 3) {
             return res.status(400).json({
                 message: " 4 options required"
             });
         }
-        await question.save();
+        const savedQuestion = await question.save();
+
+        console.log("✅ SAVED:", savedQuestion); // 👈 ADD THIS
 
         res.status(201).json({
             success: true,
             message: "Question created successfully",
-            question
+            question: savedQuestion
         });
 
     } catch (err) {

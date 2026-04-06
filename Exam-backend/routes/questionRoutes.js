@@ -10,7 +10,7 @@ console.log("✅ Question route loaded");
 router.post("/", questionController.createQuestion);
 
 // 📥 Get questions by exam
-router.get("/exam/:examId", questionController.getQuestionsByExam);
+router.get("/:exam", questionController.getQuestionsByExam);
 
 // ❌ Delete question
 router.delete("/:questionId", questionController.deleteQuestion);
