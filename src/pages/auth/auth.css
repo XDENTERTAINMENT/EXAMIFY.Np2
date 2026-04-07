@@ -25,6 +25,7 @@ body{
   padding: 30px;
    border: 1px solid #FFE4B5;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+ 
 
 }
 
@@ -47,6 +48,13 @@ body{
   font-size: 30px;
 }
 
+.classic2  p{
+  font-size: 15px;
+   margin-top: 20px;
+  
+  
+}
+
 .classicform2{
    border: 1px solid #FFE4B5;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
@@ -63,7 +71,14 @@ body{
 
 .classicform2 p:nth-child(1){
  
+  font-size: 15px;
+
+ 
+}
+.classicform2 p:nth-child(2){
+ 
   font-size: 30px;
+  margin-top: 10px;
  
  
 }
@@ -82,9 +97,7 @@ body{
    
 
 }
- .classicform2 form div p{
 
- }
 
 
 /* title */
@@ -164,6 +177,16 @@ body{
   font-size: 10px;
   color: red;
   text-align: center;
+}
+
+.successMsg {
+  color: green;
+  font-weight: bold;
+}
+
+.errorMsg {
+  color: red;
+  font-weight: bold;
 }
 
 

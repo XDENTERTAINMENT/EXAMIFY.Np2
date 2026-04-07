@@ -9,7 +9,8 @@ function TeacherLogin() {
   const [errorusername, setErrorUsername] = useState("");
   const [errorpassword, setErrorPassword] = useState("");
   const [password, setPassword] = useState("");
-
+  const [response, setResponse] = useState("");
+  const [status, setStatus] = useState(""); // "success" or "error"
 
 
   const navigate = useNavigate();
@@ -64,13 +65,18 @@ function TeacherLogin() {
       // ✅ Save token
       localStorage.setItem("token", res.data.token);
       console.log(res);
-      alert(res.data.message);
-      navigate("/teacherdashboard")
+      setStatus("success"); // ✅ success = green
+      setResponse(res.data.message);
+      setTimeout(() => {
+        navigate("/teacherdashboard")
+      }, 2000);
+
     }
 
     catch (err) {
       console.log(err);
-      alert(err.response?.data?.message || "login failed");
+      setStatus("error"); // ❌ error = red
+      setResponse(err.response?.data?.message || "login failed");
     }
 
   }
@@ -81,6 +87,9 @@ function TeacherLogin() {
   return (
     <div className='containerauth'>
       <div className='classic2'>
+        <p className={status === "success" ? "successMsg" : "errorMsg"}>
+          {response}
+        </p>
         <form onSubmit={submithandle}>
 
           <p> Sign In</p>

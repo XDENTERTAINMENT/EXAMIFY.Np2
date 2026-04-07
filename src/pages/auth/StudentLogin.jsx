@@ -9,6 +9,8 @@ function StudentLogin() {
   const [errorusername, setErrorUsername] = useState("");
   const [errorpassword, setErrorPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
+  const [status, setStatus] = useState(""); // "success" or "error"
 
 
 
@@ -64,23 +66,31 @@ function StudentLogin() {
       // ✅ Save token
       localStorage.setItem("token", res.data.token);
       console.log(res);
-      alert(res.data.message);
-      navigate("/studentdashboard")
+      setStatus("success"); // ✅ success = green
+      setResponse(res.data.message);
+
+      setTimeout(() => {
+        navigate("/studentdashboard")
+      }, 2000);
+
     }
 
     catch (err) {
       console.log(err);
-      alert(err.response?.data?.message || "login failed");
+      setStatus("error"); // ❌ error = red
+      setResponse(err.response?.data?.message || "login failed");
+
     }
-
   }
-
 
 
 
   return (
     <div className='containerauth'>
       <div className='classic2'>
+        <p className={status === "success" ? "successMsg" : "errorMsg"}>
+          {response}
+        </p>
         <form onSubmit={submithandle}>
 
           <p> Sign In</p>

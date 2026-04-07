@@ -17,6 +17,8 @@ function TeacherSignup() {
     const [password, setPassword] = useState("");
     const [errorConfirmpassword, setErrorConfirmpassword] = useState("");
     const [Confirmpassword, setConfirmpassword] = useState("");
+    const [response, setResponse] = useState("");
+    const [status, setStatus] = useState(""); // "success" or "error"
 
     const navigate = useNavigate();
     const submithandle = async (e) => {
@@ -89,13 +91,18 @@ function TeacherSignup() {
 
             });
 
-            alert(res.data.message);
-            navigate("/teacherlogin");
+            setStatus("success"); // ✅ success = green
+            setResponse(res.data.message);
+            setTimeout(() => {
+                navigate("/teacherlogin");
+            }, 2000);
+
 
         } catch (err) {
             console.log(err);
 
-            alert(
+            setStatus("error"); // ❌ error = red
+            setResponse(
                 err.response?.data?.message ||
                 "Signup failed. Try again."
             );
@@ -108,6 +115,9 @@ function TeacherSignup() {
     return (
         <div className='containerauth'>
             <div className='classicform2'>
+                <p className={status === "success" ? "successMsg" : "errorMsg"}>
+                    {response}
+                </p>
                 <p> Sign Up</p>
                 <form onSubmit={submithandle}>
                     <div>
