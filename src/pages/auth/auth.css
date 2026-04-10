@@ -58,7 +58,7 @@ body{
 .classicform2{
    border: 1px solid #FFE4B5;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  height: 80vh;
+  height: 90vh;
   width: 50%;
   justify-items: center;
    align-content: center;
@@ -71,14 +71,14 @@ body{
 
 .classicform2 p:nth-child(1){
  
-  font-size: 15px;
+  font-size: 10px;
 
  
 }
 .classicform2 p:nth-child(2){
  
   font-size: 30px;
-  margin-top: 10px;
+  margin-top: 5px;
  
  
 }
@@ -87,10 +87,10 @@ body{
    display: flex;
    flex-direction: column;
   
-  padding: 40px;
+  padding: 10px;
   width: 50%;
   border-radius: 12px;
-  gap: 30px;
+  gap: 20px;
     align-items: center;
   
   
@@ -189,6 +189,9 @@ body{
   font-weight: bold;
 }
 
+.classicform2 form p:nth-child(2){
+ font-size: 10px;
+}
 
 
 
@@ -210,10 +213,12 @@ body{
 
   .classicform2{
     width: 100%;
+    height: 75vh;
+    padding: 10px;
   }
   .classicform2 form{
     margin-top: 10%;
-  width: 100%;
+     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -221,6 +226,7 @@ body{
      justify-content: center;
      align-content: center;
      align-items: center;
+   
 
   }
   .classicform2 form input{
