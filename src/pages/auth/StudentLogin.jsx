@@ -3,6 +3,8 @@ import React from 'react'
 import "./auth.css"
 import { useState } from 'react';
 import API from '../../services/api';
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
+
 
 function StudentLogin() {
   const [username, setUsername] = useState("");
@@ -108,7 +110,11 @@ function StudentLogin() {
           </label>
           <p className='error'>{errorpassword}</p>
           <button type='submit'>Login</button>
-
+          <div>
+            <GoogleLoginBtn 
+               redirectTo="/studentdashboard"
+            />
+          </div>
         </form>
 
       </div>

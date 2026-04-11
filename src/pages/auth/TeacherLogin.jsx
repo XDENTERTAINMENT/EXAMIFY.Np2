@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "./auth.css"
 import API from '../../services/api';
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 
 function TeacherLogin() {
   const [username, setUsername] = useState("");
@@ -107,7 +108,11 @@ function TeacherLogin() {
           </label>
           <p className='error'>{errorpassword}</p>
           <button type='submit'>Login</button>
-
+          <div>
+            <GoogleLoginBtn 
+              redirectTo="/teacherdashboard" 
+            />
+          </div>
         </form>
 
       </div>

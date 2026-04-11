@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "./auth.css"
 import API from '../../services/api';
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 
 
 function TeacherSignup() {
@@ -186,6 +187,11 @@ function TeacherSignup() {
                     </div>
 
                     <button type='submit'>Sign up</button>
+                    <div>
+                        <GoogleLoginBtn
+                         redirectTo="/teacherlogin" 
+                        />
+                    </div>
                 </form>
 
 

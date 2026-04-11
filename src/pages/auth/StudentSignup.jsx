@@ -3,6 +3,7 @@ import "./auth.css"
 import { useNavigate, } from 'react-router-dom';
 import { useState } from 'react';
 import API from '../../services/api';
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 
 function StudentSignup() {
     const [errorusername, setErrorUsername] = useState("");
@@ -189,6 +190,12 @@ function StudentSignup() {
                     </div>
 
                     <button type='submit'>Sign up</button>
+                    <div>
+                        <GoogleLoginBtn
+                            redirectTo="/studentlogin"
+                        />
+
+                    </div>
                 </form>
 
 
