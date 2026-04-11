@@ -20,7 +20,7 @@ body{
 /* login card */
 
  .classic2{
-  width: 80%;
+  width: 50%;
   justify-items: center;
   padding: 30px;
    border: 1px solid #FFE4B5;
@@ -143,7 +143,7 @@ body{
 
 /* button */
 .classic2 button {
-  width: 90%;
+  width: 75%;
   padding: 12px;
   border: none;
   border-radius: 8px;
@@ -157,7 +157,7 @@ body{
 
 
 .classicform2 button{
-  width: 60%;
+  width: 70%;
     padding: 12px;
   border: none;
   border-radius: 8px;
