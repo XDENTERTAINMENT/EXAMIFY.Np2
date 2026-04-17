@@ -26,8 +26,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
-// 🔥 VERY IMPORTANT (handles preflight)
-app.options("/*", cors());
+
 
 app.use(express.json());
 
