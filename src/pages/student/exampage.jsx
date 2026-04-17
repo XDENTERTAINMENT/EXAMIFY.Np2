@@ -9,26 +9,27 @@ function Exampage() {
   const [time, setTime] = useState(30);
   const [Gamestatus, setGameStatus] = useState("")
   const [answer, setAnswer] = useState("");
+  const [questionloop, setQuestionLoop] = useState([]);
 
+  // event repeatition
+  useEffect(() => {
+    handlesubmit();
+  }, []);
 
   const handlesubmit = async () => {
     //  backend calls
     try {
-      await API.post("/submit", {
-        userId: "student1",
-        quizId: "quiz123",
-        answers: [answer]
+      const questioncall = await API.get("/questions/:exam");
+      // Randomize questions
+      const shuffled = res.data.sort(() => Math.random() - 0.5);
+      setQuestionLoop(shuffled);
 
-      })
-      setStopTime(true)
-      setGameStatus("finished")
+      console.log(questioncall)
     }
+
     catch (err) {
-      console.log(err)
+      console.log("Error fetching questions:", err);
     }
-
-
-
 
   }
   useEffect(() => {
@@ -76,45 +77,24 @@ function Exampage() {
           <div className='examstudentpage' >
             <div className='timer'> {time} </div>
             <form onSubmit={(e) => e.preventDefault()} >
-              <h2> what is a noun</h2>
+              {questionloop.map((question, index) => (
+                <div key={question._id}>
+                  <h3>
+                    {index + 1}. {question.questionText}
+                  </h3>
 
-              <label htmlFor=" OptionA">
-                <input type='radio'
-                  id='OptionA'
-                  value="A"
-                  name='question1'
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                Option A
-              </label>
-              <label htmlFor=" OptionB">
-                <input type='radio'
-                  id='OptionB'
-                  value="B"
-                  name='question1'
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                Option B
-              </label>
-              <label htmlFor=" OptionC">
-                <input type='radio'
-                  id='OptionC'
-                  value="C"
-                  name='question1'
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                Option C
-              </label>
-              <label htmlFor=" OptionD">
-                <input type='radio'
-                  id='OptionD'
-                  value="D"
-                  name='question1'
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-                Option D
-              </label>
-
+                  {question.options.map((option, i) => (
+                    <div key={i}>
+                      <input
+                        type="radio"
+                        name={`question-${question._id}`}
+                        value={option}
+                      />
+                      <label>{option}</label>
+                    </div>
+                  ))}
+                </div>
+              ))}
               <button>Next</button>
 
             </form>

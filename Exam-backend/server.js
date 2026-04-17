@@ -21,10 +21,13 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://examify-np2-7u27.vercel.app", ],
+    "https://examify-np2.vercel.app", ],
 
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
+
+// 🔥 VERY IMPORTANT (handles preflight)
+app.options("*", cors());
 
 app.use(express.json());
 

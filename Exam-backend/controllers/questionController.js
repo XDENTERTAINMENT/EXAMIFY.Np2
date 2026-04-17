@@ -46,9 +46,9 @@ exports.createQuestion = async (req, res) => {
 // 📥 GET QUESTIONS BY EXAM
 exports.getQuestionsByExam = async (req, res) => {
     try {
-        const { examId } = req.params;
+        const { exam } = req.params;
 
-        const questions = await Question.find({ exam: examId });
+        const questions = await Question.find({ exam: exam });
 
         res.status(200).json({
             success: true,
