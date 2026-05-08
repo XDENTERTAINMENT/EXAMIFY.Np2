@@ -61,7 +61,7 @@ function StudentLogin() {
 
 
     try {
-      const res = await axios.post("http://localhost:5173/login", {
+      const res = await API.post("/login", {
         username: username,
         password: password,
       });
