@@ -4,7 +4,7 @@ import "./auth.css"
 import { useState } from 'react';
 import API from '../../services/api';
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
-
+import axios from "axios"
 
 function StudentLogin() {
   const [username, setUsername] = useState("");
@@ -61,7 +61,7 @@ function StudentLogin() {
 
 
     try {
-      const res = await API.post("/login", {
+      const res = await axios.post("http://localhost:5173/login", {
         username: username,
         password: password,
       });

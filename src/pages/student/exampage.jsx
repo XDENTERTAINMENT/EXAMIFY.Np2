@@ -16,7 +16,7 @@ function Exampage() {
     handlesubmit();
   }, []);
 
-  const handlesubmit = async () => {
+  const handlenext = async () => {
     //  backend calls
     try {
       const questioncall = await API.get("/questions/:exam");
@@ -95,13 +95,13 @@ function Exampage() {
                   ))}
                 </div>
               ))}
-              <button>Next</button>
+              <button onClick={handlenext}>Next</button>
 
             </form>
 
 
             <div className='examstudentpagesubmit'>
-              <button onClick={handlesubmit} >Submit</button>
+              <button  >Submit</button>
             </div >
 
           </div>)

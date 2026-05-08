@@ -104,7 +104,7 @@ function LandingPage() {
             <footer class="footer">
               <p>
                 © 2026 Examify.Np |
-                <a href="https://my-portfolio-site-d.vercel.app/" target="_blank">View Developer Portfolio</a>
+                <a href="https://ninja-portfolio-ashen.vercel.app/" target="_blank">View Developer Portfolio</a>
               </p>
             </footer>
           </div>
