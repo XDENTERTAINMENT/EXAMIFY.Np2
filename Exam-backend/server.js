@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const userRoute = require("./routes/authRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const authRoutes = require("./routes/authRoutes");
 const examRoutes = require("./routes/examRoutes");
@@ -18,14 +17,14 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://examify-np2.vercel.app",
       "https://examifyedu.com",
       "https://www.examifyedu.com",
+      "https://examify-np2.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-  })
+  }),
 );
 
 app.options("*", cors());
@@ -38,7 +37,7 @@ app.get("/", (req, res) => {
   res.send("Backend is working 🚀");
 });
 //  my model route
-app.use("/api", userRoute);
+
 app.use("/api/questions", questionRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/exam", examRoutes);

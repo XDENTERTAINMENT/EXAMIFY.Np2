@@ -117,7 +117,7 @@ function TeacherSignup() {
 
     // ✅ SEND TO BACKEND
     try {
-      const res = await API.post("/signup", {
+      const res = await API.post("/auth/signup", {
         firstname: FirstName,
         lastname: LastName,
         username: username,

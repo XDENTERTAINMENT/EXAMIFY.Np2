@@ -59,7 +59,7 @@ function StudentLogin() {
     }
 
     try {
-      const res = await API.post("/login", {
+      const res = await API.post("/auth/login", {
         username: username,
         password: password,
         role: "student",
