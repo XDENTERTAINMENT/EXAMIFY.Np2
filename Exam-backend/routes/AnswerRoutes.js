@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const answerController = require("../controllers/answerController.js");
+const answerController = require("../controllers/answerController");
 
 router.post("/save-answer", answerController.saveAnswer);
 
