@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://examify-np2",
+      "https://examify-np2.vercel.app",
       "https://examifyedu.com",
       "https://www.examifyedu.com",
     ],
