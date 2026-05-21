@@ -7,7 +7,7 @@ const questionRoutes = require("./routes/questionRoutes");
 const authRoutes = require("./routes/authRoutes");
 const examRoutes = require("./routes/examRoutes");
 const morgan = require("morgan");
-const answerRoutes = require("./routes/answerRoutes.js");
+const answerRoutes = require("./routes/answerRoutes");
 
 console.log("🔥 HIT server"); // 👈 ADD THIS
 
