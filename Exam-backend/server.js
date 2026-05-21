@@ -14,7 +14,6 @@ console.log("🔥 HIT server"); // 👈 ADD THIS
 const app = express();
 
 //  middleware
-
 app.use(
   cors({
     origin: [
@@ -23,10 +22,13 @@ app.use(
       "https://examifyedu.com",
       "https://www.examifyedu.com",
     ],
-
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  }),
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
 );
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(morgan("dev"));
