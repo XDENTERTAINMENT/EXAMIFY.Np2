@@ -1,0 +1,175 @@
+
+.portal-container{
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   PORTAL CARD
+========================= */
+
+.portal-card {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: 30px;
+
+  padding: 45px 35px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   CARD TOP
+========================= */
+
+.card-top h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+
+  color: black;
+
+  margin-bottom: 12px;
+}
+
+.card-top p {
+  color: black;
+
+  font-size: 1rem;
+  line-height: 1.6;
+
+  margin-bottom: 35px;
+}
+
+/* =========================
+   BUTTON CONTAINER
+========================= */
+
+.portal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+
+  width: 100%;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.portal-login,
+.portal-signup {
+  width: 100%;
+  flex: 1;
+  padding: 17px 20px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* LOGIN BUTTON */
+
+.portal-login {
+  background: white;
+  color: #111827;
+}
+
+/* SIGNUP BUTTON */
+
+.portal-signup {
+  background: #ff7a59;
+  color: white;
+}
+
+/* HOVER EFFECT */
+
+.portal-login:hover,
+.portal-signup:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* SMALL TEXT */
+
+.portal-card small {
+  color: #192c42;
+
+  font-size: 0.9rem;
+}
+
+/* =========================
+   MEDIA QUERIES
+========================= */
+
+/* TABLETS */
+@media (max-width: 768px) {
+  .portal-card {
+    max-width: 100%;
+
+    padding: 35px 25px;
+  }
+
+  .card-top h2 {
+    font-size: 1.9rem;
+  }
+
+  .card-top p {
+    font-size: 0.95rem;
+  }
+
+  .portal-login,
+  .portal-signup {
+    padding: 15px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .portal-card {
+    border-radius: 22px;
+
+    padding: 30px 20px;
+  }
+
+  .card-top h2 {
+    font-size: 1.7rem;
+  }
+
+  .card-top p {
+    font-size: 0.9rem;
+  }
+
+  .portal-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .portal-login,
+  .portal-signup {
+    font-size: 0.95rem;
+
+    padding: 14px;
+  }
+
+  .portal-card small {
+    font-size: 0.8rem;
+  }
+}

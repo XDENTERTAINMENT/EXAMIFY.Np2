@@ -1,118 +1,300 @@
-import React from 'react';
-import "./Student.css";
-import { useState, useEffect } from 'react';
-import API from '../../services/api';
+import React, { useEffect, useState } from "react";
+import "./exampage.css";
+import API from "../../services/api";
+import { useParams } from "react-router-dom";
 
 function Exampage() {
-
   const [stopTime, setStopTime] = useState(false);
-  const [time, setTime] = useState(30);
-  const [Gamestatus, setGameStatus] = useState("")
-  const [answer, setAnswer] = useState("");
-  const [questionloop, setQuestionLoop] = useState([]);
+  const [time, setTime] = useState(3600);
+  const [Gamestatus, setGameStatus] = useState("");
 
-  // event repeatition
+  // FIXED
+  const [answers, setAnswers] = useState({});
+
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  // FIXED
+  const [examId, setExamId] = useState("");
+  const [studentId, setStudentId] = useState("");
+
+  const { examCode } = useParams();
+
+  const current = questions[currentQuestion];
+
+  // FETCH QUESTIONS
   useEffect(() => {
-    handlesubmit();
+    fetchQuestions();
   }, []);
 
-  const handlenext = async () => {
-    //  backend calls
-    try {
-      const questioncall = await API.get("/questions/:exam");
-      // Randomize questions
-      const shuffled = res.data.sort(() => Math.random() - 0.5);
-      setQuestionLoop(shuffled);
-
-      console.log(questioncall)
-    }
-
-    catch (err) {
-      console.log("Error fetching questions:", err);
-    }
-
-  }
+  // TIMER END
   useEffect(() => {
     if (time === 0) {
       setStopTime(true);
       setGameStatus("end");
-      return;
     }
-  })
+  }, [time]);
 
-
-
+  // TIMER COUNTDOWN
   useEffect(() => {
     if (time > 0 && !stopTime) {
       const timer = setTimeout(() => {
-        setTime(time - 1)
+        setTime((prev) => prev - 1);
       }, 1000);
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     }
+  }, [time, stopTime]);
 
-  }, [time, stopTime])
+  // FETCH QUESTIONS FUNCTION
+  const fetchQuestions = async () => {
+    try {
+      const res = await API.get(`/exam/${examCode}`);
 
+      console.log(res.data);
 
+      // RANDOMIZE QUESTIONS
+      const shuffled = [...res.data].sort(() => Math.random() - 0.5);
 
+      setQuestions(shuffled);
 
-
-
-
-
-
-
-  return (
-    <div className='examstudentpageContainer'>
-      {stopTime ?
-        (
-          <>
-            {Gamestatus === "finished" && (<h2 className='scores'> ✅ Quiz Submitted Successfully!</h2>)}
-            {Gamestatus === "end" && (<h2 className='scores'> ⏹️ Time's Up!</h2>)}
-          </>
-        )
-
-
-        : (
-          <div className='examstudentpage' >
-            <div className='timer'> {time} </div>
-            <form onSubmit={(e) => e.preventDefault()} >
-              {questionloop.map((question, index) => (
-                <div key={question._id}>
-                  <h3>
-                    {index + 1}. {question.questionText}
-                  </h3>
-
-                  {question.options.map((option, i) => (
-                    <div key={i}>
-                      <input
-                        type="radio"
-                        name={`question-${question._id}`}
-                        value={option}
-                      />
-                      <label>{option}</label>
-                    </div>
-                  ))}
-                </div>
-              ))}
-              <button onClick={handlenext}>Next</button>
-
-            </form>
-
-
-            <div className='examstudentpagesubmit'>
-              <button  >Submit</button>
-            </div >
-
-          </div>)
-
-
+      // GET EXAM ID
+      if (shuffled.length > 0) {
+        setExamId(shuffled[0].exam);
       }
 
+      // GET STUDENT ID
+      const user = JSON.parse(localStorage.getItem("user"));
+      const users = user?.id;
+      setStudentId(users);
+    } catch (err) {
+      console.log("Error fetching questions:", err);
+    }
+  };
 
+  // SAVE ANSWER API
+  const saveAnswerAPI = async (data) => {
+    return API.post("/answers/save-answer", data);
+  };
+
+  // SUBMIT EXAM API
+  const submitExamAPI = async (data) => {
+    return API.post("/answers/submit-exam", data);
+  };
+
+  // HANDLE ANSWER
+  const handleAnswer = (questionId, option) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: option,
+    }));
+  };
+
+  // HANDLE NEXT
+  const handleNext = async () => {
+    if (!current) return;
+
+    if (!answers[current._id]) {
+      alert("Please select an answer");
+      return;
+    }
+
+    await saveAnswerAPI({
+      student: studentId,
+      exam: examId,
+      questionId: current._id,
+      selectedOption: answers[current._id],
+    });
+
+    setCurrentQuestion((prev) => prev + 1);
+  };
+  // HANDLE SUBMIT
+  const submitExam = async () => {
+    try {
+      await submitExamAPI({
+        studentId,
+        examId,
+      });
+
+      setStopTime(true);
+      setGameStatus("finished");
+    } catch (err) {
+      console.log("Submit error:", err);
+    }
+  };
+  return (
+    <div className="exam-page">
+      {/* LEFT SIDEBAR */}
+      <aside className="exam-sidebar">
+        <h2>Questions</h2>
+
+        {/* STATUS */}
+        <div className="question-status">
+          <div className="status-item">
+            <span className="dot current"></span>
+            <p>Current</p>
+          </div>
+
+          <div className="status-item">
+            <span className="dot answered"></span>
+            <p>Answered</p>
+          </div>
+
+          <div className="status-item">
+            <span className="dot not-answered"></span>
+            <p>Not Answered</p>
+          </div>
+
+          <div className="status-item">
+            <span className="dot review"></span>
+            <p>Marked</p>
+          </div>
+        </div>
+
+        {/* QUESTION GRID */}
+        <div className="question-grid">
+          {questions.map((q, index) => (
+            <button
+              key={q._id}
+              className={`q-btn
+              ${currentQuestion === index ? "active" : ""}
+              ${answers[q._id] ? "answered-btn" : ""}
+              `}
+              onClick={() => setCurrentQuestion(index)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <main className="exam-content">
+        {/* TOP */}
+        <div className="exam-top">
+          <span className="subject-badge">Exam Question</span>
+
+          <div className="question-count">
+            Question {currentQuestion + 1} of {questions.length}
+          </div>
+        </div>
+
+        {/* TIMER */}
+        <div className="top-timer">⏰ {time}</div>
+
+        {/* STATUS */}
+        {stopTime ? (
+          <div className="game-status">
+            {Gamestatus === "finished" && (
+              <h2 className="scores">✅ Quiz Submitted Successfully!</h2>
+            )}
+
+            {Gamestatus === "end" && <h2 className="scores">⏹️ Time's Up!</h2>}
+          </div>
+        ) : (
+          <>
+            {/* QUESTION */}
+            {current && (
+              <div className="question-box">
+                <h1>
+                  {currentQuestion + 1}. {current.questionText}
+                </h1>
+
+                {/* OPTIONS */}
+                <form onSubmit={(e) => e.preventDefault()}>
+                  {current.options.map((option, i) => (
+                    <div
+                      key={i}
+                      className={`option
+                      ${answers[current._id] === option ? "active-option" : ""}
+                      `}
+                    >
+                      <input
+                        type="radio"
+                        name={current._id}
+                        value={option.value}
+                        checked={answers[current._id] === option.value}
+                        onChange={() => handleAnswer(current._id, option.value)}
+                      />
+
+                      <label>{option.name}</label>
+                    </div>
+                  ))}
+                </form>
+              </div>
+            )}
+
+            {/* INSTRUCTIONS */}
+            <div className="instruction-box">
+              <h3>Instructions</h3>
+
+              <ul>
+                <li>Read every question carefully.</li>
+                <li>You can move between questions.</li>
+                <li>Submit before timer ends.</li>
+              </ul>
+            </div>
+
+            {/* BUTTONS */}
+            <div className="exam-actions">
+              <button
+                className="prev-btn"
+                disabled={currentQuestion === 0}
+                onClick={() => setCurrentQuestion((prev) => prev - 1)}
+              >
+                Previous
+              </button>
+              {currentQuestion === questions.length - 1 ? (
+                <button className="submit-btn" onClick={submitExam}>
+                  Finish Exam
+                </button>
+              ) : (
+                <button className="next-btn" onClick={handleNext}>
+                  Save & Next
+                </button>
+              )}
+            </div>
+          </>
+        )}
+      </main>
+
+      {/* RIGHT SIDEBAR */}
+      <aside className="exam-right">
+        {/* TIMER */}
+        <div className="timer-box">
+          <h2>Time Left</h2>
+
+          <div className="timer-circle">
+            <span>{time}</span>
+          </div>
+        </div>
+
+        {/* SUMMARY */}
+        <div className="summary-box">
+          <h2>Exam Summary</h2>
+
+          <div className="summary-item">
+            <p>Total Questions</p>
+            <span>{questions.length}</span>
+          </div>
+
+          <div className="summary-item">
+            <p>Answered</p>
+
+            <span className="green">{Object.keys(answers).length}</span>
+          </div>
+
+          <div className="summary-item">
+            <p>Remaining</p>
+
+            <span className="orange">
+              {questions.length - Object.keys(answers).length}
+            </span>
+          </div>
+        </div>
+      </aside>
     </div>
-
-  )
+  );
 }
 
-export default Exampage
+export default Exampage;

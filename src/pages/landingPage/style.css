@@ -1,4 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+/* 
 
 
 
@@ -44,7 +46,7 @@ body{
 
 }
 /* Card design */
-.user-card{
+/* .user-card{
   background:#FF7F50;
   padding:30px;
   width:220px;
@@ -56,14 +58,14 @@ body{
 }
 
 /* Card hover */
-.user-card:hover{
+/* .user-card:hover{
   transform:translateY(-8px);
   box-shadow:0 15px 35px rgba(0,0,0,0.15);
 }
 
 
 /* Layout */
-.hero{
+/* .hero{
     display:flex;
   align-items:center;
   justify-content:space-between;
@@ -71,39 +73,40 @@ body{
   flex-wrap:wrap;
 
  
-}
+} */
 
 /* Title */
-.hero-text h1{
+/* .hero-text h1{
   font-size:42px;
   color:#1f2937;
   margin-bottom:10px;
-}
+} */
+*/
 
-.hero-text p{
+/* .hero-text p{
   font-size:18px;
   color:#4b5563;
   margin-bottom:40px;
-}
+} */
 
 
 /* Button hover */
-.user-card button:hover{
+/* .user-card button:hover{
   background:white;
-}
+} */
 
 /* Button  */
-.user-card button{
+/* .user-card button{
  width: 100%;
   border: 3px solid white ;
-}
+} */
 
- button:active{
+ /* button:active{
  transform:scale(0.96);
-}
+} */
 
 
-
+/* 
 .education{
   width:80%;
   margin-top: 15rem;
@@ -121,15 +124,15 @@ body{
 }
 
 
-.sectiontable{
+ /* .sectiontable{
   margin-top: 15rem;
   display: flex;
   flex-direction: column;
-  align-items: center;   /* THIS centers everything */
+  align-items: center;  
   width: 100%;
-    
-}
- .features{
+     
+}  */
+ /* .features{
     text-align: center; 
      width:70%;
  }
@@ -163,8 +166,8 @@ body{
 .howitworks h2{
     text-align: center;
 
-}
-.howitworks p{
+} */
+/* .howitworks p{
   margin-top: 20px;
   text-align: center;
 
@@ -221,8 +224,8 @@ body{
   display: flex;
   justify-content: space-between;
  
-}
- .footer a{
+} */
+ /* .footer a{
    margin-top: 0px;
  color: #FF7F50;
  bottom: 0px;
@@ -232,10 +235,10 @@ body{
  .footer p{
   font-size: 20px;
    margin-top: 50px;
- }
+ }*/
 
-
-@media (max-width:768px){
+/* 
+ @media (max-width:768px){
 h1{
   text-align: center;
 }
@@ -267,4 +270,580 @@ p{
    margin-top: 50px;
  }
 
+}  */
+
+
+
+
+/* =========================
+   GOOGLE FONT
+========================= */
+
+
+
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f8fb;
+  color: #111827;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  width: 100%;
+  padding: 20px 8%;
+  background: linear-gradient(to right, #0f172a, #111827);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+}
+
+.orange2 {
+  color: #ff7a59;
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 40px;
+
+  color: white;
+}
+
+.nav-links a {
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.nav-links .active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+
+  width: 100%;
+  height: 2px;
+
+  background: white;
+}
+
+/* BUTTONS */
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
+
+.login-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.signup-btn {
+  background: #ff7a59;
+  color: white;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+  padding: 70px 8%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+
+  align-items: center;
+}
+
+/* BADGE */
+.badge2 {
+  width: fit-content;
+
+  background: #ede9fe;
+  color: #6d28d9;
+
+  padding: 10px 18px;
+  border-radius: 30px;
+
+  margin-bottom: 25px;
+
+  font-size: 0.9rem;
+}
+
+/* HEADING */
+.hero-left h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+
+  margin-bottom: 20px;
+}
+
+/* PARAGRAPH */
+.hero-left p {
+  color: #4b5563;
+  line-height: 1.8;
+
+  margin-bottom: 30px;
+}
+
+/* =========================
+   ROLE CARDS
+========================= */
+.role-cards {
+  display: flex;
+  gap: 20px;
+
+  margin-bottom: 40px;
+}
+
+/* CARD */
+.role-card {
+  flex: 1;
+
+  background: white;
+  border-radius: 20px;
+
+  padding: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+.student {
+  gap: 20px;
+}
+
+.teacher button {
+  width: 40px;
+  border-radius: 30px;
+  border: 4px solid black;
+}
+.student button {
+  width: 40px;
+  border-radius: 30px;
+  border: 4px solid black;
+}
+
+.teacher {
+  gap: 20px;
+}
+.role-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ICON BOX */
+.icon-box {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5rem;
+
+  color: white;
+}
+
+.pink {
+  background: #ff8f8f;
+  width: 90px;
+  height: 60px;
+}
+
+.green {
+  background: #86efac;
+  color: #166534;
+  width: 95px;
+  height: 60px;
+}
+.icon-box.pink i {
+  color: #0f172a;
+}
+
+/* =========================
+   STATS
+========================= */
+.stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.stat-box i {
+  font-size: 1.5rem;
+  color: #6366f1;
+}
+.stat-box div {
+  justify-items: center;
+  text-align: center;
+}
+
+/* =========================
+   DASHBOARD MOCKUP
+========================= */
+.dashboard {
+  background: white;
+  border-radius: 25px;
+
+  padding: 25px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* TOP */
+.dashboard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+}
+
+/* STAT GRID */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+
+  margin-bottom: 25px;
+}
+
+.dash-card {
+  background: #f9fafb;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.dash-card p {
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+/* BOTTOM GRID */
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* RECENT TESTS */
+.recent-tests,
+.chart-box {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 18px;
+}
+
+.test-item {
+  margin-top: 20px;
+}
+
+.test-item p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* FAKE CHART */
+.fake-chart {
+  height: 220px;
+  margin-top: 20px;
+
+  position: relative;
+  border-left: 2px solid #d1d5db;
+  border-bottom: 2px solid #d1d5db;
+}
+
+.line {
+  position: absolute;
+  width: 80%;
+  height: 3px;
+
+  background: #6366f1;
+
+  top: 60%;
+  left: 10%;
+
+  transform: rotate(-10deg);
+}
+
+/* =========================
+   FEATURES SECTION
+========================= */
+.features {
+  width: 84%;
+  margin: auto;
+
+  background: white;
+
+  border-radius: 25px;
+  padding: 40px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.feature-card {
+  display: flex;
+  gap: 15px;
+}
+
+.feature-card i {
+  font-size: 2rem;
+  color: #6366f1;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+.how-it-works {
+  padding: 100px 8%;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 60px;
+}
+
+/* STEPS */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.step {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.step-icon {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 20px;
+
+  background: #eef2ff;
+  color: #6366f1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.8rem;
+
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+/* education pic */
+
+.education {
+  width: 80%;
+  margin-top: 4rem;
+  justify-self: center;
+  margin-bottom: 4rem;
+}
+
+.education img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* footer */
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  width: 100%;
+  height: auto;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.footer a {
+  margin-top: 0px;
+  color: #ff7f50;
+  bottom: 0px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer p {
+  font-size: 20px;
+  margin-top: 50px;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pink {
+    width: 60px;
+    height: 60px;
+  }
+
+  .green {
+    width: 60px;
+    height: 60px;
+  }
+  .education {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .hero-left h1 {
+    font-size: 2.8rem;
+  }
+
+  .role-cards {
+    flex-direction: column;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+  }
+  .pink {
+    width: 70px;
+    height: 60px;
+  }
+
+  .green {
+    width: 75px;
+    height: 60px;
+  }
+
+  .stat-box div {
+    width: 100%;
+    justify-items: center;
+    text-align: center;
+  }
+  .stat-box div div {
+    width: 80px;
+    margin-top: 20px;
+  }
+  .footer p {
+    font-size: 15px;
+    margin-top: 50px;
+  }
 }

@@ -1,4 +1,4 @@
-
+/* 
 body{
   margin: 0;
   padding: 0;
@@ -7,19 +7,19 @@ body{
 
 
 /* page container */
-.containerauth{
+/* .containerauth{
   align-items: center;
  display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
+  justify-content: center;   
+  align-items: center;      
   font-family: Arial, Helvetica, sans-serif;
    height: 100vh;
 
-}
+} */
  
 /* login card */
 
- .classic2{
+ /* .classic2{
   width: 50%;
   justify-items: center;
   padding: 30px;
@@ -96,20 +96,20 @@ body{
   
    
 
-}
+} */
 
 
 
 /* title */
-.title {
+/* .title {
   font-size: 26px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
-}
+} */
 
 /* inputs */
-.classic2 input {
+/* .classic2 input {
   width: 100%;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -138,11 +138,11 @@ body{
     outline: none;
   border-color: #4f46e5;
   box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
- }
+ } */
 
 
 /* button */
-.classic2 button {
+/* .classic2 button {
   width: 75%;
   padding: 12px;
   border: none;
@@ -179,7 +179,7 @@ body{
   text-align: center;
 }
 
-.successMsg {
+.successM {
   color: green;
   font-weight: bold;
 }
@@ -191,10 +191,10 @@ body{
 
 .classicform2 form p:nth-child(2){
  font-size: 10px;
-}
+}  */
 
 
-
+/* 
 @media (max-width:768px){
    
   .containerauth{
@@ -235,4 +235,4 @@ body{
   }
 
 
-}
+} */

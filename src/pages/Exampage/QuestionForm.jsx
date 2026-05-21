@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
-import "./Exam.css"
+import "./Exam.css";
 import API from "../../services/api";
-import axios from "axios";
 
-function QuestionForm({ addQuestion, updateQuestion, editingIndex, questionToEdit, examTitle }) {
-
+function QuestionForm({
+  addQuestion,
+  updateQuestion,
+  editingIndex,
+  questionToEdit,
+  examCode,
+  examtitle,
+  selectedExam,
+}) {
   const [questionText, setQuestionText] = useState("");
   const [optionA, setOptionA] = useState("");
   const [optionB, setOptionB] = useState("");
   const [optionC, setOptionC] = useState("");
   const [optionD, setOptionD] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
-
+  const [erroMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState(""); // "success" or "error"
 
   useEffect(() => {
     if (questionToEdit) {
@@ -19,126 +26,176 @@ function QuestionForm({ addQuestion, updateQuestion, editingIndex, questionToEdi
     }
   }, [questionToEdit]);
 
-
   // handlesubmit function for adding and updating question
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // const question = { questionText };
+    // {
 
-    const question = { questionText };
-    {
+    //   if (editingIndex !== null) {
+    //     updateQuestion(question);
+    //   }
+    //   else {
+    //     addQuestion(question);
+    //   }
 
-      if (editingIndex !== null) {
-        updateQuestion(question);
-      }
-      else {
-        addQuestion(question);
-      }
-
-      setQuestionText("");
-    };
-
+    //   setQuestionText("");
+    // };
 
     const newQuestion = {
       questionText,
       options: [optionA, optionB, optionC, optionD],
-      correctAnswer
+      correctAnswer,
     };
 
-    addQuestion(newQuestion);
-
-    setQuestionText("");
-    setOptionA("");
-    setOptionB("");
-    setOptionC("");
-    setOptionD("");
-    setCorrectAnswer("");
-
     try {
-    const res = await API.post("/questions", {
-      exam: examTitle,
-      questionText: questionText,
-      options: [optionA, optionB, optionC, optionD],
-      correctAnswer: correctAnswer,
-      marks: 1
-    })
-    
-    console.log("✅ RESPONSE:",res.data);
-     alert(res.data.message);
+      const res = await API.post("/questions", {
+        examtitle: examtitle,
+        examCode: examCode,
+        questionText: questionText,
 
+        options: [
+          { name: optionA, value: "A" },
+          { name: optionB, value: "B" },
+          { name: optionC, value: "C" },
+          { name: optionD, value: "D" },
+        ],
 
-  }
-   catch (err) {
-  console.log("❌ ERROR:", err.response?.data || err.message);
+        correctAnswer: correctAnswer, // must be "A" / "B" / "C" / "D"
+        marks: 1,
+        exam: selectedExam,
+      });
 
-  alert(err.response?.data?.message || "❌ Failed to add question");
-}
+      console.log("✅ RESPONSE:", res.data);
+      setStatus("success");
+      setErrorMessage(res.data.message);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+      console.log(res.data);
 
-  }
-  
+      addQuestion(newQuestion);
 
-
-    
-
+      setQuestionText("");
+      setOptionA("");
+      setOptionB("");
+      setOptionC("");
+      setOptionD("");
+      setCorrectAnswer("");
+    } catch (err) {
+      console.log("❌ ERROR:", err.response?.data || err.message);
+      setStatus("error");
+      setErrorMessage(
+        err.response?.data?.message || "❌ Failed to add question",
+      );
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
+  };
 
   return (
-    <div className="formsection">
+    <div className="exam-container">
+      {erroMessage && (
+        <p className={status === "success" ? "success" : "error"}>
+          {erroMessage}
+        </p>
+      )}
+
+      <div className="section-header">
+        <h2>{editingIndex !== null ? "Update Question" : "Add Questions"}</h2>
+
+        <p>Create multiple-choice questions for your exam.</p>
+      </div>
+
       <form onSubmit={handleSubmit}>
+        {/* QUESTION */}
+        <div className="input-group">
+          <label>Question</label>
 
-        <h2>Add Question</h2>
+          <textarea
+            placeholder="Enter your question here..."
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+          ></textarea>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Question"
-          value={questionText}
-          onChange={(e) => setQuestionText(e.target.value)}
-        />
+        {/* OPTIONS */}
+        <div className="option-grid">
+          {/* OPTION A */}
+          <div className="input-group">
+            <label>Option A</label>
 
-        <input
-          type="text"
-          placeholder="Option A"
-          value={optionA}
-          onChange={(e) => setOptionA(e.target.value)}
-        />
+            <input
+              type="text"
+              placeholder="Enter option A"
+              value={optionA}
+              onChange={(e) => setOptionA(e.target.value)}
+            />
+          </div>
 
-        <input
-          type="text"
-          placeholder="Option B"
-          value={optionB}
-          onChange={(e) => setOptionB(e.target.value)}
-        />
+          {/* OPTION B */}
+          <div className="input-group">
+            <label>Option B</label>
 
-        <input
-          type="text"
-          placeholder="Option C"
-          value={optionC}
-          onChange={(e) => setOptionC(e.target.value)}
-        />
+            <input
+              type="text"
+              placeholder="Enter option B"
+              value={optionB}
+              onChange={(e) => setOptionB(e.target.value)}
+            />
+          </div>
 
-        <input
-          type="text"
-          placeholder="Option D"
-          value={optionD}
-          onChange={(e) => setOptionD(e.target.value)}
-        />
+          {/* OPTION C */}
+          <div className="input-group">
+            <label>Option C</label>
 
-        <select
-          value={correctAnswer}
-          onChange={(e) => setCorrectAnswer(e.target.value)}
-        >
-          <option value="">Correct Answer</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
-        </select>
+            <input
+              type="text"
+              placeholder="Enter option C"
+              value={optionC}
+              onChange={(e) => setOptionC(e.target.value)}
+            />
+          </div>
 
-        <button type="submit"> {editingIndex !== null ? "Update Question" : "Add Question"}</button>
+          {/* OPTION D */}
+          <div className="input-group">
+            <label>Option D</label>
 
+            <input
+              type="text"
+              placeholder="Enter option D"
+              value={optionD}
+              onChange={(e) => setOptionD(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* CORRECT ANSWER */}
+        <div className="input-group">
+          <label>Correct Answer</label>
+
+          <select
+            value={correctAnswer}
+            onChange={(e) => setCorrectAnswer(e.target.value)}
+          >
+            <option value="">Select Correct Answer</option>
+
+            <option value="A">{optionA || "Option A"}</option>
+            <option value="B">{optionB || "Option B"}</option>
+            <option value="C">{optionC || "Option C"}</option>
+            <option value="D">{optionD || "Option D"}</option>
+          </select>
+        </div>
+
+        {/* BUTTON */}
+        <button type="submit" className="secondary-btn">
+          {editingIndex !== null ? "Update Question" : "Add Question"}
+        </button>
       </form>
     </div>
-
   );
 }
 

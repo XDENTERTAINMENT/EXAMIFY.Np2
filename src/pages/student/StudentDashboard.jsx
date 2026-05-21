@@ -1,76 +1,210 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Student.css"
+import "./Student.css";
+import API from "../../services/api";
 
 function StudentDashboard() {
-  const [quizCode, setQuizCode] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  
-
   const navigate = useNavigate();
 
-  const validateCode = () => {
+  const [selectedExam, setSelectedExam] = useState("");
+  const [examId, setExamId] = useState("");
+  const [isValid, setIsValid] = useState(false);
+  const [examtitle, setexamtitle] = useState([]);
+  const [validatedExam, setValidatedExam] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState(""); // "success" or "error"
+  const [dashboardData, SetDashboardData] = useState([]);
+  useEffect(() => {
+    fetchexamtitle();
+  }, []);
 
-    // example validation
-    if (quizCode === "MATH101") {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-      alert("Invalid quiz code");
+  const fetchexamtitle = async () => {
+    try {
+      const res = await API.get("/exam");
+      setexamtitle(res.data);
+    } catch (err) {
+      console.log("Error fetching exam:", err);
     }
+  };
 
+  const Fetchactivities = async () => {
+    try {
+      // replace with actual teacher id
+      const user = JSON.parse(localStorage.getItem("user"));
+      const studentId = user?.id;
+
+      const res = await API.get(
+        `/answers/student/recent-activities/${studentId}`,
+      );
+      SetDashboardData(res.data);
+      console.log(dashboardData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    Fetchactivities();
+  }, []);
+  // VALIDATE BY NAME + CODE
+  const validateCode = () => {
+    const foundExam = examtitle.find(
+      (exam) =>
+        exam.name.toLowerCase() === selectedExam.toLowerCase() &&
+        exam.examCode === examId,
+    );
+
+    if (foundExam) {
+      setIsValid(true);
+      setValidatedExam(foundExam);
+      setStatus("success");
+      setErrorMessage("validated ✅");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    } else {
+      setValidatedExam(null);
+      setIsValid(false);
+      setStatus("error");
+      setErrorMessage("Invalid Exam Name or Exam Code");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
   };
 
   const handleJoin = () => {
-    navigate(`/exampage/${quizCode}`)
+    if (isValid && validatedExam) {
+      navigate(`/exampage/${validatedExam.examCode}`);
+    }
   };
 
+  // UNIQUE RECENT ACTIVITY (BY NAME)
+  const uniqueExams = examtitle.filter(
+    (exam, index, self) =>
+      index === self.findIndex((e) => e.name === exam.name),
+  );
+
   return (
-    <div className="dashboard"> 
-    <div  className="profile">
-       <div className="img">
-         <img></img>
-       </div>
-    </div>
-    <div className="page"> 
-       <h1>Welcome Student</h1>
-       
-    <div >
-      <h2>Enter Quiz Code</h2>
-      <input
-        type="text"
-        value={quizCode}
-        onChange={(e) => setQuizCode(e.target.value)}
-      />
+    <div className="student-dashboard">
+      {/* LEFT SIDEBAR */}
+      <div className="student-sidebar">
+        <div className="student-profile">
+          <div className="student-avatar">
+            <img alt="" />
+          </div>
 
-      <button onClick={validateCode}>
-        Validate Code
-      </button>
+          <h3>Welcome Back 👋</h3>
+          <p>Smart Assessment Platform</p>
+        </div>
+      </div>
 
-      {isValid && (
-        <button onClick={handleJoin}>
-          Join Quiz
-        </button>
-      )}
-       </div>
+      {/* MAIN CONTENT */}
+      <div className="student-main">
+        {/* HERO */}
+        <div className="dashboard-hero">
+          <div className="hero-text">
+            <h1>Continue Your Exams</h1>
+            <p>
+              Enter your exam name and validate with your exam code to begin.
+            </p>
+          </div>
+        </div>
 
-       <div>
-        
-      <section>
-        <h2>Previous Exams</h2>
-        <p>Math Quiz</p>
-        <p>Physics Test</p>
-      </section>
-       </div>
-     
-    </div>
-      
+        {/* EXAM ENTRY CARD */}
+        <div className="dashboard-card">
+          <div className="card-header">
+            <h2>Select Exam</h2>
+            <p>Enter exam details to continue</p>
+          </div>
 
+          <div className="exam-select-area">
+            {/* MANUAL EXAM NAME INPUT */}
+            <input
+              type="text"
+              placeholder="Enter Exam Name (e.g Biology)"
+              value={selectedExam}
+              onChange={(e) => {
+                setSelectedExam(e.target.value);
+                setIsValid(false);
+              }}
+            />
+
+            {/* ERROR MESSAGE (FIXED) */}
+            {errorMessage && (
+              <p className={status === "success" ? "success" : "error"}>
+                {errorMessage}
+              </p>
+            )}
+
+            {/* VALIDATION SECTION */}
+            {selectedExam && (
+              <div className="exam-validation">
+                <h3>Verify Access 🔐</h3>
+                <p>Enter your Exam Code</p>
+
+                <input
+                  type="text"
+                  placeholder="Enter Exam Code"
+                  value={examId}
+                  onChange={(e) => {
+                    setExamId(e.target.value);
+                    setIsValid(false);
+                  }}
+                />
+
+                <button onClick={validateCode}>Validate ID</button>
+              </div>
+            )}
+            {isValid && (
+              <button className="start-exam-btn" onClick={handleJoin}>
+                Start Exam 🚀
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* RECENT ACTIVITY */}
+        <div className="dashboard-card">
+          <div className="card-header">
+            <h2>Recent Activity</h2>
+            <p>Your latest exam performance history</p>
+          </div>
+
+          <div className="activity-list">
+            {dashboardData.length > 0 ? (
+              dashboardData.map((activity, index) => (
+                <div className="activity-card" key={index}>
+                  <div className="activity-left">
+                    <h4>{activity.examName}</h4>
+                    <p>{activity.timeAgo}</p>
+                  </div>
+
+                  <span className="completed-badge">{activity.status}</span>
+                </div>
+              ))
+            ) : (
+              <p className="empty-state">No exam history available yet.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT SIDEBAR */}
+      <div className="student-right">
+        <div className="dashboard-card">
+          <div className="card-header">
+            <h2>Performance</h2>
+          </div>
+
+          <div className="performance-box">
+            <h1>87%</h1>
+            <span>Average Score</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default StudentDashboard;
-
-

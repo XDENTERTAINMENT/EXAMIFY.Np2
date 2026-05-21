@@ -2,8 +2,13 @@ const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema(
   {
+    examtitle: {
+      type: String,
+      required: true,
+    },
+
     exam: {
-      type:String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Exam",
       required: true,
     },
@@ -15,14 +20,20 @@ const questionSchema = new mongoose.Schema(
 
     options: [
       {
-        type: String,
-        required: true,
+        name: {
+          type: String,
+          required: true, // what student sees
+        },
+        value: {
+          type: String,
+          required: true, // A, B, C, D
+        },
       },
     ],
 
     correctAnswer: {
       type: String,
-      required: true,
+      required: true, // MUST be "A", "B", "C", "D"
     },
 
     marks: {
@@ -33,6 +44,4 @@ const questionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Question = mongoose.model("Question", questionSchema);
-
-module.exports=Question;
+module.exports = mongoose.model("Question", questionSchema);

@@ -1,29 +1,21 @@
-import { BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AppRoutes from "./pages/routes/AppRoutes";
-
-import  "./App.css"
-
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
   return (
     <div className="head-office">
-   
-
       <BrowserRouter>
-      <Navbar/>
-     <AppRoutes/>
-    </BrowserRouter>
-
-
-   
-
-    
-
-
-     
-      </div>
-  )
+        <Navbar />
+        <div className="routes-container">
+          <AppRoutes />
+        </div>
+        <Footer />
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;

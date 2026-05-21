@@ -1,85 +1,74 @@
 const Question = require("../models/Question.js");
-
+const Exam = require("../models/Exam");
 // ➕ CREATE QUESTION
 exports.createQuestion = async (req, res) => {
+  console.log("🔥 HIT createQuestion route"); // 👈 ADD THIS
+  try {
+    console.log("📦 BODY:", req.body); // 👈 ADD THIS
+    const { examtitle, examCode, questionText, options, correctAnswer, marks,exam} =
+      req.body;
 
-    console.log("🔥 HIT createQuestion route");   // 👈 ADD THIS
-    try {
-        console.log("📦 BODY:", req.body);       // 👈 ADD THIS
-        const { exam, questionText, options, correctAnswer, marks } = req.body;
+    // // 🔥 find exam first
+    // const exam = await Exam.findOne({
+    //   exam_id,
+    // });
 
-        console.log(req.body);
-
-        const question = new Question({
-            exam,
-            questionText,
-            options,
-            correctAnswer,
-            marks
-        });
-
-        if (!options || options.length < 3) {
-            return res.status(400).json({
-                message: " 4 options required"
-            });
-        }
-        const savedQuestion = await question.save();
-
-        console.log("✅ SAVED:", savedQuestion); // 👈 ADD THIS
-
-        res.status(201).json({
-            success: true,
-            message: "Question created successfully",
-            question: savedQuestion
-        });
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            success: false,
-            message: err.message || "Server error"
-        });
+    if (!exam) {
+      return res.status(404).json({
+        message: "Exam not found",
+      });
     }
-};
 
+    console.log(req.body);
 
-// 📥 GET QUESTIONS BY EXAM
-exports.getQuestionsByExam = async (req, res) => {
-    try {
-        const { exam } = req.params;
+    // 🔥 create question
+    const question = new Question({
+      examtitle,
+      examCode,
+      questionText,
+      options,
+      correctAnswer,
+      marks,
+      exam,
+    });
 
-        const questions = await Question.find({ exam: exam });
-
-        res.status(200).json({
-            success: true,
-            data: questions   // ✅ FIXED (was "message")
-        });
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            success: false,
-            message: err.message || "Server error"
-        });
+    if (!options || options.length < 3) {
+      return res.status(400).json({
+        message: " 4 options required",
+      });
     }
-};
+    const savedQuestion = await question.save();
 
+    console.log("✅ SAVED:", savedQuestion); // 👈 ADD THIS
+
+    res.status(201).json({
+      success: true,
+      message: "Question created successfully",
+      question: savedQuestion,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: err.message || "Server error",
+    });
+  }
+};
 
 // ❌ DELETE QUESTION
 exports.deleteQuestion = async (req, res) => {
-    try {
-        await Question.findByIdAndDelete(req.params.questionId);
+  try {
+    await Question.findByIdAndDelete(req.params.questionId);
 
-        res.status(200).json({
-            success: true,
-            message: "Question deleted successfully",
-        });
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            success: false,
-            message: err.message || "Server error"
-        });
-    }
+    res.status(200).json({
+      success: true,
+      message: "Question deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: err.message || "Server error",
+    });
+  }
 };

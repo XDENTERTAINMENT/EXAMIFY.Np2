@@ -3,26 +3,64 @@ import "./Exam.css"
 
 function QuestionPreview({question, index ,questiondelete,questionupdate} ) {
   return (
-    <div className='question-preview'>
 
-      <h3>Question {index + 1}</h3>
+    <div className="question-card">
 
-      <p>{question.questionText}</p>
+  <div className="question-top">
 
-      <ul>
-        <li>A. {question.options[0]}</li>
-        <li>B. {question.options[1]}</li>
-        <li>C. {question.options[2]}</li>
-        <li>D. {question.options[3]}</li>
-      </ul>
+    <h3>
+      Question {index + 1}
+    </h3>
 
-      <p>Correct Answer: {question.correctAnswer}</p>
-      <button onClick={() => questionupdate(index)}>Edit</button>
+    <span>
+      Correct: Option {question.correctAnswer}
+    </span>
 
-      <button onClick={() => questiondelete(index)}>Delete</button>
+  </div>
 
+  <p className="question-text">
+    {question.questionText}
+  </p>
 
-    </div>
+  <ul className="question-options">
+
+    <li>
+      <strong>A.</strong> {question.options[0]}
+    </li>
+
+    <li>
+      <strong>B.</strong> {question.options[1]}
+    </li>
+
+    <li>
+      <strong>C.</strong> {question.options[2]}
+    </li>
+
+    <li>
+      <strong>D.</strong> {question.options[3]}
+    </li>
+
+  </ul>
+
+  <div className="question-actions">
+
+    <button
+      className="edit-btn"
+      onClick={() => questionupdate(index)}
+    >
+      Edit
+    </button>
+
+    <button
+      className="delete-btn"
+      onClick={() => questiondelete(index)}
+    >
+      Delete
+    </button>
+
+  </div>
+
+</div>
   )
 }
 

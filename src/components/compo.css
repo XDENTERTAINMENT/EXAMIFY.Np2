@@ -1,28 +1,108 @@
-
-
-
-
-
-
-@media (max-width:768px) {
-
-body{
-  overflow-x:hidden;
-  font-family:sans-serif;
+body {
+  overflow-x: hidden;
+  font-family: sans-serif;
 }
 
-   .nav{
-     display: flex;
-     justify-content: space-between;
-      align-items: center;
-      background-color: black;
-      color: white;
-      width: 100%;
-   
-  
-      
-      
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 
-   }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #111;
+}
+.icon i{
+  color: white ;
+}
+.logo {
+  margin: 0;
+}
 
+span {
+  color: #ff8654;
+}
+.links {
+  display: flex;
+  gap: 60px;
+   z-index: 9999;
+}
+.icon {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  width: 100%;
+  height: auto;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+.footer a {
+  margin-top: 0px;
+  color: #ff7f50;
+  bottom: 0px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer p {
+  font-size: 20px;
+  margin-top: 50px;
+}
+
+/* HAMBURGER */
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .icon i{
+  color: black ;
+}
+  .links {
+    position: absolute;
+
+    top: 90px;
+    right: -100%;
+
+    flex-direction: column;
+
+    background-color: white;
+
+    width: 250px;
+    padding: 20px;
+
+    transition: 0.7s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100px;
+  }
+
+  .links.active {
+    right: 0;
+  }
+
+  .link {
+    color: #111;
+  }
+  .menu-icon {
+    display: block;
+  }
 }

@@ -1,12 +1,26 @@
 const mongoose = require("mongoose");
 
-const UserSchema =  new mongoose.Schema( {
+const UserSchema =  new mongoose.Schema(  {
     firstname: String,
+
     lastname: String,
-    username: String,
+
+    username: {
+      type: String,
+      unique: true,
+    },
+
     password: String,
+
    
-},{timestamps:true});
+    role: {
+      type: String,
+      enum: ["teacher", "student"],
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
 const submission = mongoose.model("User", UserSchema);
 

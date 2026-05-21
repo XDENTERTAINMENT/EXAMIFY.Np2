@@ -1,0 +1,549 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Poppins", sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+}
+
+/* NAVBAR */
+
+.navbar{
+  background:#071021;
+  padding:22px 70px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:white;
+}
+
+.logo i{
+  color:#7c3aed;
+  font-size:22px;
+}
+
+.logo span{
+  color:#ff7a59;
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-size:15px;
+  font-weight:500;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:#7c3aed;
+}
+
+/* SIGNUP SECTION */
+
+.signup-section{
+  min-height:calc(100vh - 90px);
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+/* STATUS MESSAGE */
+
+.success{
+  background:#dcfce7;
+  color:#16a34a;
+  padding:14px 18px;
+  border-radius:14px;
+  margin-bottom:20px;
+  font-size:14px;
+  font-weight:500;
+  border:1px solid #bbf7d0;
+  text-align: center;
+}
+
+.error{
+   background-color: #fecaca;
+  color:#dc2626;
+  padding:14px 18px;
+  border-radius:14px;
+  margin-bottom:20px;
+  font-size:14px;
+  font-weight:500;
+  border:1px solid #fecaca;
+  text-align: center;
+ transition: 0.7s;
+}
+
+/* LEFT */
+
+.signup-left{
+  position:relative;
+
+  background:
+    linear-gradient(rgba(7,16,33,0.85),
+    rgba(7,16,33,0.9)),
+    url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop");
+
+  background-size:cover;
+  background-position:center;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:70px;
+}
+
+.left-content{
+  position:relative;
+  z-index:2;
+  color:white;
+}
+
+.tag{
+  background:rgba(255,255,255,0.12);
+  padding:10px 18px;
+  border-radius:40px;
+  font-size:14px;
+  display:inline-block;
+  margin-bottom:25px;
+}
+
+.left-content h1{
+  font-size:58px;
+  line-height:1.1;
+  margin-bottom:25px;
+}
+
+.left-content p{
+  color:#d1d5db;
+  line-height:1.9;
+  max-width:520px;
+  margin-bottom:40px;
+}
+
+.features{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.feature-box{
+  display:flex;
+  align-items:center;
+  gap:15px;
+
+  background:rgba(255,255,255,0.08);
+  padding:18px 20px;
+  border-radius:16px;
+  backdrop-filter:blur(10px);
+}
+
+.feature-box i{
+  color:#8b5cf6;
+  font-size:20px;
+}
+
+/* RIGHT */
+
+.signup-right{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:60px 20px;
+}
+
+.form-container{
+  width:100%;
+  max-width:460px;
+  background:white;
+  padding:45px;
+  border-radius:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.08);
+}
+
+.form-container h2{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.sub-text{
+  color:#6b7280;
+  margin-bottom:35px;
+}
+
+/* INPUTS */
+
+.input-group{
+  margin-bottom:22px;
+}
+
+.input-group label{
+  display:block;
+  margin-bottom:10px;
+  font-size:14px;
+  font-weight:500;
+  color:#374151;
+}
+
+.input-group input{
+  width:100%;
+  height:58px;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:0 18px;
+  font-size:15px;
+  outline:none;
+  transition:0.3s;
+}
+
+.input-group input:focus{
+  border-color:#7c3aed;
+  box-shadow:0 0 0 4px rgba(124,58,237,0.12);
+}
+
+.password-box{
+  position:relative;
+}
+
+.password-box i{
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#9ca3af;
+  cursor:pointer;
+}
+
+/* BUTTON */
+
+.signup-btn{
+  width:100%;
+  height:58px;
+  border:none;
+  border-radius:14px;
+
+  background:linear-gradient(to right,#7c3aed,#5b5cf0);
+  color:white;
+
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+
+  margin-top:10px;
+  transition:0.3s;
+}
+
+.signup-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* DIVIDER */
+
+.divider{
+  text-align:center;
+  margin:28px 0;
+  position:relative;
+}
+
+.divider::before{
+  content:"";
+  width:100%;
+  height:1px;
+  background:#e5e7eb;
+
+  position:absolute;
+  top:50%;
+  left:0;
+}
+
+.divider span{
+  background:white;
+  padding:0 15px;
+  position:relative;
+  color:#6b7280;
+  font-size:14px;
+}
+
+/* GOOGLE BUTTON */
+
+.google-btn{
+  width:100%;
+  height:58px;
+
+  border:1px solid #e5e7eb;
+  background:white;
+
+  border-radius:14px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+
+  cursor:pointer;
+  font-size:15px;
+  font-weight:500;
+
+  transition:0.3s;
+}
+
+.google-btn:hover{
+  background:#f9fafb;
+}
+
+.google-btn img{
+  width:22px;
+}
+
+/* LOGIN */
+
+.login-link{
+  text-align:center;
+  margin-top:25px;
+  color:#6b7280;
+}
+
+.login-link a{
+  color:#7c3aed;
+  text-decoration:none;
+  font-weight:600;
+}
+
+
+/* login css for teacher */
+
+.login-containerall{
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* PAGE WRAPPER */
+.login-page {
+  background: #f5f7fb;
+  padding: 20px;
+}
+
+/* LOGIN CARD */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* TOP SECTION */
+.login-top {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-top h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.login-top p {
+  font-size: 14px;
+  color: #666;
+}
+
+
+
+/* FORM */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* INPUTS */
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.login-form input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+
+/* REMEMBER SECTION */
+.remember-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin: 5px 0 10px;
+}
+
+.remember-box span {
+  color: #4f46e5;
+  cursor: pointer;
+}
+
+.remember-box span:hover {
+  text-decoration: underline;
+}
+
+/* BUTTON */
+.login-form button {
+  background: #4f46e5;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+.login-form button:hover {
+  background: #4338ca;
+}
+
+/* DIVIDER */
+.login-divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #999;
+  font-size: 13px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.login-divider span {
+  margin: 0 10px;
+}
+
+/* GOOGLE BUTTON WRAPPER */
+.google-login {
+  display: flex;
+  justify-content: center;
+  
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+  .signup-section{
+    grid-template-columns:1fr;
+  }
+
+  .signup-left{
+    display:none;
+  }
+}
+
+@media(max-width:768px){
+
+  .navbar{
+    padding:20px;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+  }
+
+  .form-container{
+    padding:35px 25px;
+  }
+
+  .form-container h2{
+    font-size:30px;
+  }
+
+  
+  /* login mobile */
+ .login-card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .login-top h2 {
+    font-size: 22px;
+  }
+
+  .login-top p {
+    font-size: 13px;
+  }
+
+  .remember-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media(max-width:500px){
+
+  .form-container{
+    border-radius:18px;
+  }
+
+  .form-container h2{
+    font-size:26px;
+  }
+
+  .signup-btn,
+  .google-btn,
+  .input-group input{
+    height:52px;
+  }
+}
+
+
+
+
+/* login css for teachers */

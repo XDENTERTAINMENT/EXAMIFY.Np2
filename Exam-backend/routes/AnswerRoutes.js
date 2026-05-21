@@ -1,0 +1,24 @@
+const express = require("express");
+const router = express.Router();
+const answerController = require("../controllers/answerController.js");
+
+router.post("/save-answer", answerController.saveAnswer);
+
+router.post("/submit-exam", answerController.submitExam);
+
+router.get(
+  "/student/recent-activities/:studentId",
+  answerController.getRecentActivities,
+);
+
+router.get(
+  "/teacher/dashboard/:teacherId",
+  answerController.getTeacherDashboard,
+);
+
+router.get(
+  "/teacher/analytics/:teacherId",
+  answerController.getTeacherAnalytics,
+);
+
+module.exports = router;

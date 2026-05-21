@@ -1,60 +1,56 @@
-import { Link } from 'react-router-dom'
-import "./compo.css"
+import { Link } from "react-router-dom";
+import "./compo.css";
+import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-
-
-
-
-
-
-const styles={
-        nav:{
-           display: "flex",
-           justifyContent: "space-between",
-           alignItems: "center",
-           padding: "15px 40px",
-           backgroundColor: "#111",
-           color: "white",
-         
-           
-           
-           
-         
-
-        },
-        logo:{
-             margin: 0,
-             
-        },
-        links:{
-             display: "flex",
-             gap: "20px"
-        },
-        link:{
-
-            textDecoration: "none",
-            color: "white",
-            fontWeight: "bold" 
-
-        },
-
-
-
-    }
 
 function Navbar() {
 
-    
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <nav style={styles.nav} className='nav'>
-        <h2 style={styles.logo}>🎓 Examify.Np </h2>
-     <div style={styles.links}>
-        <Link to="/" style={styles.link}> Home</Link>
-        <Link to="/about" style={styles.link}> About</Link>
-    </div>
+    <nav className="nav">
+      <h2 className="logo">
+        🎓 Examify<span>Edu</span>
+      </h2>
+      <div className={menuOpen ? "links active" : "links"}>
+        <div className="icon">
+          <i class="fa-solid fa-house"></i>
+          <Link to="/" className="link">
+            Home
+          </Link>
+        </div>
+        <div className="icon">
+          <i class="fa-regular fa-star"></i>
+          <Link to="/Features"  className="link">
+            Features
+          </Link>
+        </div>
+
+        <div className="icon">
+          <i class="fa-solid fa-chart-column"></i>
+          <Link to="/Pricing"  className="link">
+            Pricing
+          </Link>
+        </div>
+
+        <div className="icon">
+          <i class="fa-solid fa-circle-info"></i>
+          <Link to="/About"  className="link">
+            About
+          </Link>
+        </div>
+      </div>
+       <div
+        className="menu-icon"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+
+        {menuOpen ? <FaTimes /> : <FaBars />}
+
+      </div>
     </nav>
-    
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

@@ -3,10 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const submissionRoute = require("./routes/submissionRoutes");
 const userRoute = require("./routes/authRoutes");
-const question = require("./routes/questionRoutes");
+const questionRoutes = require("./routes/questionRoutes");
 const authRoutes = require("./routes/authRoutes");
+const examRoutes = require("./routes/examRoutes");
+const morgan = require("morgan");
+const answerRoutes =require("./routes/answerRoutes.js");
 
 
 
@@ -20,8 +22,11 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",
-    "https://examify-np2.vercel.app", ],
+  "http://localhost:5173",
+  "https://examify-np2.vercel.app",
+  "https://examifyedu.com",
+  "https://www.examifyedu.com"
+],
 
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
@@ -29,7 +34,7 @@ app.use(cors({
 
 
 app.use(express.json());
-
+app.use(morgan("dev"));
 
 
 
@@ -38,11 +43,11 @@ app.get("/", (req, res) => {
   res.send("Backend is working 🚀");
 });
 //  my model route
-app.use("/api", submissionRoute);
 app.use("/api", userRoute);
-app.use("/api/questions", question);
+app.use("/api/questions", questionRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/exam", examRoutes);
+app.use("/api/answers", answerRoutes);
 
 
 
