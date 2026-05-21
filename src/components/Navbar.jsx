@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import "./compo.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 
 function Navbar() {
+  
 
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  useEffect(() => {
+  document.body.style.overflow = menuOpen ? "hidden" : "auto";
+}, [menuOpen]);
 
   return (
     <nav className="nav">

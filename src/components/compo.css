@@ -14,8 +14,8 @@ body {
   padding: 15px 40px;
   background-color: #111;
 }
-.icon i{
-  color: white ;
+.icon i {
+  color: white;
 }
 .logo {
   margin: 0;
@@ -27,7 +27,7 @@ span {
 .links {
   display: flex;
   gap: 60px;
-   z-index: 9999;
+  z-index: 9999;
 }
 .icon {
   display: flex;
@@ -70,29 +70,35 @@ span {
   cursor: pointer;
   color: white;
 }
-
 @media (max-width: 768px) {
-  .icon i{
-  color: black ;
-}
+  .menu-icon {
+    display: block;
+    color: white;
+    z-index: 10000;
+  }
+
   .links {
-    position: absolute;
-
-    top: 90px;
+    position: fixed;
+    top: 70px; /* instead of 0 */
     right: -100%;
-
-    flex-direction: column;
+    height: calc(100vh - 70px);
+    width: 70%;
 
     background-color: white;
 
-    width: 250px;
-    padding: 20px;
-
-    transition: 0.7s;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 100px;
+
+    gap: 30px;
+
+    transition: right 0.4s ease-in-out;
+
+    z-index: 9999;
+
+    /* IMPORTANT FIX */
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
   }
 
   .links.active {
@@ -101,8 +107,10 @@ span {
 
   .link {
     color: #111;
+    font-size: 18px;
   }
-  .menu-icon {
-    display: block;
+
+  .icon i {
+    color: black;
   }
 }
