@@ -14,6 +14,7 @@ function StudentDashboard() {
   const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
   const [dashboardData, SetDashboardData] = useState([]);
+  const [name, setName] = useState("");
   useEffect(() => {
     fetchexamtitle();
   }, []);
@@ -32,6 +33,9 @@ function StudentDashboard() {
       // replace with actual teacher id
       const user = JSON.parse(localStorage.getItem("user"));
       const studentId = user?.id;
+        console.log(name);
+      setName(user.username);
+    
 
       const res = await API.get(
         `/answers/student/recent-activities/${studentId}`,
@@ -94,7 +98,7 @@ function StudentDashboard() {
             <img alt="" />
           </div>
 
-          <h3>Welcome Back 👋</h3>
+          <h3>Welcome Back {name}👋</h3>
           <p>Smart Assessment Platform</p>
         </div>
       </div>

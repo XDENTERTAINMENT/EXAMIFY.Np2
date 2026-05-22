@@ -5,17 +5,15 @@ const API = axios.create({
 
 //   export default API;
 
-
-
 // const API = axios.create({
 //   baseURL: "http://localhost:5000/api",
 // });
 
 // ✅ ONE clean interceptor only
 API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");                                                 
+  const token = localStorage.getItem("token");
 
-  console.log("TOKEN:", token);
+  // console.log("TOKEN:", token);
 
   if (token) {
     req.headers.Authorization = `Bearer ${token}`;

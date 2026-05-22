@@ -6,11 +6,16 @@ const googledb = require("../models/usergoogle");
 
 exports.loginuser = async (req, res) => {
   try {
-    const { username, password, role } = req.body;
+
+    const username = req.body.username.trim().toLowerCase();
+    const password = req.body.password.trim();
+    const role = req.body.role.trim().toLowerCase();
 
     // check if user exist
     const user = await userdb.findOne({ username });
+
     console.log(user);
+
     if (!user) {
       return res.status(404).json({
         message: "User not found. please sign up.",
@@ -18,7 +23,6 @@ exports.loginuser = async (req, res) => {
     }
 
     // compare password
-
     const ismatch = await bcrypt.compare(password, user.password);
 
     if (!ismatch) {
@@ -26,21 +30,22 @@ exports.loginuser = async (req, res) => {
         message: "Invalid username or password",
       });
     }
-    //    role validation
 
+    // role validation
     if (user.role !== role) {
       return res.status(403).json({
         message: `You are not a ${role}`,
       });
     }
-    // Generate token (optional but recommended)
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
 
-    console.log("JWT_SECRET:", process.env.JWT_SECRET);
-
-    //    success response
+    // Generate token
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.status(200).json({
       message: "login successful",
@@ -50,32 +55,47 @@ exports.loginuser = async (req, res) => {
         username: user.username,
       },
     });
+
   } catch (err) {
+
     console.log(err);
+
     res.status(500).json({
       message: "server error",
     });
+
   }
 };
 
+  // signup
+  
 exports.Signup = async (req, res) => {
   try {
-    const { firstname, lastname, username, password, role } = req.body;
-    console.log(req.body);
-    // 1. check password match
+
+    const firstname = req.body.firstname.trim();
+    const lastname = req.body.lastname.trim();
+    const username = req.body.username.trim().toLowerCase();
+    const password = req.body.password.trim();
+    const role = req.body.role.trim().toLowerCase();
+
+    // check password
     if (!password) {
-      return res.status(400).json({ message: "password is missing" });
+      return res.status(400).json({
+        message: "password is missing",
+      });
     }
 
-    // 2. check if username exists
+    // check existing username
     const existingUser = await userdb.findOne({ username });
+
     if (existingUser) {
-      return res.status(400).json({ message: "username already taken" });
+      return res.status(400).json({
+        message: "username already taken",
+      });
     }
 
-    // 3. hash password
+    // hash password
     const hashedpassword = await bcrypt.hash(password, 10);
-    console.log("Incoming signup:", req.body);
 
     const userdb1 = new userdb({
       firstname,
@@ -84,11 +104,21 @@ exports.Signup = async (req, res) => {
       password: hashedpassword,
       role,
     });
+
     await userdb1.save();
-    res.json({ message: "User signed up successfully ✅" });
-    console.log("data stored");
+
+    res.json({
+      message: "User signed up successfully ✅",
+    });
+
   } catch (err) {
+
     console.log(err);
+
+    res.status(500).json({
+      message: "server error",
+    });
+
   }
 };
 

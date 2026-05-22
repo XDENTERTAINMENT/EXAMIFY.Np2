@@ -8,12 +8,17 @@ function TeacherDashboard() {
   const navigate = useNavigate();
 
   const [dashboardData, SetDashboardData] = useState([]);
+  const [name, setName] = useState("");
+
 
   const Fetchactivities = async () => {
     try {
       // replace with actual teacher id
       const user = JSON.parse(localStorage.getItem("user"));
       const teacherId = user?.id;
+        console.log(name);
+      setName(user.username);
+    
 
       const res = await API.get(`/answers/teacher/dashboard/${teacherId}`);
       SetDashboardData(res.data);
@@ -70,7 +75,8 @@ function TeacherDashboard() {
           <div className="hero-content">
             <span className="hero-tag">Teacher Control Panel</span>
 
-            <h1>Welcome Back 👋</h1>
+            <h1>Welcome Back {name} 👋</h1>
+
 
             <p>
               Manage exams, monitor student performance, and organize

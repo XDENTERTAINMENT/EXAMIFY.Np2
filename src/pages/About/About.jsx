@@ -21,7 +21,7 @@ function About() {
       </h1>
 
       <p class="desc">
-        Examify.Np is an exam platform built to simplify the way
+        ExamifyEdu is an exam platform built to simplify the way
         teachers create quizzes, manage students, and track
         performance.
       </p>
@@ -97,7 +97,7 @@ function About() {
 
       <p>
         Join a growing community of teachers who are making a
-        difference with Examify.Np.
+        difference with ExamifyEdu.
       </p>
     </div>
 

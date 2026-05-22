@@ -142,7 +142,7 @@ function Features() {
         <h2>Built for teachers. Designed for results.</h2>
 
         <p>
-          Join thousands of educators who trust Examify.Np
+          Join thousands of educators who trust ExamifyEdu
         </p>
       </div>
 

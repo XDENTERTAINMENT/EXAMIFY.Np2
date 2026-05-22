@@ -188,7 +188,7 @@ function LandingPage() {
        HOW IT WORKS
   ========================== --> */}
       <section class="how-it-works">
-        <h2>How Examify.Np Works</h2>
+        <h2>How ExamifyEdu Works</h2>
         <p class="subtitle">Simple steps to get started</p>
 
         <div class="steps">
