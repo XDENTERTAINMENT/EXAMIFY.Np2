@@ -51,7 +51,7 @@ function TeacherDashboard() {
             Manage Questions
           </button>
 
-          <button onClick={() => navigate("/results")}>Student Results</button>
+          <button onClick={() => navigate("/resultsPage")}>Student Results</button>
 
           <button onClick={() => navigate("/teacherAnalytics")}>Analytics</button>
 
@@ -137,7 +137,7 @@ function TeacherDashboard() {
               Generate Exam ID
             </button>
 
-            <button onClick={() => navigate("/ViewQuestions")}>
+            <button onClick={() => navigate("/resultsPage")}>
               View Results
             </button>
           </div>

@@ -19,6 +19,7 @@ function StudentSignup() {
   const [Confirmpassword, setConfirmpassword] = useState("");
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -115,6 +116,10 @@ function StudentSignup() {
     // ❌ STOP if error
     if (!hasError) return;
 
+    if (loading) return;
+
+    setLoading(true);
+
     // ✅ SEND TO BACKEND
     try {
       const res = await API.post("/auth/signup", {
@@ -142,6 +147,8 @@ function StudentSignup() {
       setTimeout(() => {
         setResponse("");
       }, 3000);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -276,8 +283,9 @@ function StudentSignup() {
             </div>
 
             {/* BUTTON */}
-            <button type="submit" className="signup-btn">
-              Create Account
+
+            <button disabled={loading} type="submit" className="signup-btn">
+              {loading ? "Loading..." : "Signup"}
             </button>
 
             {/* DIVIDER */}

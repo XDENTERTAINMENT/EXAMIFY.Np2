@@ -12,4 +12,6 @@ router.get("/", examController.getAllExams);
 // GET QUESTIONS BY EXAM CODE
 router.get("/:examCode", examController.getQuestionsByExam);
 
+router.post("/verify-results", examController.verifyResults);
+
 module.exports = router;

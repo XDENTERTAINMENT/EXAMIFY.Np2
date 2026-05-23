@@ -17,6 +17,7 @@ import Exampage from "../student/exampage";
 import viewQuestion from "../teacher/ViewQuestions";
 import ViewQuestion from "../teacher/ViewQuestions";
 import TeacherAnalytics from "../teacher/anlytic"
+import ResultsPage from "../teacher/result"
 
 function AppRoutes() {
   return (
@@ -38,6 +39,7 @@ function AppRoutes() {
         <Route path="/exampage/:examCode" element={<Exampage />} />
         <Route path="/viewQuestions" element={<ViewQuestion />} />
         <Route path="/teacherAnalytics" element={<TeacherAnalytics/>} />
+        <Route path="/resultsPage" element={<ResultsPage/>} />
 
       </Routes>
     </div>

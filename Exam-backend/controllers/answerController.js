@@ -65,12 +65,9 @@ exports.saveAnswer = async (req, res) => {
 
 // submit controller
 exports.submitExam = async (req, res) => {
-
   try {
-
     const { studentId, examId } = req.body;
 
-    // find submission
     const submission = await Submission.findOne({
       student: studentId,
       exam: examId,
@@ -85,44 +82,45 @@ exports.submitExam = async (req, res) => {
 
     let score = 0;
 
-    // check answers
     for (const answer of submission.answers) {
+      const question = await Question.findById(answer.questionId);
 
-      const question = await Question.findById(
-        answer.questionId
-      );
-
-      if (
-        question &&
-        answer.selectedOption === question.correctAnswer
-      ) {
+      if (question && answer.selectedOption === question.correctAnswer) {
         score++;
       }
     }
 
-    // update submission
+    const totalQuestions = submission.answers.length;
+
+    const percentage = totalQuestions > 0 ? (score / totalQuestions) * 100 : 0;
+
+    const resultStatus = percentage >= 50 ? "Passed" : "Failed";
+
     submission.score = score;
+    submission.totalQuestions = totalQuestions;
+    submission.percentage = percentage;
+    submission.resultStatus = resultStatus;
     submission.status = "Completed";
 
     await submission.save();
 
     res.status(200).json({
       success: true,
-      totalQuestions: submission.answers.length,
       score,
+      percentage,
+      resultStatus,
+      totalQuestions,
     });
-
   } catch (error) {
-
     console.log(error);
 
     res.status(500).json({
       success: false,
       message: error.message,
     });
-
   }
 };
+
 // recent activities
 exports.getRecentActivities = async (req, res) => {
   try {
@@ -183,7 +181,6 @@ exports.getTeacherDashboard = async (req, res) => {
           examName: exam.name,
           studentsSubmitted: totalSubmitted,
           status: exam.status || "Completed",
-         
         };
       }),
     );
@@ -206,11 +203,9 @@ exports.getTeacherAnalytics = async (req, res) => {
 
     const result = await Promise.all(
       exams.map(async (exam) => {
-
-        const studentsSubmitted =
-          await Submission.countDocuments({
-            exam: exam._id,
-          });
+        const studentsSubmitted = await Submission.countDocuments({
+          exam: exam._id,
+        });
 
         return {
           examName: exam.name,
@@ -219,16 +214,13 @@ exports.getTeacherAnalytics = async (req, res) => {
           duration: "60 mins",
           createdAt: exam.createdAt,
         };
-      })
+      }),
     );
 
     res.json(result);
-
   } catch (err) {
-
     res.status(500).json({
       message: err.message,
     });
-
   }
 };

@@ -13,6 +13,7 @@ function TeacherLogin() {
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
+   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -57,7 +58,9 @@ function TeacherLogin() {
     if (!valid) {
       return;
     }
+  if (loading) return;
 
+    setLoading(true);
     try {
       const res = await API.post("/auth/login", {
         username: username,
@@ -83,6 +86,9 @@ function TeacherLogin() {
       setTimeout(() => {
         setResponse("");
       }, 3000);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -139,7 +145,9 @@ function TeacherLogin() {
           </div>
 
           {/* BUTTON */}
-          <button type="submit">Login</button>
+          <button disabled={loading} type="submit" className="signup-btn">
+              {loading ? "Loading..." : "lOGIN"}
+            </button>
         </form>
 
         {/* DIVIDER */}

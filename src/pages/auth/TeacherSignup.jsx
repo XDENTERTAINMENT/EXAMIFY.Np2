@@ -19,6 +19,7 @@ function TeacherSignup() {
   const [Confirmpassword, setConfirmpassword] = useState("");
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -114,6 +115,9 @@ function TeacherSignup() {
 
     // ❌ STOP if error
     if (!hasError) return;
+    if (loading) return;
+
+    setLoading(true);
 
     // ✅ SEND TO BACKEND
     try {
@@ -138,10 +142,12 @@ function TeacherSignup() {
 
       setStatus("error"); // ❌ error = red
       setResponse(err.response?.data?.message || "Signup failed. Try again.");
+      setTimeout(() => {
+        setResponse("");
+      }, 3000);
+    } finally {
+      setLoading(false);
     }
-    setTimeout(() => {
-      setResponse("");
-    }, 3000);
   };
 
   return (
@@ -276,8 +282,8 @@ function TeacherSignup() {
             </div>
 
             {/* BUTTON */}
-            <button type="submit" className="signup-btn">
-              Create Teacher Account
+            <button disabled={loading} type="submit" className="signup-btn">
+              {loading ? "Loading..." : "Signup"}
             </button>
 
             {/* DIVIDER */}

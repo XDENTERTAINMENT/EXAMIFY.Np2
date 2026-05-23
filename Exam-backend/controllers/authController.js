@@ -6,7 +6,6 @@ const googledb = require("../models/usergoogle");
 
 exports.loginuser = async (req, res) => {
   try {
-
     const username = req.body.username.trim().toLowerCase();
     const password = req.body.password.trim();
     const role = req.body.role.trim().toLowerCase();
@@ -39,13 +38,9 @@ exports.loginuser = async (req, res) => {
     }
 
     // Generate token
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     res.status(200).json({
       message: "login successful",
@@ -55,35 +50,31 @@ exports.loginuser = async (req, res) => {
         username: user.username,
       },
     });
-
   } catch (err) {
-
     console.log(err);
 
     res.status(500).json({
       message: "server error",
     });
-
   }
 };
 
-  // signup
-  
+// signup
+
 exports.Signup = async (req, res) => {
   try {
+    const firstname = req.body.firstname?.trim();
+    const lastname = req.body.lastname?.trim();
+    const username = req.body.username?.trim().toLowerCase();
+    const password = req.body.password?.trim();
+    const role = req.body.role?.trim().toLowerCase();
 
-    const firstname = req.body.firstname.trim();
-    const lastname = req.body.lastname.trim();
-    const username = req.body.username.trim().toLowerCase();
-    const password = req.body.password.trim();
-    const role = req.body.role.trim().toLowerCase();
+    if (!firstname || !lastname || !username || !password || !role) {
+   return res.status(400).json({
+      message: "All fields are required"
+   });
+}
 
-    // check password
-    if (!password) {
-      return res.status(400).json({
-        message: "password is missing",
-      });
-    }
 
     // check existing username
     const existingUser = await userdb.findOne({ username });
@@ -107,18 +98,21 @@ exports.Signup = async (req, res) => {
 
     await userdb1.save();
 
-    res.json({
+    res.status(201).json({
       message: "User signed up successfully ✅",
     });
-
   } catch (err) {
-
     console.log(err);
+
+    if (err.code === 11000) {
+      return res.status(400).json({
+        message: "Username already exists",
+      });
+    }
 
     res.status(500).json({
       message: "server error",
     });
-
   }
 };
 

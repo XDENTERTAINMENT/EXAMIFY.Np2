@@ -68,6 +68,11 @@ const submissionSchema = new mongoose.Schema(
     durationUsed: {
       type: Number, // in minutes or seconds
     },
+
+    resultStatus: {
+      type: String,
+      enum: ["Passed", "Failed"],
+    },
   },
   { timestamps: true },
 );
