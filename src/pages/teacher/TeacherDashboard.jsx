@@ -91,7 +91,7 @@ function TeacherDashboard() {
           <div className="hero-content">
             <span className="hero-tag">Teacher Control Panel</span>
 
-           {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
+          <h3 className="welcome">{user?.username ? `Welcome ${user.username} 👋` : "Welcome"}</h3> 
 
             <p>
               Manage exams, monitor student performance, and organize
@@ -108,22 +108,22 @@ function TeacherDashboard() {
 
         {/* STATS */}
         <section className="teacher-stats">
-          <div className="stats-card">
+          <div className="stats-card2">
             <h2>24</h2>
             <span>Total Exams</span>
           </div>
 
-          <div className="stats-card">
+          <div className="stats-card2">
             <h2>1,240</h2>
             <span>Total Students</span>
           </div>
 
-          <div className="stats-card">
+          <div className="stats-card2">
             <h2>530</h2>
             <span>Questions Uploaded</span>
           </div>
 
-          <div className="stats-card">
+          <div className="stats-card2">
             <h2>89%</h2>
             <span>Average Score</span>
           </div>

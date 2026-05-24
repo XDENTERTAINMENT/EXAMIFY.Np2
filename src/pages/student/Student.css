@@ -48,8 +48,8 @@
 }
 
 .student-profile h3{
+  color: green;
   font-size:24px;
-  color:#111827;
   margin-bottom:6px;
 }
 
@@ -496,6 +496,39 @@
 
   font-size: 14px;
   color: #9ca3af;
+}
+
+
+
+.sidebar-bottom{
+   margin-top: 29rem;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.sidebar-bottom button{
+  border:none;
+  background:transparent;
+  color:white;
+  text-align:center;
+  padding:15px;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:15px;
+  transition:0.2s;
+}
+
+.sidebar-bottom button:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+.logout-btn{
+  background:rgba(8, 0, 0, 0.801)!important;
+}
+
+.logout-btn:hover{
+  background:#dc2626!important;
 }
 
 /* RESPONSIVE */

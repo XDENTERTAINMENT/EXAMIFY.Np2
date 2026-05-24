@@ -14,7 +14,9 @@ function StudentDashboard() {
   const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
   const [dashboardData, SetDashboardData] = useState([]);
-  const [name, setName] = useState("");
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     fetchexamtitle();
   }, []);
@@ -31,17 +33,12 @@ function StudentDashboard() {
   const Fetchactivities = async () => {
     try {
       // replace with actual teacher id
-      const user = JSON.parse(localStorage.getItem("user"));
       const studentId = user?.id;
-        console.log(name);
-      setName(user.username);
-    
 
       const res = await API.get(
         `/answers/student/recent-activities/${studentId}`,
       );
       SetDashboardData(res.data);
-      console.log(dashboardData);
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +46,8 @@ function StudentDashboard() {
 
   useEffect(() => {
     Fetchactivities();
-  }, []);
+  }, [user]);
+
   // VALIDATE BY NAME + CODE
   const validateCode = () => {
     const foundExam = examtitle.find(
@@ -82,7 +80,11 @@ function StudentDashboard() {
       navigate(`/exampage/${validatedExam.examCode}`);
     }
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
   // UNIQUE RECENT ACTIVITY (BY NAME)
   const uniqueExams = examtitle.filter(
     (exam, index, self) =>
@@ -98,8 +100,18 @@ function StudentDashboard() {
             <img alt="" />
           </div>
 
-          <h3>Welcome Back {name}👋</h3>
+          <h3 >
+            {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
+          </h3>
+
           <p>Smart Assessment Platform</p>
+        </div>
+       <div className="sidebar-bottom">
+          <button onClick={() => navigate("/support")}>Help & Support</button>
+
+          <button className="logout-btn"  onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
 
