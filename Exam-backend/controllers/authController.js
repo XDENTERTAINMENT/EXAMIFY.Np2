@@ -6,18 +6,23 @@ const googledb = require("../models/usergoogle");
 
 exports.loginuser = async (req, res) => {
   try {
-    const username = req.body.username.trim().toLowerCase();
-    const password = req.body.password.trim();
-    const role = req.body.role.trim().toLowerCase();
+    const username = req.body.username?.trim().toLowerCase();
+    const password = req.body.password?.trim();
+    const role = req.body.role?.trim().toLowerCase();
 
-    // check if user exist
+    // validate input
+    if (!username || !password || !role) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
+    // check if user exists
     const user = await userdb.findOne({ username });
-
-    console.log(user);
 
     if (!user) {
       return res.status(404).json({
-        message: "User not found. please sign up.",
+        message: "User not found. Please sign up.",
       });
     }
 
@@ -30,31 +35,40 @@ exports.loginuser = async (req, res) => {
       });
     }
 
-    // role validation
+    // validate role
     if (user.role !== role) {
       return res.status(403).json({
         message: `You are not a ${role}`,
       });
     }
 
-    // Generate token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    // generate token
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.status(200).json({
-      message: "login successful",
+      message: "Login successful",
       token,
       user: {
         id: user._id,
         username: user.username,
+        role: user.role,
       },
     });
+
   } catch (err) {
     console.log(err);
 
     res.status(500).json({
-      message: "server error",
+      message: "Server error",
     });
   }
 };

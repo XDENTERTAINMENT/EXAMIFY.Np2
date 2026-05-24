@@ -14,6 +14,7 @@ const examSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
       trim: true,
     },
 
@@ -33,10 +34,7 @@ const examSchema = new mongoose.Schema(
 
   {
     timestamps: true,
-  }
+  },
 );
 
-module.exports = mongoose.model(
-  "Exam",
-  examSchema
-);
+module.exports = mongoose.model("Exam", examSchema);

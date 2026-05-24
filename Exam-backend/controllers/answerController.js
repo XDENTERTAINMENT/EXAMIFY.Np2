@@ -2,6 +2,7 @@ const Submission = require("../models/Submission");
 const Exam = require("../models/Exam");
 const Question = require("../models/Question");
 
+
 exports.saveAnswer = async (req, res) => {
   try {
     const { student, exam, questionId, selectedOption } = req.body;
@@ -168,7 +169,7 @@ exports.getRecentActivities = async (req, res) => {
 exports.getTeacherDashboard = async (req, res) => {
   try {
     const exams = await Exam.find({
-      teacher: req.params.teacherId,
+      teacher: req.user.id,
     });
 
     const dashboardData = await Promise.all(
@@ -182,7 +183,7 @@ exports.getTeacherDashboard = async (req, res) => {
           studentsSubmitted: totalSubmitted,
           status: exam.status || "Completed",
         };
-      }),
+      })
     );
 
     res.json(dashboardData);

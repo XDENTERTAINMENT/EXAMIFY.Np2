@@ -1,28 +1,34 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./Teacher.css";
 import { useState, useEffect } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import API from "../../services/api";
 
 function TeacherDashboard() {
   const navigate = useNavigate();
 
   const [dashboardData, SetDashboardData] = useState([]);
-  const [name, setName] = useState("");
+ 
+ const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // ✅ AUTH GUARD (correct place)
+  if (!token || !user) {
+    return <Navigate to="/" replace />;
+  }
+
 
 
   const Fetchactivities = async () => {
     try {
       // replace with actual teacher id
-      const user = JSON.parse(localStorage.getItem("user"));
       const teacherId = user?.id;
-        console.log(name);
-      setName(user.username);
+      
     
 
       const res = await API.get(`/answers/teacher/dashboard/${teacherId}`);
       SetDashboardData(res.data);
-      console.log(dashboardData);
+    
     } catch (err) {
       console.log(err);
     }
@@ -30,7 +36,13 @@ function TeacherDashboard() {
 
   useEffect(() => {
     Fetchactivities();
-  }, []);
+  }, [user]);
+
+   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   return (
     <div className="teacher-dashboard">
@@ -51,9 +63,13 @@ function TeacherDashboard() {
             Manage Questions
           </button>
 
-          <button onClick={() => navigate("/resultsPage")}>Student Results</button>
+          <button onClick={() => navigate("/resultsPage")}>
+            Student Results
+          </button>
 
-          <button onClick={() => navigate("/teacherAnalytics")}>Analytics</button>
+          <button onClick={() => navigate("/teacherAnalytics")}>
+            Analytics
+          </button>
 
           <button onClick={() => navigate("/settings")}>Settings</button>
         </nav>
@@ -62,7 +78,7 @@ function TeacherDashboard() {
         <div className="sidebar-bottom">
           <button onClick={() => navigate("/support")}>Help & Support</button>
 
-          <button className="logout-btn" onClick={() => navigate("/")}>
+          <button className="logout-btn"  onClick={handleLogout}>
             Logout
           </button>
         </div>
@@ -75,8 +91,7 @@ function TeacherDashboard() {
           <div className="hero-content">
             <span className="hero-tag">Teacher Control Panel</span>
 
-            <h1>Welcome Back {name} 👋</h1>
-
+           {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
 
             <p>
               Manage exams, monitor student performance, and organize
@@ -152,7 +167,10 @@ function TeacherDashboard() {
               <p>Recently created assessments.</p>
             </div>
 
-            <button className="view-btn" onClick={() => navigate("/teacherAnalytics")}>
+            <button
+              className="view-btn"
+              onClick={() => navigate("/teacherAnalytics")}
+            >
               View All
             </button>
           </div>

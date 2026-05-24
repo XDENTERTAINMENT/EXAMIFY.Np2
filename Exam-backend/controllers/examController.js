@@ -5,12 +5,33 @@ const Submission = require("../models/Submission");
 // CREATE EXAM
 exports.createExam = async (req, res) => {
   try {
-    const { name, examCode, level } = req.body;
+    let { name, examCode, level } = req.body;
 
-    if (!req.body.name) {
-      return res.status(400).json({ message: "The fields are required" });
+    // validation
+    if (!name || !examCode || !level) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
     }
 
+    // normalize input
+    name = name.trim();
+    examCode = examCode.trim().toLowerCase();
+    level = level.trim();
+
+    // check if exam already exists
+    const existingExam = await Exam.findOne({
+      examCode,
+      teacher: req.user.id,
+    });
+
+    if (existingExam) {
+      return res.status(400).json({
+        message: "Exam code already exists",
+      });
+    }
+
+    // create exam
     const exam = await Exam.create({
       name,
       examCode,
@@ -18,11 +39,16 @@ exports.createExam = async (req, res) => {
       teacher: req.user.id,
     });
 
-    res.status(201).json(exam);
+    res.status(201).json({
+      message: "Exam created successfully",
+      exam,
+    });
+
   } catch (error) {
     console.log("🔥 BACKEND ERROR:", error.message);
+
     res.status(500).json({
-      message: error.message,
+      message: "Server error",
     });
   }
 };
