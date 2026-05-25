@@ -166,7 +166,7 @@ function StudentSignup() {
           </h1>
 
           <p>
-            Join thousands of students using Examify.Np to take exams, practice
+            Join thousands of students using ExamifyEdu to take exams, practice
             quizzes, and improve their academic performance with ease.
           </p>
 

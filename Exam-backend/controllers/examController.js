@@ -5,7 +5,7 @@ const Submission = require("../models/Submission");
 // CREATE EXAM
 exports.createExam = async (req, res) => {
   try {
-    let { name, examCode, level } = req.body;
+    let { name, examCode, level, startTime, endTime } = req.body;
 
     // validation
     if (!name || !examCode || !level) {
@@ -15,7 +15,7 @@ exports.createExam = async (req, res) => {
     }
 
     // normalize input
-    name = name.trim();
+    name = name.trim().toLowerCase();
     examCode = examCode.trim().toLowerCase();
     level = level.trim();
 
@@ -37,6 +37,9 @@ exports.createExam = async (req, res) => {
       examCode,
       level,
       teacher: req.user.id,
+
+      startTime,
+      endTime,
     });
 
     res.status(201).json({

@@ -30,6 +30,19 @@ const examSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
+    duration: {
+      type: Number, // in minutes
+      required: true,
+    },
+
+    startTime: {
+      type: Date,
+    },
+
+    endTime: {
+      type: Date,
+    },
   },
 
   {
