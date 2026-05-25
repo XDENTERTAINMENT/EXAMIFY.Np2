@@ -46,8 +46,6 @@ exports.createExam = async (req, res) => {
       endTime,
     });
 
-
-
     res.status(201).json({
       message: "Exam created successfully",
       exam,
@@ -74,7 +72,6 @@ exports.getAllExams = async (req, res) => {
   }
 };
 
-
 // GET QUESTIONS BY EXAM CODE
 exports.getQuestionsByExam = async (req, res) => {
   try {
@@ -90,7 +87,7 @@ exports.getQuestionsByExam = async (req, res) => {
       });
     }
 
-      // ⏰ TIME VALIDATION
+    // ⏰ TIME VALIDATION
     const now = new Date();
 
     if (exam.startTime && now < new Date(exam.startTime)) {
@@ -124,7 +121,16 @@ exports.getQuestionsByExam = async (req, res) => {
 
 exports.validateExam = async (req, res) => {
   try {
-    const { examName, examCode } = req.body;
+    let { examName, examCode } = req.body;
+
+    if (!examName || !examCode) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
+    examName = examName.trim().toLowerCase();
+    examCode = examCode.trim().toLowerCase();
 
     const exam = await Exam.findOne({
       name: examName,
@@ -136,7 +142,6 @@ exports.validateExam = async (req, res) => {
         message: "Invalid Exam Name or Code",
       });
     }
-
 
     // ⏰ TIME VALIDATION
     const now = new Date();
