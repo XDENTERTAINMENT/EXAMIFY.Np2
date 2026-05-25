@@ -5,13 +5,14 @@ exports.createQuestion = async (req, res) => {
   console.log("🔥 HIT createQuestion route"); // 👈 ADD THIS
   try {
     console.log("📦 BODY:", req.body); // 👈 ADD THIS
-    const { examtitle, examCode, questionText, options, correctAnswer, marks,exam} =
+    const { examtitle, examCode, questionText, options, correctAnswer, marks } =
       req.body;
 
-    // // 🔥 find exam first
-    // const exam = await Exam.findOne({
-    //   exam_id,
-    // });
+    // 🔥 Find exam from DB
+    const exam = await Exam.findOne({
+      examCode,
+      teacher: req.user.id,
+    });
 
     if (!exam) {
       return res.status(404).json({

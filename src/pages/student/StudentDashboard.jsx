@@ -39,6 +39,7 @@ function StudentDashboard() {
         `/answers/student/recent-activities/${studentId}`,
       );
       SetDashboardData(res.data);
+      console.log(res.data)
     } catch (err) {
       console.log(err);
     }
@@ -46,14 +47,14 @@ function StudentDashboard() {
 
   useEffect(() => {
     Fetchactivities();
-  }, [user]);
+  },[user?.id]);
 
   // VALIDATE BY NAME + CODE
   const validateCode = () => {
     const foundExam = examtitle.find(
       (exam) =>
         exam.name.toLowerCase() === selectedExam.toLowerCase() &&
-        exam.examCode === examId,
+        exam.examCode.toLowerCase() === examId.toLowerCase(),
     );
 
     if (foundExam) {

@@ -50,6 +50,8 @@ function ResultsPage() {
         setMessage("");
       }, 3000);
       return;
+
+      
     }
 
     try {

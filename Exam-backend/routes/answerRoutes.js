@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const answerController = require("../controllers/answerController");
+const protect = require("../middleware/authmiddleware");
 
 router.post("/save-answer", answerController.saveAnswer);
 
@@ -13,6 +14,7 @@ router.get(
 
 router.get(
   "/teacher/dashboard/:teacherId",
+  protect,
   answerController.getTeacherDashboard,
 );
 

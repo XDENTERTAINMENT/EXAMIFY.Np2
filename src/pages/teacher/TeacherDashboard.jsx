@@ -8,8 +8,8 @@ function TeacherDashboard() {
   const navigate = useNavigate();
 
   const [dashboardData, SetDashboardData] = useState([]);
- 
- const token = localStorage.getItem("token");
+
+  const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
 
   // ✅ AUTH GUARD (correct place)
@@ -17,18 +17,16 @@ function TeacherDashboard() {
     return <Navigate to="/" replace />;
   }
 
-
-
   const Fetchactivities = async () => {
     try {
       // replace with actual teacher id
       const teacherId = user?.id;
-      
-    
 
       const res = await API.get(`/answers/teacher/dashboard/${teacherId}`);
+      
       SetDashboardData(res.data);
-    
+      
+     
     } catch (err) {
       console.log(err);
     }
@@ -36,9 +34,9 @@ function TeacherDashboard() {
 
   useEffect(() => {
     Fetchactivities();
-  }, [user]);
+  },  [user?.id]);
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
@@ -78,7 +76,7 @@ function TeacherDashboard() {
         <div className="sidebar-bottom">
           <button onClick={() => navigate("/support")}>Help & Support</button>
 
-          <button className="logout-btn"  onClick={handleLogout}>
+          <button className="logout-btn" onClick={handleLogout}>
             Logout
           </button>
         </div>
@@ -91,7 +89,9 @@ function TeacherDashboard() {
           <div className="hero-content">
             <span className="hero-tag">Teacher Control Panel</span>
 
-          <h3 className="welcome">{user?.username ? `Welcome ${user.username} 👋` : "Welcome"}</h3> 
+            <h3 className="welcome">
+              {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
+            </h3>
 
             <p>
               Manage exams, monitor student performance, and organize
@@ -176,16 +176,17 @@ function TeacherDashboard() {
           </div>
 
           <div className="recent-exams">
-            {dashboardData.map((item, index) => (
-              <div className="teacher-card" key={index}>
-                <div>
-                  <h4>{item.examName}</h4>
-                  <p>{item.studentsSubmitted} Students Submitted</p>
+            {dashboardData && dashboardData.length > 0 ? (
+              dashboardData.map((item, index) => (
+                <div className="teacher-card" key={index}>
+                  <h3>{item.examName}</h3>
+                  <p>Submitted: {item.studentsSubmitted}</p>
+                  <span className="status-badge">Status: {item.status}</span>
                 </div>
-
-                <span className="status-badge">{item.status}</span>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No activities found</p>
+            )}
           </div>
         </section>
       </main>

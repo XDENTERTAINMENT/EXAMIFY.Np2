@@ -109,19 +109,36 @@ function Exampage() {
     setCurrentQuestion((prev) => prev + 1);
   };
   // HANDLE SUBMIT
-  const submitExam = async () => {
-    try {
-      await submitExamAPI({
-        studentId,
-        examId,
-      });
+ const submitExam = async () => {
+  try {
+    if (!current) return;
 
-      setStopTime(true);
-      setGameStatus("finished");
-    } catch (err) {
-      console.log("Submit error:", err);
+    // CHECK IF LAST QUESTION ANSWER EXISTS
+    if (!answers[current._id]) {
+      alert("Please select an answer");
+      return;
     }
-  };
+
+    // 🔥 SAVE LAST ANSWER FIRST
+    await saveAnswerAPI({
+      student: studentId,
+      exam: examId,
+      questionId: current._id,
+      selectedOption: answers[current._id],
+    });
+
+    // 🔥 THEN SUBMIT EXAM
+    await submitExamAPI({
+      studentId,
+      examId,
+    });
+
+    setStopTime(true);
+    setGameStatus("finished");
+  } catch (err) {
+    console.log("Submit error:", err);
+  }
+};
   return (
     <div className="exam-page">
       {/* LEFT SIDEBAR */}

@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://examify-np2.onrender.com/api",
-});
+// const API = axios.create({
+//   baseURL: "https://examify-np2.onrender.com/api",
+// });
 
 //   export default API;
 
-// const API = axios.create({
-//   baseURL: "http://localhost:5000/api",
-// });
+const API = axios.create({
+  baseURL: "http://localhost:5000/api",
+});
 
 // ✅ ONE clean interceptor only
 API.interceptors.request.use((req) => {

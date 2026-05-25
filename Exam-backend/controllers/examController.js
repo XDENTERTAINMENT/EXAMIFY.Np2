@@ -43,7 +43,6 @@ exports.createExam = async (req, res) => {
       message: "Exam created successfully",
       exam,
     });
-
   } catch (error) {
     console.log("🔥 BACKEND ERROR:", error.message);
 
@@ -97,7 +96,10 @@ exports.getQuestionsByExam = async (req, res) => {
 
 exports.verifyResults = async (req, res) => {
   try {
-    const { examName, examCode, teacherId } = req.body;
+    let { examName, examCode, teacherId } = req.body;
+
+    examName = examName?.trim().toLowerCase();
+    examCode = examCode?.trim().toLowerCase(); // ✅ FIXED
 
     // FIND EXAM
     const exam = await Exam.findOne({
