@@ -5,8 +5,9 @@ import { useParams } from "react-router-dom";
 
 function Exampage() {
   const [stopTime, setStopTime] = useState(false);
-  const [time, setTime] = useState(3600);
+  const [time, setTime] = useState(0);
   const [Gamestatus, setGameStatus] = useState("");
+  const [examData, setExamData] = useState(null);
 
   // FIXED
   const [answers, setAnswers] = useState({});
@@ -17,6 +18,8 @@ function Exampage() {
   // FIXED
   const [examId, setExamId] = useState("");
   const [studentId, setStudentId] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
 
   const { examCode } = useParams();
 
@@ -29,11 +32,13 @@ function Exampage() {
 
   // TIMER END
   useEffect(() => {
-    if (time === 0) {
+    if (time === 0 && !stopTime) {
       setStopTime(true);
       setGameStatus("end");
+
+      submitExam(true);
     }
-  }, [time]);
+  }, [time, questions]);
 
   // TIMER COUNTDOWN
   useEffect(() => {
@@ -49,12 +54,19 @@ function Exampage() {
   // FETCH QUESTIONS FUNCTION
   const fetchQuestions = async () => {
     try {
+      setLoading(true);
+
       const res = await API.get(`/exam/${examCode}`);
 
       console.log(res.data);
 
       // RANDOMIZE QUESTIONS
-      const shuffled = [...res.data].sort(() => Math.random() - 0.5);
+      const { exam, questions } = res.data;
+
+      setExamData(exam);
+      setTime(exam.duration * 60);
+
+      const shuffled = [...questions].sort(() => Math.random() - 0.5);
 
       setQuestions(shuffled);
 
@@ -63,12 +75,33 @@ function Exampage() {
         setExamId(shuffled[0].exam);
       }
 
+      // timer
+      const storageKey = `examStart_${exam._id}`;
+
+      let savedStart = localStorage.getItem(storageKey);
+
+      if (!savedStart) {
+        savedStart = Date.now();
+
+        localStorage.setItem(storageKey, savedStart);
+      }
+
+      const elapsed = Math.floor((Date.now() - Number(savedStart)) / 1000);
+
+      const remaining = exam.duration * 60 - elapsed;
+
+      setTime(remaining > 0 ? remaining : 0);
+
       // GET STUDENT ID
       const user = JSON.parse(localStorage.getItem("user"));
       const users = user?.id;
       setStudentId(users);
     } catch (err) {
       console.log("Error fetching questions:", err);
+      setFetchError(err.response?.data?.message || "Failed to load exam");
+      
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,36 +142,48 @@ function Exampage() {
     setCurrentQuestion((prev) => prev + 1);
   };
   // HANDLE SUBMIT
- const submitExam = async () => {
-  try {
-    if (!current) return;
+  const submitExam = async (autoSubmit = false) => {
+    try {
+      if (!current) return;
 
-    // CHECK IF LAST QUESTION ANSWER EXISTS
-    if (!answers[current._id]) {
-      alert("Please select an answer");
-      return;
+      // CHECK IF LAST QUESTION ANSWER EXISTS
+      if (!autoSubmit && !answers[current._id]) {
+        alert("Please select an answer");
+        return;
+      }
+
+      // 🔥 SAVE LAST ANSWER FIRST
+      await saveAnswerAPI({
+        student: studentId,
+        exam: examId,
+        questionId: current._id,
+        selectedOption: answers[current._id],
+      });
+
+      // 🔥 THEN SUBMIT EXAM
+      await submitExamAPI({
+        studentId,
+        examId,
+      });
+
+      setStopTime(true);
+      setGameStatus("finished");
+    } catch (err) {
+      console.log("Submit error:", err);
     }
+  };
 
-    // 🔥 SAVE LAST ANSWER FIRST
-    await saveAnswerAPI({
-      student: studentId,
-      exam: examId,
-      questionId: current._id,
-      selectedOption: answers[current._id],
-    });
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
 
-    // 🔥 THEN SUBMIT EXAM
-    await submitExamAPI({
-      studentId,
-      examId,
-    });
-
-    setStopTime(true);
-    setGameStatus("finished");
-  } catch (err) {
-    console.log("Submit error:", err);
+  if (loading) {
+    return <h2>Loading Exam...</h2>;
   }
-};
+
+  if (fetchError) {
+    return <h2>{fetchError}</h2>;
+  }
+
   return (
     <div className="exam-page">
       {/* LEFT SIDEBAR */}
@@ -282,7 +327,9 @@ function Exampage() {
           <h2>Time Left</h2>
 
           <div className="timer-circle">
-            <span>{time}</span>
+            <span>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </span>
           </div>
         </div>
 

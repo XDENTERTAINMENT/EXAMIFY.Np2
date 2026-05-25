@@ -17,18 +17,19 @@ function StudentDashboard() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    fetchexamtitle();
-  }, []);
+//  ui use only
+  // useEffect(() => {
+  //   fetchexamtitle();
+  // }, []);
 
-  const fetchexamtitle = async () => {
-    try {
-      const res = await API.get("/exam");
-      setexamtitle(res.data);
-    } catch (err) {
-      console.log("Error fetching exam:", err);
-    }
-  };
+  // const fetchexamtitle = async () => {
+  //   try {
+  //     const res = await API.get("/exam");
+  //     setexamtitle(res.data);
+  //   } catch (err) {
+  //     console.log("Error fetching exam:", err);
+  //   }
+  // };
 
   const Fetchactivities = async () => {
     try {
@@ -50,31 +51,33 @@ function StudentDashboard() {
   },[user?.id]);
 
   // VALIDATE BY NAME + CODE
-  const validateCode = () => {
-    const foundExam = examtitle.find(
-      (exam) =>
-        exam.name.toLowerCase() === selectedExam.toLowerCase() &&
-        exam.examCode.toLowerCase() === examId.toLowerCase(),
-    );
+  const validateCode = async () => {
+  try {
+    const res = await API.post("/exam/validate", {
+      examName: selectedExam,
+      examCode: examId,
+    });
 
-    if (foundExam) {
-      setIsValid(true);
-      setValidatedExam(foundExam);
-      setStatus("success");
-      setErrorMessage("validated ✅");
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 3000);
-    } else {
-      setValidatedExam(null);
-      setIsValid(false);
-      setStatus("error");
-      setErrorMessage("Invalid Exam Name or Exam Code");
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 3000);
-    }
-  };
+    setValidatedExam(res.data.exam);
+    setIsValid(true);
+    setStatus("success");
+    setErrorMessage("Validated ✅");
+
+  } catch (err) {
+    setIsValid(false);
+    setValidatedExam(null);
+    setStatus("error");
+
+    setErrorMessage(
+      err.response?.data?.message ||
+      "Validation failed"
+    );
+  }
+
+  setTimeout(() => {
+    setErrorMessage("");
+  }, 3000);
+};
 
   const handleJoin = () => {
     if (isValid && validatedExam) {
@@ -91,6 +94,8 @@ function StudentDashboard() {
     (exam, index, self) =>
       index === self.findIndex((e) => e.name === exam.name),
   );
+
+
 
   return (
     <div className="student-dashboard">

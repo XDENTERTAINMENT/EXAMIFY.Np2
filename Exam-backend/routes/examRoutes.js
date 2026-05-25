@@ -14,4 +14,6 @@ router.get("/:examCode", examController.getQuestionsByExam);
 
 router.post("/verify-results", examController.verifyResults);
 
+router.post("/validate", examController.validateExam);
+
 module.exports = router;

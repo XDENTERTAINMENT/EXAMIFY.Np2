@@ -16,6 +16,9 @@ function QuestionTitle({
   const [level, setLevel] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
+  const [duration, setDuration] = useState(60);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   const pushexam = async () => {
     try {
@@ -25,6 +28,9 @@ function QuestionTitle({
         examCode: examCode,
 
         level: level,
+        duration: duration,
+        startTime: startTime,
+        endTime: endTime,
       });
 
       setSelectedExam(res.data._id);
@@ -48,9 +54,6 @@ function QuestionTitle({
     }
   };
 
-
-
-  
   return (
     <div className="exam-container">
       {errorMessage && (
@@ -102,6 +105,36 @@ function QuestionTitle({
         </div>
       </div>
 
+      <div className="input-group">
+        <label>Duration (minutes)</label>
+
+        <input
+          type="number"
+          placeholder="e.g. 60"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+      </div>
+
+      <div className="input-group">
+        <label>Start Time</label>
+
+        <input
+          type="datetime-local"
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
+        />
+      </div>
+
+      <div className="input-group">
+        <label>End Time</label>
+
+        <input
+          type="datetime-local"
+          value={endTime}
+          onChange={(e) => setEndTime(e.target.value)}
+        />
+      </div>
       <button className="primary-btn" onClick={pushexam}>
         Create Exam
       </button>
