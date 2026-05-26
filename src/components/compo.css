@@ -86,12 +86,13 @@ span {
 
     background-color: white;
 
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    gap: 30px;
+    gap: 80px;
 
     transition: right 0.4s ease-in-out;
 
@@ -107,10 +108,11 @@ span {
 
   .link {
     color: #111;
-    font-size: 18px;
+    font-size: 25px;
   }
 
   .icon i {
     color: black;
   }
+ 
 }
