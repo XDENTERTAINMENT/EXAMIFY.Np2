@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./UpdateNotice.css";
+import "./updatenotice.css";
 
 export default function UpdateNotice() {
   const [showNotice, setShowNotice] = useState(true);
