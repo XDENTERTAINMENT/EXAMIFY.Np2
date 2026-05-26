@@ -14,6 +14,7 @@ import pen from "../../assets/images/pen.svg";
 import smile from "../../assets/images/smile.svg";
 import user from "../../assets/images/users.svg";
 
+
 import "./style.css";
 
 function LandingPage() {
