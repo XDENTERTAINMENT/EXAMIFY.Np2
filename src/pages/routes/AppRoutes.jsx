@@ -15,7 +15,6 @@ import TeacherLogin from "../auth/TeacherLogin";
 import TeacherSignup from "../auth/TeacherSignup";
 import CreateExamPage from "../teacher/CreateExamPage";
 import Exampage from "../student/exampage";
-import viewQuestion from "../teacher/ViewQuestions";
 import ViewQuestion from "../teacher/ViewQuestions";
 import TeacherAnalytics from "../teacher/anlytic";
 import ResultsPage from "../teacher/result";

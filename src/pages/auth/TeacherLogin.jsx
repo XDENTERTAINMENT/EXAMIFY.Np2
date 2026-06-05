@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 // import "./auth.css"
 import API from "../../services/api";
@@ -13,9 +13,11 @@ function TeacherLogin() {
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const role = location.state?.role;
 
   const submithandle = async (e) => {
     let valid = true;
@@ -58,18 +60,18 @@ function TeacherLogin() {
     if (!valid) {
       return;
     }
-  if (loading) return;
+    if (loading) return;
 
     setLoading(true);
     try {
-      const res = await API.post("/auth/login", {
+      const res = await API.post("/auth/Teacherloginuser", {
         username: username,
         password: password,
-        role: "teacher",
+        role: role,
       });
       // ✅ Save token
       localStorage.setItem("token", res.data.token);
-       localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       console.log(res);
       setStatus("success"); // ✅ success = green
       setResponse(res.data.message);
@@ -86,8 +88,7 @@ function TeacherLogin() {
       setTimeout(() => {
         setResponse("");
       }, 3000);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -146,8 +147,8 @@ function TeacherLogin() {
 
           {/* BUTTON */}
           <button disabled={loading} type="submit" className="signup-btn">
-              {loading ? "Loading..." : "lOGIN"}
-            </button>
+            {loading ? "Loading..." : "lOGIN"}
+          </button>
         </form>
 
         {/* DIVIDER */}
@@ -157,7 +158,18 @@ function TeacherLogin() {
 
         {/* GOOGLE LOGIN */}
         <div className="google-login">
-          <GoogleLoginBtn redirectTo="/teacherdashboard" />
+          <GoogleLoginBtn
+           role="teacher"
+            redirectTo="/teacherdashboard"
+            onSuccessMessage={(msg) => {
+              setStatus("success");
+              setResponse(msg);
+            }}
+            onErrorMessage={(msg) => {
+              setStatus("error");
+              setResponse(msg);
+            }}
+          />
         </div>
       </div>
     </div>

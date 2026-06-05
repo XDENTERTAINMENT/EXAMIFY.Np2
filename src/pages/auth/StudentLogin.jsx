@@ -63,10 +63,9 @@ function StudentLogin() {
     setLoading(true);
 
     try {
-      const res = await API.post("/auth/login", {
+      const res = await API.post("/auth/Studentloginuser", {
         username: username,
         password: password,
-        role: "student",
       });
       // ✅ Save token
       localStorage.setItem("token", res.data.token);
@@ -161,7 +160,18 @@ function StudentLogin() {
 
         {/* GOOGLE LOGIN */}
         <div className="google-login">
-          <GoogleLoginBtn redirectTo="/studentdashboard" />
+          <GoogleLoginBtn
+           role="student"
+            redirectTo="/studentdashboard"
+            onSuccessMessage={(msg) => {
+              setStatus("success");
+              setResponse(msg);
+            }}
+            onErrorMessage={(msg) => {
+              setStatus("error");
+              setResponse(msg);
+            }}
+          />
         </div>
       </div>
     </div>

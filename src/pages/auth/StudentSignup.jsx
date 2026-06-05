@@ -1,6 +1,6 @@
 import React from "react";
 // import "./auth.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../../services/api";
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
@@ -22,8 +22,8 @@ function StudentSignup() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const role = location.state?.role;
+  // const location = useLocation();
+  // const role = location.state?.role;
 
   const submithandle = async (e) => {
     e.preventDefault();
@@ -122,12 +122,11 @@ function StudentSignup() {
 
     // ✅ SEND TO BACKEND
     try {
-      const res = await API.post("/auth/signup", {
+      const res = await API.post("/auth/StudentSignup", {
         firstname: FirstName,
         lastname: LastName,
         username: username,
         password: password,
-        role: "student",
       });
 
       console.log(res);
@@ -295,7 +294,18 @@ function StudentSignup() {
 
             {/* GOOGLE LOGIN */}
             <div className="google-login">
-              <GoogleLoginBtn redirectTo="/studentlogin" />
+              <GoogleLoginBtn
+                role="student"
+                redirectTo="/studentlogin"
+                onSuccessMessage={(msg) => {
+                  setStatus("success");
+                  setResponse(msg);
+                }}
+                onErrorMessage={(msg) => {
+                  setStatus("error");
+                  setResponse(msg);
+                }}
+              />
             </div>
           </form>
         </div>
