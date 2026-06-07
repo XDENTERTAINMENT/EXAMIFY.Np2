@@ -38,7 +38,7 @@ function Exampage() {
 
       submitExam(true);
     }
-  }, [time, questions , submitExam]);
+  }, [time, questions, submitExam]);
 
   // TIMER COUNTDOWN
   useEffect(() => {
@@ -99,7 +99,6 @@ function Exampage() {
     } catch (err) {
       console.log("Error fetching questions:", err);
       setFetchError(err.response?.data?.message || "Failed to load exam");
-      
     } finally {
       setLoading(false);
     }
