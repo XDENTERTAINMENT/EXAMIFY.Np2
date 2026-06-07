@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import "./Student.css";
 import API from "../../services/api";
+import { useRef } from "react";
+import { FaPen, FaTrash, FaUndo, FaUpload } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function StudentDashboard() {
   const navigate = useNavigate();
@@ -14,11 +17,41 @@ function StudentDashboard() {
   const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
   const [dashboardData, SetDashboardData] = useState([]);
+  const [uploadedImage, setUploadedImage] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
 
   // console.log(localStorage.getItem("user"));
+
+  // const ProfileAvatar=()=>({
+  //   user,
+  //   uploadedImage,
+  //   handleImageUpload,
+  //   handleRemovePhoto,
+  //   handleResetPhoto,
+  // });
+
+  const handleRemovePhoto = () => {};
+  const handleResetPhoto = () => {};
+
+  const fileInputRef = useRef(null);
+
+  const handleUploadClick = () => {
+    fileInputRef.current.click();
+    setShowMenu(false);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedImage(imageUrl);
+    }
+  };
 
   useEffect(() => {
     if (!user?.id) return;
@@ -78,10 +111,57 @@ function StudentDashboard() {
   return (
     <div className="student-dashboard">
       {/* LEFT SIDEBAR */}
-      <div className="student-sidebar">
+      <div className={`student-sidebar ${
+    sidebarOpen ? "sidebar-open" : "sidebar-closed"
+  }`}>
+
+   <button
+    className="sidebar-toggle"
+    onClick={() => setSidebarOpen(!sidebarOpen)}
+  >
+    {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
+  </button>
         <div className="student-profile">
-          <div className="student-avatar">
-            <img src={user?.avatar} alt={user?.fullname || "User Avatar"} />
+          <div className="avatar-wrapper">
+            <img
+              src={uploadedImage || user?.avatar}
+              alt={user?.fullname || ""}
+              className="avatar-img"
+            />
+
+            <div className="avatar-actions">
+              <button
+                type="button"
+                className="edit-btn"
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                <FaPen /> Edit
+              </button>
+
+              {showMenu && (
+                <div className="avatar-menu">
+                  <button onClick={handleUploadClick}>
+                    <FaUpload /> Upload new photo
+                  </button>
+
+                  <button onClick={handleResetPhoto}>
+                    <FaUndo /> Reset to default
+                  </button>
+
+                  <button onClick={handleRemovePhoto}>
+                    <FaTrash className="redbin" /> Remove photo
+                  </button>
+                </div>
+              )}
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                hidden
+              />
+            </div>
           </div>
 
           <h3>{user?.username ? `Welcome ${user.username} 👋` : "Welcome"}</h3>

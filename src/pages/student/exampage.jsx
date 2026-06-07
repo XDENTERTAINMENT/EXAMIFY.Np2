@@ -7,7 +7,7 @@ function Exampage() {
   const [stopTime, setStopTime] = useState(false);
   const [time, setTime] = useState(0);
   const [Gamestatus, setGameStatus] = useState("");
-  const [examData, setExamData] = useState(null);
+  // const [examData, setExamData] = useState(null);
 
   // FIXED
   const [answers, setAnswers] = useState({});
@@ -38,7 +38,7 @@ function Exampage() {
 
       submitExam(true);
     }
-  }, [time, questions]);
+  }, [time, questions , submitExam]);
 
   // TIMER COUNTDOWN
   useEffect(() => {
@@ -63,7 +63,7 @@ function Exampage() {
       // RANDOMIZE QUESTIONS
       const { exam, questions } = res.data;
 
-      setExamData(exam);
+      // setExamData(exam);
       setTime(exam.duration * 60);
 
       const shuffled = [...questions].sort(() => Math.random() - 0.5);
