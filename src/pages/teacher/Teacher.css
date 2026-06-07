@@ -569,6 +569,11 @@ body {
 ========================= */
 
 @media (max-width: 768px) {
+
+   .teacher-sidebar1{
+    height: 100vh;
+   }
+
   .teacher-main {
     width: auto;
   }
