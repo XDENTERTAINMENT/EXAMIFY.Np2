@@ -1,23 +1,23 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  background:#f5f7fb;
+body {
+  background: #f5f7fb;
 }
 
 /* =========================
    DASHBOARD LAYOUT
 ========================= */
 
-.teacher-dashboard{
-  display:grid;
-  grid-template-columns:260px 1fr;
-  min-height:100vh;
-  background:#f5f7fb;
+.teacher-dashboard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: #f5f7fb;
 }
 
 /* =========================
@@ -29,14 +29,13 @@ body{
   position: relative;
   display: inline-block;
   margin-bottom: 60px;
- 
 }
-.teacher-logo{
+.teacher-logo {
   display: flex;
   justify-content: center;
 }
 .avatar-img {
-  border:1px solid white;
+  border: 1px solid white;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -48,8 +47,8 @@ body{
   position: relative;
   justify-content: center;
 }
-.redbin{
-  color:red;
+.redbin {
+  color: red;
 }
 
 .edit-btn1 {
@@ -91,13 +90,12 @@ body{
 .avatar-menu button:hover {
   background: #f5f5f5;
 }
-.teacher-sidebar1{
-  background:linear-gradient(to bottom,#071126,#020817);
-  color:white;
-  padding:25px 20px;
-  display:flex;
-  flex-direction:column;
-
+.teacher-sidebar1 {
+  background: linear-gradient(to bottom, #071126, #020817);
+  color: white;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* .teacher-logo h2{
@@ -110,281 +108,280 @@ body{
   color:#6d5efc;
 } */
 
-.teacher-menu{
-  
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+.teacher-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   margin-top: 30px;
 }
 
-.teacher-menu button{
-  border:none;
-  background:transparent;
-  color:white;
-  text-align:left;
-  padding:15px;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:15px;
-  transition:0.2s;
+.teacher-menu button {
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  padding: 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
 }
 
-.teacher-menu button:hover{
-  background:rgba(255,255,255,0.08);
+.teacher-menu button:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.teacher-menu .active{
-  background:linear-gradient(to right,#4f46e5,#6d5efc);
+.teacher-menu .active {
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
 }
 
-.sidebar-bottom{
-   margin-top: 29rem;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.sidebar-bottom {
+  margin-top: 29rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.sidebar-bottom button{
-  border:none;
-  background:transparent;
-  color:white;
-  text-align:left;
-  padding:15px;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:15px;
-  transition:0.2s;
+.sidebar-bottom button {
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  padding: 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
 }
 
-.sidebar-bottom button:hover{
-  background:rgba(255,255,255,0.08);
+.sidebar-bottom button:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.logout-btn{
-  background:rgba(220,38,38,0.2)!important;
+.logout-btn {
+  background: rgba(220, 38, 38, 0.2) !important;
 }
 
-.logout-btn:hover{
-  background:#dc2626!important;
+.logout-btn:hover {
+  background: #dc2626 !important;
 }
 
 /* =========================
    MAIN CONTENT
 ========================= */
 
-.teacher-main{
-  padding:25px;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
+.teacher-main {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 /* =========================
    HERO SECTION
 ========================= */
 
-.teacher-hero{
-  background:white;
-  border-radius:24px;
-  padding:35px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border:1px solid #e5e7eb;
-  gap:30px;
+.teacher-hero {
+  background: white;
+  border-radius: 24px;
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  gap: 30px;
 }
 
-.hero-content{
-  max-width:650px;
+.hero-content {
+  max-width: 650px;
 }
 
-.hero-tag{
-  display:inline-block;
-  background:#ede9fe;
-  color:#5b21b6;
-  padding:8px 14px;
-  border-radius:30px;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:20px;
+.hero-tag {
+  display: inline-block;
+  background: #ede9fe;
+  color: #5b21b6;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.hero-content h1{
-  font-size:48px;
-  color:#0f172a;
-  margin-bottom:15px;
+.hero-content h1 {
+  font-size: 48px;
+  color: #0f172a;
+  margin-bottom: 15px;
 }
 
-.hero-content p{
-  color:gray;
-  line-height:1.7;
-  font-size:16px;
+.hero-content p {
+  color: gray;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
-.hero-action button{
-  background:linear-gradient(to right,#4f46e5,#6d5efc);
-  color:white;
-  border:none;
-  padding:16px 24px;
-  border-radius:14px;
-  cursor:pointer;
-  font-size:15px;
-  font-weight:600;
-  transition:0.2s;
+.hero-action button {
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.hero-action button:hover{
-  transform:translateY(-2px);
+.hero-action button:hover {
+  transform: translateY(-2px);
 }
 
 /* =========================
    STATS
 ========================= */
 
-.teacher-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
+.teacher-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.stats-card2{
-   background:linear-gradient(to right,#4f46e5,#6d5efc);
-  border-radius:20px;
-  padding:25px;
-  border:1px solid #e5e7eb;
-  transition:0.2s;
+.stats-card2 {
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid #e5e7eb;
+  transition: 0.2s;
 }
 
-.stats-card2:hover{
-  transform:translateY(-3px);
+.stats-card2:hover {
+  transform: translateY(-3px);
 }
 
-.stats-card2 h2{
-  font-size:38px;
+.stats-card2 h2 {
+  font-size: 38px;
   color: #dcfce7;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-.stats-card2 span{
-  color:#111827;
-  font-weight:600;
+.stats-card2 span {
+  color: #111827;
+  font-weight: 600;
 }
 
 /* =========================
    DASHBOARD CARD
 ========================= */
 
-.dashboard-card2{
+.dashboard-card2 {
   background: white;
   overflow-y: scroll;
   max-height: 69vh;
-  border-radius:20px;
-  padding:25px;
-  border:1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid #e5e7eb;
 }
 
-.card-header{
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-  gap:20px;
+.card-header {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
 }
 
-.card-header h2{
-  margin-bottom:6px;
-  color:#111827;
+.card-header h2 {
+  margin-bottom: 6px;
+  color: #111827;
 }
 
-.card-header p{
-  color:gray;
-  font-size:14px;
+.card-header p {
+  color: gray;
+  font-size: 14px;
 }
 
-.view-btn{
-  border:none;
-  background:#eef2ff;
-  color:#4f46e5;
-  padding:10px 16px;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:600;
+.view-btn {
+  border: none;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 /* =========================
    QUICK ACTIONS
 ========================= */
 
-.quick-actions{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
 }
 
-.quick-actions button{
-  border:none;
-  background:#f8fafc;
-  padding:18px;
-  border-radius:14px;
-  cursor:pointer;
-  font-weight:600;
-  transition:0.2s;
+.quick-actions button {
+  border: none;
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.quick-actions button:hover{
-  background:#eef2ff;
-  color:#4f46e5;
+.quick-actions button:hover {
+  background: #eef2ff;
+  color: #4f46e5;
 }
 
 /* =========================
    RECENT EXAMS
 ========================= */
 
-.recent-exams{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
+.recent-exams {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.exam-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px;
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  transition:0.2s;
+.exam-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  transition: 0.2s;
 }
 
-.exam-item:hover{
-  background:#fafafa;
+.exam-item:hover {
+  background: #fafafa;
 }
 
-.exam-item h3{
-  margin-bottom:6px;
-  color:#111827;
+.exam-item h3 {
+  margin-bottom: 6px;
+  color: #111827;
 }
 
-.exam-item span{
-  color:gray;
-  font-size:14px;
+.exam-item span {
+  color: gray;
+  font-size: 14px;
 }
 
-.exam-item button{
-  border:none;
-  padding:8px 14px;
-  border-radius:30px;
-  background:#dcfce7;
-  color:#15803d;
-  font-size:13px;
-  font-weight:600;
+.exam-item button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 30px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 /* RECENT EXAM CARD */
 
-.teacher-card{
+.teacher-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -400,21 +397,20 @@ body{
   transition: 0.3s ease;
   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.teacher-card:hover{
+.teacher-card:hover {
   transform: translateY(-3px);
 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 
   border-color: #2563eb;
 }
 
-
 /* LEFT SIDE */
 
-.teacher-card h4{
+.teacher-card h4 {
   font-size: 18px;
   font-weight: 700;
 
@@ -423,17 +419,16 @@ body{
   margin-bottom: 6px;
 }
 
-.teacher-card p{
+.teacher-card p {
   font-size: 14px;
   color: #6b7280;
 
   font-weight: 500;
 }
 
-
 /* STATUS BADGE */
 
-.status-badge{
+.status-badge {
   background: #dcfce7;
   color: #166534;
 
@@ -449,10 +444,9 @@ body{
   border: 1px solid #bbf7d0;
 }
 
-
 /* RECENT EXAMS CONTAINER */
 
-.recent-exams{
+.recent-exams {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -460,15 +454,14 @@ body{
   margin-top: 20px;
 }
 
-.welcome{
-  color:green;
+.welcome {
+  color: green;
   margin-bottom: 20px;
-  
 }
-.sidebar-toggle1{
+.sidebar-toggle1 {
   display: none;
 }
- 
+
 /* =========================
    TABLET VIEW
 ========================= */
@@ -498,7 +491,6 @@ body{
 
 } */
 
-
 @media (max-width: 1024px) {
   .teacher-sidebar1 {
     position: fixed;
@@ -510,7 +502,7 @@ body{
 
     z-index: 9999;
     background: #fff;
-    color:black;
+    color: black;
 
     transition: transform 0.3s ease;
   }
@@ -549,123 +541,117 @@ body{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
-  .sidebar-bottom{
+  .sidebar-bottom {
     width: 80%;
     position: absolute;
     bottom: 0;
-    
   }
 
-  .sidebar-bottom button:nth-child(1){
-    color:black;
+  .sidebar-bottom button:nth-child(1) {
+    color: black;
     font-size: 20px;
   }
-    .avatar-actions button {
+  .avatar-actions button {
     font-size: 25px;
   }
-  .teacher-menu button{
-    color:black;
+  .teacher-menu button {
+    color: black;
   }
-  .avatar-actions button{
-    color:black;
+  .avatar-actions button {
+    color: black;
   }
-  .teacher-main{
+  .teacher-main {
     width: 800px;
   }
-
 }
 /* =========================
    MOBILE VIEW
 ========================= */
 
-@media(max-width:768px){
-  .teacher-main{
+@media (max-width: 768px) {
+  .teacher-main {
     width: auto;
   }
 
-  .sidebar-toggle1{
+  .sidebar-toggle1 {
     top: 12%;
   }
 
- 
-  .hero-content{
-     grid-template-columns:1fr;
+  .hero-content {
+    grid-template-columns: 1fr;
   }
-  .teacher-hero{
+  .teacher-hero {
     display: grid;
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
-    .teacher-sidebar1{
+  .teacher-sidebar1 {
     width: 300px;
   }
 
-  .teacher-dashboard{
-    grid-template-columns:1fr;
+  .teacher-dashboard {
+    grid-template-columns: 1fr;
   }
 
-
-  .teacher-main{
-    padding:15px;
+  .teacher-main {
+    padding: 15px;
   }
 
-  .teacher-stats{
-    grid-template-columns:1fr;
+  .teacher-stats {
+    grid-template-columns: 1fr;
   }
 
-  .quick-actions{
-    grid-template-columns:1fr;
+  .quick-actions {
+    grid-template-columns: 1fr;
   }
 
-  .teacher-hero{
-    padding:25px;
+  .teacher-hero {
+    padding: 25px;
   }
 
-  .hero-content h1{
-    font-size:32px;
+  .hero-content h1 {
+    font-size: 32px;
   }
 
-  .hero-action{
-    width:100%;
+  .hero-action {
+    width: 100%;
   }
 
-  .hero-action button{
-    width:100%;
+  .hero-action button {
+    width: 100%;
   }
 
-  .card-header{
-    flex-direction:column;
-    align-items:flex-start;
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .exam-item{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:15px;
+  .exam-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
-  .teacher-card{
+  .teacher-card {
     flex-direction: column;
     align-items: flex-start;
 
     gap: 14px;
   }
 
-  .status-badge{
+  .status-badge {
     align-self: flex-start;
   }
- 
-  .stats-card2{
-  padding: 15px;
-  width: 90%;
 
+  .stats-card2 {
+    padding: 15px;
+    width: 90%;
   }
-  .stats-card2 h2{
-  font-size:20px;
-
-}
-.teacher-stats{
-justify-items: center;
-}
- .avatar-actions button {
+  .stats-card2 h2 {
+    font-size: 20px;
+  }
+  .teacher-stats {
+    justify-items: center;
+  }
+  .avatar-actions button {
     font-size: 20px;
   }
 }
