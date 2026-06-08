@@ -111,16 +111,18 @@ function StudentDashboard() {
   return (
     <div className="student-dashboard">
       {/* LEFT SIDEBAR */}
+ <button
+          className="sidebar-toggle1"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
+        </button>
+      
       <div className={`student-sidebar ${
     sidebarOpen ? "sidebar-open" : "sidebar-closed"
   }`}>
 
-   <button
-    className="sidebar-toggle"
-    onClick={() => setSidebarOpen(!sidebarOpen)}
-  >
-    {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
-  </button>
+
         <div className="student-profile">
           <div className="avatar-wrapper">
             <img

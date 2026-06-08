@@ -93,7 +93,7 @@ body {
 .teacher-sidebar1 {
   background: linear-gradient(to bottom, #071126, #020817);
   color: white;
-  padding: 25px 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
 }
@@ -136,7 +136,8 @@ body {
 }
 
 .sidebar-bottom {
-  margin-top: 29rem;
+  margin-top: auto;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -153,6 +154,8 @@ body {
   font-size: 15px;
   transition: 0.2s;
 }
+
+
 
 .sidebar-bottom button:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -490,21 +493,31 @@ body {
   }
 
 } */
-
 @media (max-width: 1024px) {
+  .avatar-wrapper img{
+    border: 1px solid black;
+  }
+  .sidebar-bottom button:nth-child(1){
+    color:black;
+  }
   .teacher-sidebar1 {
     position: fixed;
     top: 0;
     left: 0;
 
-    width: 350px;
+    width: 280px;
+    max-width: 80vw;
     height: 100vh;
 
-    z-index: 9999;
     background: #fff;
-    color: black;
+    
+    z-index: 9999;
 
     transition: transform 0.3s ease;
+  }
+
+  .teacher-sidebar1 button{
+    color:black;
   }
 
   .sidebar-open {
@@ -514,52 +527,27 @@ body {
   .sidebar-closed {
     transform: translateX(-100%);
   }
-
   .sidebar-toggle1 {
     display: flex;
 
-    position: absolute;
-    top: 15%;
-    right: -45px;
+    position: fixed;
+    top: 20px;
+    left: 15px;
 
-    transform: translateY(-50%);
-
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
 
     border: none;
     border-radius: 50%;
 
     background: #2563eb;
-    color: white;
-
-    cursor: pointer;
+    color: #fff;
 
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .sidebar-bottom {
-    width: 80%;
-  }
-
-  .sidebar-bottom button:nth-child(1) {
-    color: black;
-    font-size: 20px;
-  }
-  .avatar-actions button {
-    font-size: 25px;
-  }
-  .teacher-menu button {
-    color: black;
-  }
-  .avatar-actions button {
-    color: black;
-  }
-  .teacher-main {
-    width: 800px;
+    z-index: 10000;
+    cursor: pointer;
   }
 }
 /* =========================
@@ -567,13 +555,7 @@ body {
 ========================= */
 
 @media (max-width: 768px) {
-  .teacher-sidebar1 {
-    height: 100vh;
-  }
 
-  .teacher-main {
-    width: auto;
-  }
 
   .sidebar-toggle1 {
     top: 12%;

@@ -70,17 +70,20 @@ function TeacherDashboard() {
   return (
     <div className="teacher-dashboard">
       {/* SIDEBAR */}
-      <div
-        className={`teacher-sidebar1 ${
-          sidebarOpen ? "sidebar-open" : "sidebar-closed"
-        }`}
-      >
-        <button
+
+       <button
           className="sidebar-toggle1"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
         </button>
+        
+      <div
+        className={`teacher-sidebar1 ${
+          sidebarOpen ? "sidebar-open" : "sidebar-closed"
+        }`}
+      >
+       
 
         <div className="teacher-logo">
           <div className="avatar-wrapper">

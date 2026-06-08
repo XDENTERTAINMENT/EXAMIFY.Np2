@@ -16,12 +16,14 @@
 /* SIDEBAR */
 
 .student-sidebar {
-  background: white;
+  background: linear-gradient(to bottom, #071126, #020817);
   border-radius: 28px;
-
   padding: 30px;
 
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .student-profile {
@@ -534,7 +536,8 @@
 }
 
 .sidebar-bottom {
-  margin-top: 29rem;
+  margin-top: auto;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -582,11 +585,12 @@
     top: 0;
     left: 0;
 
-    width: 350px;
+    width: 280px;
+    max-width: 80vw;
     height: 100vh;
 
-    z-index: 9999;
     background: #fff;
+    z-index: 9999;
 
     transition: transform 0.3s ease;
   }
@@ -598,50 +602,31 @@
   .sidebar-closed {
     transform: translateX(-100%);
   }
-
-  .sidebar-toggle {
+  .sidebar-toggle1 {
     display: flex;
 
-    position: absolute;
-    top: 11%;
-    right: -45px;
+    position: fixed;
+    top: 20px;
+    left: 15px;
 
-    transform: translateY(-50%);
-
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
 
     border: none;
     border-radius: 50%;
 
     background: #2563eb;
-    color: white;
-
-    cursor: pointer;
+    color: #fff;
 
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .sidebar-bottom {
-    width: 80%;
-  }
-
-  .sidebar-bottom button:nth-child(1) {
-    color: black;
-    font-size: 20px;
-  }
-  .avatar-actions button {
-    font-size: 25px;
+    z-index: 10000;
+    cursor: pointer;
   }
 }
 
 @media (max-width: 768px) {
-  .student-sidebar {
-    height: 100vh;
-  }
   .student-dashboard {
     padding: 20px;
   }
@@ -665,9 +650,6 @@
   }
   .avatar-actions button {
     font-size: 20px;
-  }
-  .sidebar-toggle {
-    top: 13%;
   }
 }
 
