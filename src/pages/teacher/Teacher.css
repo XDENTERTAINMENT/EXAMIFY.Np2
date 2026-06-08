@@ -543,8 +543,6 @@ body {
 
   .sidebar-bottom {
     width: 80%;
-    position: absolute;
-    bottom: 0;
   }
 
   .sidebar-bottom button:nth-child(1) {
@@ -569,10 +567,9 @@ body {
 ========================= */
 
 @media (max-width: 768px) {
-
-   .teacher-sidebar1{
+  .teacher-sidebar1 {
     height: 100vh;
-   }
+  }
 
   .teacher-main {
     width: auto;

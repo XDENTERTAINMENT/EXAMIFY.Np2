@@ -18,7 +18,7 @@
 .student-sidebar {
   background: white;
   border-radius: 28px;
-  
+
   padding: 30px;
 
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
@@ -627,8 +627,6 @@
 
   .sidebar-bottom {
     width: 80%;
-    position: absolute;
-    bottom: 0;
   }
 
   .sidebar-bottom button:nth-child(1) {
@@ -641,10 +639,9 @@
 }
 
 @media (max-width: 768px) {
-
-   .student-sidebar{
+  .student-sidebar {
     height: 100vh;
-   }
+  }
   .student-dashboard {
     padding: 20px;
   }
