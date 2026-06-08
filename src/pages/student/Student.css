@@ -1,3 +1,15 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .student-dashboard {
   width: 100%;
   min-height: 100vh;
@@ -633,9 +645,15 @@
 }
 
 @media (max-width: 768px) {
-
+   .avatar-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+  
     .student-sidebar{
-    height: 100vh;
+     min-height: 100dvh;
+       overflow-y: auto;
    }
   .student-dashboard {
     padding: 20px;

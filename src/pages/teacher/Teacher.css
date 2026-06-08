@@ -4,6 +4,17 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   background: #f5f7fb;
@@ -154,8 +165,6 @@ body {
   font-size: 15px;
   transition: 0.2s;
 }
-
-
 
 .sidebar-bottom button:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -494,11 +503,11 @@ body {
 
 } */
 @media (max-width: 1024px) {
-  .avatar-wrapper img{
+  .avatar-wrapper img {
     border: 1px solid black;
   }
-  .sidebar-bottom button:nth-child(1){
-    color:black;
+  .sidebar-bottom button:nth-child(1) {
+    color: black;
   }
   .teacher-sidebar1 {
     position: fixed;
@@ -510,19 +519,19 @@ body {
     height: 100vh;
 
     background: #fff;
-    
+
     z-index: 9999;
 
     transition: transform 0.3s ease;
-     overflow-y: auto;
+    overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
     -webkit-overflow-scrolling: touch;
     transform: translateX(-100%);
   }
 
-  .teacher-sidebar1 button{
-    color:black;
+  .teacher-sidebar1 button {
+    color: black;
   }
 
   .sidebar-open {
@@ -561,9 +570,16 @@ body {
 
 @media (max-width: 768px) {
 
-   .teacher-sidebar1{
-    height: 100vh;
-   }
+   .avatar-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+  
+  .teacher-sidebar1 {
+    min-height: 100dvh;
+      overflow-y: auto;
+  }
   .sidebar-toggle1 {
     top: 12%;
   }
