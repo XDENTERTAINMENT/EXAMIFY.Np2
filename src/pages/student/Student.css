@@ -593,11 +593,12 @@
     z-index: 9999;
 
     transition: transform 0.3s ease;
-
+    min-height: 0;
      overflow-y: auto;
     overflow-x: hidden;
 
     -webkit-overflow-scrolling: touch;
+    transform: translateX(-100%);
   }
 
   .sidebar-open {
@@ -632,6 +633,10 @@
 }
 
 @media (max-width: 768px) {
+
+    .student-sidebar{
+    height: 100vh;
+   }
   .student-dashboard {
     padding: 20px;
   }

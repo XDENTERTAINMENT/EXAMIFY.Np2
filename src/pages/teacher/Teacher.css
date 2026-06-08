@@ -516,8 +516,9 @@ body {
     transition: transform 0.3s ease;
      overflow-y: auto;
     overflow-x: hidden;
-
+    min-height: 0;
     -webkit-overflow-scrolling: touch;
+    transform: translateX(-100%);
   }
 
   .teacher-sidebar1 button{
@@ -560,7 +561,9 @@ body {
 
 @media (max-width: 768px) {
 
-
+   .teacher-sidebar1{
+    height: 100vh;
+   }
   .sidebar-toggle1 {
     top: 12%;
   }
