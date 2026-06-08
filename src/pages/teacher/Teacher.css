@@ -503,6 +503,11 @@ body {
 
 } */
 @media (max-width: 1024px) {
+
+  .sidebar-bottom {
+     
+    background-color:#020817;
+}
   .avatar-wrapper img {
     border: 1px solid black;
   }
@@ -516,7 +521,7 @@ body {
 
     width: 280px;
     max-width: 80vw;
-    height: 100vh;
+    height: 90vh;
 
     background: #fff;
 
@@ -575,7 +580,7 @@ body {
     height: 120px;
     margin-bottom: 20px;
   }
-  
+
   .teacher-sidebar1 {
     min-height: 100dvh;
       overflow-y: auto;
