@@ -514,6 +514,10 @@ body {
     z-index: 9999;
 
     transition: transform 0.3s ease;
+     overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
   }
 
   .teacher-sidebar1 button{
