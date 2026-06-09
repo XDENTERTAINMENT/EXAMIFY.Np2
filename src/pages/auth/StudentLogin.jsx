@@ -72,7 +72,7 @@ function StudentLogin() {
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      console.log(res);
+      
       setStatus("success"); // ✅ success = green
       setResponse(res.data.message);
 

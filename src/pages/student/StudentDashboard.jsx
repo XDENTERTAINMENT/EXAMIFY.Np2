@@ -62,7 +62,7 @@ function StudentDashboard() {
       );
 
       SetDashboardData(res.data);
-      console.log(res.data);
+    
     };
     loadActivities();
   }, [user?.id]);
