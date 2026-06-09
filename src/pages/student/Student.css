@@ -592,6 +592,9 @@ body {
 }
 
 @media (max-width: 1024px) {
+  .edit-btn{
+    color:black;
+  }
   .student-sidebar {
     position: fixed;
     top: 0;
@@ -645,6 +648,9 @@ body {
 }
 
 @media (max-width: 768px) {
+   .edit-btn{
+    color:black;
+  }
   .avatar-wrapper {
     width: 120px;
     height: 120px;

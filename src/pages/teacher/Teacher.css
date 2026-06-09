@@ -565,13 +565,19 @@ body {
     z-index: 10000;
     cursor: pointer;
   }
+
+   .edit-btn{
+    color:black;
+  }
 }
 /* =========================
    MOBILE VIEW
 ========================= */
 
 @media (max-width: 768px) {
-
+ .edit-btn{
+    color:black;
+  }
    .avatar-wrapper {
     width: 120px;
     height: 120px;
