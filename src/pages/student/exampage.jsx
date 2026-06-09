@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./exampage.css";
 import API from "../../services/api";
 import { useParams } from "react-router-dom";
@@ -25,21 +25,6 @@ function Exampage() {
 
   const current = questions[currentQuestion];
 
-  // FETCH QUESTIONS
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
-
-  // TIMER END
-  useEffect(() => {
-    if (time === 0 && !stopTime) {
-      setStopTime(true);
-      setGameStatus("end");
-
-      submitExam(true);
-    }
-  }, [time, questions, submitExam]);
-
   // TIMER COUNTDOWN
   useEffect(() => {
     if (time > 0 && !stopTime) {
@@ -52,7 +37,7 @@ function Exampage() {
   }, [time, stopTime]);
 
   // FETCH QUESTIONS FUNCTION
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -102,7 +87,12 @@ function Exampage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [examCode]);
+
+  // FETCH QUESTIONS
+  useEffect(() => {
+    fetchQuestions();
+  }, [fetchQuestions]);
 
   // SAVE ANSWER API
   const saveAnswerAPI = async (data) => {
@@ -141,36 +131,46 @@ function Exampage() {
     setCurrentQuestion((prev) => prev + 1);
   };
   // HANDLE SUBMIT
-  const submitExam = async (autoSubmit = false) => {
-    try {
-      if (!current) return;
+  const submitExam = useCallback(
+    async (autoSubmit = false) => {
+      try {
+        if (!current) return;
 
-      // CHECK IF LAST QUESTION ANSWER EXISTS
-      if (!autoSubmit && !answers[current._id]) {
-        alert("Please select an answer");
-        return;
+        if (!autoSubmit && !answers[current._id]) {
+          alert("Please select an answer");
+          return;
+        }
+
+        await saveAnswerAPI({
+          student: studentId,
+          exam: examId,
+          questionId: current._id,
+          selectedOption: answers[current._id],
+        });
+
+        await submitExamAPI({
+          studentId,
+          examId,
+        });
+
+        setStopTime(true);
+        setGameStatus("finished");
+      } catch (err) {
+        console.log("Submit error:", err);
       }
+    },
+    [current, answers, studentId, examId],
+  );
 
-      // 🔥 SAVE LAST ANSWER FIRST
-      await saveAnswerAPI({
-        student: studentId,
-        exam: examId,
-        questionId: current._id,
-        selectedOption: answers[current._id],
-      });
-
-      // 🔥 THEN SUBMIT EXAM
-      await submitExamAPI({
-        studentId,
-        examId,
-      });
-
+  // TIMER END
+  useEffect(() => {
+    if (questions.length > 0 && time === 0 && !stopTime) {
       setStopTime(true);
-      setGameStatus("finished");
-    } catch (err) {
-      console.log("Submit error:", err);
+      setGameStatus("end");
+
+      submitExam(true);
     }
-  };
+  }, [time, stopTime, questions, submitExam]);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
