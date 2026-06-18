@@ -643,7 +643,9 @@ font-size: clamp(24px, 5vw, 42px);
 }
 
 @media (max-width: 1024px) {
-    
+    .activity-list {
+  overflow-y: scroll;
+}
 
   .performance-box {
   text-align: center;
