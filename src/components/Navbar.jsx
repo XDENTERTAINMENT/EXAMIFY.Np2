@@ -14,6 +14,16 @@ function Navbar() {
 }, [menuOpen]);
 
   return (
+
+    <div>
+        {menuOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+    
     <nav className="nav">
       <h2 className="logo">
         🎓 Examify<span>Edu</span>
@@ -55,6 +65,7 @@ function Navbar() {
 
       </div>
     </nav>
+    </div>
   );
 }
 
