@@ -96,12 +96,12 @@ function Exampage() {
 
   // SAVE ANSWER API
   const saveAnswerAPI = async (data) => {
-    return API.post("/answers/save-answer", data);
+    return API.post("/submissions/save-answer", data);
   };
 
   // SUBMIT EXAM API
   const submitExamAPI = async (data) => {
-    return API.post("/answers/submit-exam", data);
+    return API.post("/submissions/submit-exam", data);
   };
 
   // HANDLE ANSWER

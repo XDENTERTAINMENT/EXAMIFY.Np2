@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import API from "../../services/api";
 import "./result.css";
 
@@ -13,7 +14,7 @@ function ResultsPage() {
 
   const [searchStudent, setSearchStudent] = useState("");
 
-  const [filteredResults, setFilteredResults] = useState([]);
+  // const [filteredResults, setFilteredResults] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -21,13 +22,10 @@ function ResultsPage() {
 
   const [status, setStatus] = useState(""); // "success" or "error"
 
-  const teacher = JSON.parse(localStorage.getItem("user"));
+  // const teacher = JSON.parse(localStorage.getItem("user"));
 
   //  fetch exam
-  useEffect(() => {
-    fetchexamtitle();
-  }, []);
-
+useEffect(() => {
   const fetchexamtitle = async () => {
     try {
       const res = await API.get("/exam");
@@ -39,6 +37,9 @@ function ResultsPage() {
       console.log(err);
     }
   };
+
+  fetchexamtitle();
+}, []);
 
   // VERIFY EXAM + GET RESULTS
 
@@ -68,8 +69,9 @@ function ResultsPage() {
       });
 
       setResults(res.data.results);
+      console.log(res.data.results);
 
-      setFilteredResults(res.data.results);
+      // setFilteredResults(res.data.results);
       setStatus("success");
       setMessage("Results Loaded Successfully ✅");
       setTimeout(() => {
@@ -90,15 +92,14 @@ function ResultsPage() {
 
   // find students by surname
 
-  useEffect(() => {
-    const filtered = results.filter((item) =>
-      (item.student?.lastname || "")
-        .toLowerCase()
-        .includes(searchStudent.toLowerCase()),
-    );
 
-    setFilteredResults(filtered);
-  }, [searchStudent, results]);
+const filteredResults = useMemo(() => {
+  return results.filter((item) =>
+    (item.student?.lastname || item.student?.username || "")
+      .toLowerCase()
+      .includes(searchStudent.toLowerCase())
+  );
+}, [results, searchStudent]);
 
   return (
     <div className="resultsPage">
@@ -213,10 +214,10 @@ function ResultsPage() {
             {filteredResults.map((item) => (
               <tr key={item._id}>
                 <td>
-                  {item.student?.lastname} {item.student?.firstname}
+                  {item.student?.lastname || item.student?.username } {item.student?.firstname}
                 </td>
 
-                <td>{item.score}</td>
+                <td>{item.score}/{item.totalQuestions}</td>
 
                 <td>{item.percentage}%</td>
 

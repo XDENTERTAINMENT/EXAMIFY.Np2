@@ -6,7 +6,7 @@ import "./createexam.css";
 import API from "../../services/api";
 
 function CreateExamPage() {
-  const [examTitle, setExamTitle] = useState("");
+  // const [examTitle, setExamTitle] = useState("");
   const [questions, setQuestions] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [examCode, setExamCode] = useState("");
@@ -15,11 +15,11 @@ function CreateExamPage() {
   const [level, setLevel] = useState("");
   const [erroMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
-  const [questionText, setQuestionText] = useState("");
-  const [optionA, setOptionA] = useState("");
-  const [optionB, setOptionB] = useState("");
-  const [optionC, setOptionC] = useState("");
-  const [optionD, setOptionD] = useState("");
+  // const [questionText, setQuestionText] = useState("");
+  // const [optionA, setOptionA] = useState("");
+  // const [optionB, setOptionB] = useState("");
+  // const [optionC, setOptionC] = useState("");
+  // const [optionD, setOptionD] = useState("");
 
   // 🔥 create exam
 

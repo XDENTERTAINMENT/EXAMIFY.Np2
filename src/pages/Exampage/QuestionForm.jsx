@@ -4,7 +4,7 @@ import API from "../../services/api";
 
 function QuestionForm({
   addQuestion,
-  updateQuestion,
+  // updateQuestion,
   editingIndex,
   questionToEdit,
   examCode,

@@ -44,13 +44,47 @@ function StudentDashboard() {
     setShowMenu(false);
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  // for profile image
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(imageUrl);
-    }
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // 1. Instant preview (UI)
+    const previewUrl = URL.createObjectURL(file);
+    setUploadedImage(previewUrl);
+
+    // 2. Upload to backend
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = async () => {
+      try {
+        const res = await API.post("/auth/update-avatar", {
+          userId: user.id,
+
+          role: user.role,
+
+          image: reader.result,
+        });
+
+        setUploadedImage(res.data.avatar);
+
+        const updatedUser = {
+          ...user,
+
+          avatar: res.data.avatar,
+        };
+
+        localStorage.setItem(
+          "user",
+
+          JSON.stringify(updatedUser),
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
   };
 
   useEffect(() => {
@@ -62,7 +96,6 @@ function StudentDashboard() {
       );
 
       SetDashboardData(res.data);
-    
     };
     loadActivities();
   }, [user?.id]);
@@ -112,6 +145,14 @@ function StudentDashboard() {
   return (
     <div className="student-dashboard">
       {/* LEFT SIDEBAR */}
+
+        {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+          {/* Toggle Button */}
       <button
         className="sidebar-toggle1"
         onClick={() => setSidebarOpen(!sidebarOpen)}

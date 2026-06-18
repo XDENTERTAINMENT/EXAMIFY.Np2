@@ -30,13 +30,47 @@ function TeacherDashboard() {
     setShowMenu(false);
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  // for profile image
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(imageUrl);
-    }
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // 1. Instant preview (UI)
+    const previewUrl = URL.createObjectURL(file);
+    setUploadedImage(previewUrl);
+
+    // 2. Upload to backend
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = async () => {
+      try {
+        const res = await API.post("/auth/update-avatar", {
+          userId: user.id,
+
+          role: user.role,
+
+          image: reader.result,
+        });
+
+        setUploadedImage(res.data.avatar);
+
+        const updatedUser = {
+          ...user,
+
+          avatar: res.data.avatar,
+        };
+
+        localStorage.setItem(
+          "user",
+
+          JSON.stringify(updatedUser),
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
   };
 
   useEffect(() => {
@@ -71,20 +105,27 @@ function TeacherDashboard() {
     <div className="teacher-dashboard">
       {/* SIDEBAR */}
 
-       <button
-          className="sidebar-toggle1"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
-        </button>
-        
+      {/* Overlay */}
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Toggle Button */}
+      <button
+        className="sidebar-toggle1"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
+      </button>
+
       <div
         className={`teacher-sidebar1 ${
           sidebarOpen ? "sidebar-open" : "sidebar-closed"
         }`}
       >
-       
-
         <div className="teacher-logo">
           <div className="avatar-wrapper">
             <img

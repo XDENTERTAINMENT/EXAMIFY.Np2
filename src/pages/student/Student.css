@@ -10,6 +10,13 @@ body {
   padding: 0;
 }
 
+input,
+button,
+select,
+textarea {
+  max-width: 100%;
+}
+
 .student-dashboard {
   width: 100%;
   min-height: 100vh;
@@ -28,7 +35,7 @@ body {
 /* SIDEBAR */
 
 .student-sidebar {
-  background: linear-gradient(to bottom, #071126, #020817);
+  background: linear-gradient(to bottom, #9a9aac, #f3f4f7);
   border-radius: 28px;
   padding: 30px;
 
@@ -77,7 +84,7 @@ body {
   gap: 6px;
   border: none;
   background-color: transparent;
-  color: white;
+  color: black;
 }
 
 .avatar-menu {
@@ -159,7 +166,7 @@ body {
   background: linear-gradient(to right, #071021, #111c3d);
 
   color: white;
-
+  width: 100%;
   border-radius: 30px;
 
   padding: 40px;
@@ -169,6 +176,14 @@ body {
   align-items: center;
 
   gap: 30px;
+}
+
+.hero-text {
+  width: 100%;
+}
+
+.hero-text h1 {
+  word-break: break-word;
 }
 
 .hero-tag {
@@ -184,7 +199,7 @@ body {
 }
 
 .dashboard-hero h1 {
-  font-size: 42px;
+font-size: clamp(24px, 5vw, 42px);
   margin-bottom: 16px;
 }
 
@@ -287,6 +302,7 @@ body {
 ========================= */
 
 .exam-validation {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -299,6 +315,7 @@ body {
 
 /* INPUT STYLE */
 .exam-validation input {
+  width: 100%;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -314,6 +331,7 @@ body {
 
 /* VALIDATE BUTTON (IMPROVED) */
 .exam-validation button {
+  width: 100%;
   padding: 10px 14px;
   border-radius: 8px;
   border: none;
@@ -356,7 +374,7 @@ body {
   gap: 18px;
 }
 
-.activity-item {
+/* .activity-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -384,7 +402,7 @@ body {
 
 .pending {
   color: #dc2626 !important;
-}
+} */
 
 /* RIGHT */
 
@@ -485,6 +503,8 @@ body {
 .activity-card {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
   align-items: center;
 
   padding: 16px 18px;
@@ -506,6 +526,8 @@ body {
 
 /* LEFT SIDE */
 .activity-left {
+ flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -516,6 +538,8 @@ body {
   font-weight: 700;
   color: #111827;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .activity-left p {
@@ -558,7 +582,7 @@ body {
 .sidebar-bottom button {
   border: none;
   background: transparent;
-  color: white;
+  color: black;
   text-align: center;
   padding: 15px;
   border-radius: 14px;
@@ -578,126 +602,242 @@ body {
 .logout-btn:hover {
   background: #dc2626 !important;
 }
+/* overlay? */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
 
 /* RESPONSIVE */
-
 @media (max-width: 1200px) {
   .student-dashboard {
     grid-template-columns: 1fr;
+    padding: 80px 20px 20px;
+  }
+
+  .student-main {
+    order: 1;
   }
 
   .student-right {
-    flex-direction: row;
+    order: 2;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 20px;
   }
+
+
+}
+
+@media (min-width: 1025px) {
+  .sidebar-toggle1 {
+    display: none;
+  }
+ .sidebar-overlay{
+  display: none;
+ }
 }
 
 @media (max-width: 1024px) {
-  .edit-btn{
-    color:black;
-  }
-  .student-sidebar {
+    
+
+  .performance-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.performance-box h1 {
+  font-size: clamp(32px, 5vw, 60px);
+}
+
+   .student-sidebar {
     position: fixed;
     top: 0;
     left: 0;
-
-    width: 280px;
-    max-width: 80vw;
-    height: 88vh;
-
-    background: #fff;
-    z-index: 9999;
-
-    transition: transform 0.3s ease;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    -webkit-overflow-scrolling: touch;
+    z-index: 9998;
     transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
   }
 
-  .sidebar-open {
+  .student-sidebar.sidebar-open {
     transform: translateX(0);
   }
 
-  .sidebar-closed {
+  .student-sidebar.sidebar-closed {
     transform: translateX(-100%);
   }
-  .sidebar-toggle1 {
-    display: flex;
 
-    position: fixed;
-    top: 20px;
-    left: 15px;
 
-    width: 45px;
-    height: 45px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #2563eb;
-    color: #fff;
-
-    align-items: center;
-    justify-content: center;
-
-    z-index: 10000;
-    cursor: pointer;
+  .sidebar-bottom button,
+  .edit-btn {
+    color: black;
   }
-}
 
-@media (max-width: 768px) {
-   .edit-btn{
-    color:black;
+  .avatar-img {
+    border: 1px solid #ddd;
   }
-  .avatar-wrapper {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
+
+  .student-dashboard {
+    padding: 80px 15px 15px;
   }
 
   .student-sidebar {
-    min-height: 100dvh;
-    overflow-y: auto;
-  }
-  .student-dashboard {
-    padding: 20px;
+    width: 280px;
+    height: 100vh;
+   
   }
 
   .dashboard-hero {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 25px;
   }
 
-  .exam-select-area {
-    flex-direction: column;
+  .dashboard-hero h1 {
+    font-size: 36px;
   }
 
-  .student-right {
-    flex-direction: column;
+  .dashboard-card {
+    padding: 22px;
   }
-  .activity-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+
+  .performance-box h1,
+  .performance-circle h1 {
+    font-size: 36px;
   }
-  .avatar-actions button {
-    font-size: 20px;
-  }
+
+  .sidebar-toggle1 {
+  position: fixed;
+  top: 20px;
+  left: 15px;
+
+  width: 45px;
+  height: 45px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #2f49b1;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 9999;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.student-right{
+  height: 100%;
+ 
+ 
+}
+.dashboard-card{
+  height: 100%;
 }
 
-@media (max-width: 500px) {
-  .dashboard-hero h1 {
-    font-size: 34px;
+}
+
+@media (max-width: 768px) {
+  .student-dashboard {
+    padding: 70px 12px 12px;
+    gap: 15px;
   }
 
-  .card-header h2 {
+  .dashboard-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .dashboard-hero {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .dashboard-hero h1 {
     font-size: 24px;
   }
 
-  .student-sidebar,
-  .dashboard-card {
-    padding: 22px 18px;
+  .card-header h2 {
+    font-size: 20px;
+  }
+
+  .exam-select-area,
+  .exam-validation {
+    width: 100%;
+  }
+
+  .exam-select-area input,
+  .exam-validation input,
+  .exam-validation button,
+  .start-exam-btn {
+    width: 100%;
+  }
+
+  .activity-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .completed-badge {
+    width: fit-content;
+  }
+
+  .student-right {
+    width: 100%;
+  }
+
+  .avatar-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+   .student-main {
+    order: 1;
+  }
+
+  .student-right {
+    order: 2;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .student-dashboard {
+    padding: 65px 8px 8px;
+  }
+
+  .student-sidebar {
+    width: 260px;
+  }
+
+  .sidebar-toggle1 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard-hero h1 {
+    font-size: 24px;
+  }
+
+  .card-header h2 {
+    font-size: 20px;
+  }
+
+  .activity-left h4 {
+    font-size: 14px;
+  }
+
+  .activity-left p {
+    font-size: 12px;
+  }
+
+  .completed-badge {
+    font-size: 11px;
   }
 }

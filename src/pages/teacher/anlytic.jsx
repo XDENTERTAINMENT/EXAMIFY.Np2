@@ -8,6 +8,7 @@ function TeacherAnalytics() {
   const teacher = JSON.parse(localStorage.getItem("user"));
   const teacherId = teacher?.id;
 
+ useEffect(() => {
   const fetchAnalytics = async () => {
     try {
       const res = await API.get(`/answers/teacher/analytics/${teacherId}`);
@@ -17,9 +18,8 @@ function TeacherAnalytics() {
     }
   };
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, []);
+  fetchAnalytics();
+}, [teacherId]);
 
   return (
     <div className="analytics-page">
