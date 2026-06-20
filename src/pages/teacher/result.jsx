@@ -29,7 +29,6 @@ useEffect(() => {
   const fetchexamtitle = async () => {
     try {
       const res = await API.get("/exam");
-
       console.log("EXAM API RESPONSE:", res.data);
 
       setexamtitle(res.data.exams || res.data || []);
