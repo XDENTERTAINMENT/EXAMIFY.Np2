@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Exam.css";
 import API from "../../services/api";
 
@@ -6,10 +6,10 @@ function QuestionForm({
   addQuestion,
   // updateQuestion,
   editingIndex,
-  questionToEdit,
+  // questionToEdit,
   examCode,
   examtitle,
-  selectedExam,
+  // selectedExam,
 }) {
   const [questionText, setQuestionText] = useState("");
   const [optionA, setOptionA] = useState("");
@@ -20,11 +20,11 @@ function QuestionForm({
   const [erroMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
 
-  useEffect(() => {
-    if (questionToEdit) {
-      setQuestionText(questionToEdit.questionText);
-    }
-  }, [questionToEdit]);
+  // useEffect(() => {
+  //   if (questionToEdit) {
+  //     setQuestionText(questionToEdit.questionText);
+  //   }
+  // }, [questionToEdit]);
 
   // handlesubmit function for adding and updating question
 
@@ -65,7 +65,6 @@ function QuestionForm({
 
         correctAnswer: correctAnswer, // must be "A" / "B" / "C" / "D"
         marks: 1,
-        exam: selectedExam,
       });
 
       console.log("✅ RESPONSE:", res.data);

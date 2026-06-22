@@ -165,6 +165,7 @@ function TeacherLogin() {
               setStatus("success");
               setResponse(msg);
             }}
+            setloading={setLoading}
             onErrorMessage={(msg) => {
               setStatus("error");
               setResponse(msg);

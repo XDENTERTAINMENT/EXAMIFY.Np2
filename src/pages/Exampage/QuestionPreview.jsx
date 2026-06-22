@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Exam.css"
 
-function QuestionPreview({question, index ,questiondelete,questionupdate} ) {
+function QuestionPreview({question, index } ) {
   return (
 
     <div className="question-card">
@@ -44,19 +44,19 @@ function QuestionPreview({question, index ,questiondelete,questionupdate} ) {
 
   <div className="question-actions">
 
-    <button
+    {/* <button
       className="edit-btn"
       onClick={() => questionupdate(index)}
     >
       Edit
-    </button>
+    </button> */}
 
-    <button
+    {/* <button
       className="delete-btn"
       onClick={() => questiondelete(index)}
     >
       Delete
-    </button>
+    </button> */}
 
   </div>
 

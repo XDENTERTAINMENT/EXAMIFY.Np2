@@ -7,6 +7,7 @@ function GoogleLoginBtn({
   role,
   onSuccessMessage,
   onErrorMessage,
+  setloading
 }) {
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ function GoogleLoginBtn({
     <GoogleLogin
       onSuccess={async (credentialResponse) => {
         try {
+           setloading?.(true);
+
           const res = await API.post("/auth/google", {
             credential: credentialResponse.credential,
             role,
@@ -21,6 +24,7 @@ function GoogleLoginBtn({
   
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.user));
+        
             
           onSuccessMessage?.(res.data.message || "Google login successful");
 
@@ -31,6 +35,8 @@ function GoogleLoginBtn({
           setTimeout(() => {
             onSuccessMessage("");
           }, 3000);
+
+
         } catch (err) {
           onErrorMessage?.(
             err.response?.data?.message || "Google authentication failed",
@@ -39,10 +45,14 @@ function GoogleLoginBtn({
             onErrorMessage("");
           }, 3000);
         }
+        finally {
+    setloading?.(false);
+  }
       }}
       onError={() => {
         onErrorMessage?.("Google login failed");
       }}
+   
     />
   );
 }

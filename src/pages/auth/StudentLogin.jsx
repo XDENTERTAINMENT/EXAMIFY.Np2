@@ -59,7 +59,6 @@ function StudentLogin() {
       return;
     }
     if (loading) return;
-
     setLoading(true);
 
     try {
@@ -166,7 +165,9 @@ function StudentLogin() {
             onSuccessMessage={(msg) => {
               setStatus("success");
               setResponse(msg);
+               
             }}
+             setloading={setLoading}
             onErrorMessage={(msg) => {
               setStatus("error");
               setResponse(msg);

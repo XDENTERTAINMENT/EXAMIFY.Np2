@@ -597,6 +597,7 @@ font-size: clamp(24px, 5vw, 42px);
 
 .logout-btn {
   background: rgba(8, 0, 0, 0.801) !important;
+   color:white;
 }
 
 .logout-btn:hover {

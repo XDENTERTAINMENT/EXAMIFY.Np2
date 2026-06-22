@@ -11,7 +11,7 @@ function QuestionTitle({
   setExamCode,
   examtitle,
   setExamtitle,
-  setSelectedExam,
+  // setSelectedExam,
 }) {
   const [level, setLevel] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,7 +33,8 @@ function QuestionTitle({
         endTime: endTime,
       });
 
-      setSelectedExam(res.data._id);
+      // setSelectedExam(res.data.exam._id);
+      // console.log("EXAM CREATED:", res.data.exam._id);
       setStatus("success");
       setErrorMessage("✅ Exam Created Successfully");
       console.log("EXAM CREATED:", res.data);

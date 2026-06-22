@@ -171,7 +171,10 @@ body {
 }
 
 .logout-btn {
-  background: rgba(220, 38, 38, 0.2) !important;
+  background: rgba(8, 0, 0, 0.801) !important;
+}
+.sidebar-bottom button:nth-child(2) {
+  color:white;
 }
 
 .logout-btn:hover {
