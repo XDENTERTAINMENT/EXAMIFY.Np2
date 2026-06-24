@@ -1,66 +1,46 @@
 import React from 'react'
 import "./Exam.css"
 
-function QuestionPreview({question, index } ) {
+function QuestionPreview({ question, index, questiondelete, questionupdate }) {
   return (
-
     <div className="question-card">
 
-  <div className="question-top">
+      <div className="question-top">
+        <h3>Question {index + 1}</h3>
+        <span>Correct: Option {question.correctAnswer}</span>
+      </div>
 
-    <h3>
-      Question {index + 1}
-    </h3>
+      <p className="question-text">
+        {question.questionText}
+      </p>
 
-    <span>
-      Correct: Option {question.correctAnswer}
-    </span>
+      <ul className="question-options">
+        {question.options.map((opt) => (
+          <li key={opt.value}>
+            <strong>{opt.value}.</strong> {opt.name}
+          </li>
+        ))}
+      </ul>
 
-  </div>
+      <div className="question-actions">
 
-  <p className="question-text">
-    {question.questionText}
-  </p>
+        <button
+          className="edit-btn"
+          onClick={questionupdate}
+        >
+          Edit
+        </button>
 
-  <ul className="question-options">
+        <button
+          className="delete-btn"
+          onClick={questiondelete}
+        >
+          Delete
+        </button>
 
-    <li>
-      <strong>A.</strong> {question.options[0]}
-    </li>
+      </div>
 
-    <li>
-      <strong>B.</strong> {question.options[1]}
-    </li>
-
-    <li>
-      <strong>C.</strong> {question.options[2]}
-    </li>
-
-    <li>
-      <strong>D.</strong> {question.options[3]}
-    </li>
-
-  </ul>
-
-  <div className="question-actions">
-
-    {/* <button
-      className="edit-btn"
-      onClick={() => questionupdate(index)}
-    >
-      Edit
-    </button> */}
-
-    {/* <button
-      className="delete-btn"
-      onClick={() => questiondelete(index)}
-    >
-      Delete
-    </button> */}
-
-  </div>
-
-</div>
+    </div>
   )
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import QuestionForm from "../Exampage/QuestionForm";
 import QuestionTitle from "../Exampage/QuestionTitle";
 import QuestionPreview from "../Exampage/QuestionPreview";
@@ -6,64 +7,81 @@ import "./createexam.css";
 import API from "../../services/api";
 
 function CreateExamPage() {
-  // const [examTitle, setExamTitle] = useState("");
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingQuestion, setEditingQuestion] = useState(null); // 🔁 whole question object now, not index
   const [examCode, setExamCode] = useState("");
   const [examtitle, setExamtitle] = useState("");
   const [selectedExam, setSelectedExam] = useState("");
   const [level, setLevel] = useState("");
   const [erroMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
-  // const [questionText, setQuestionText] = useState("");
-  // const [optionA, setOptionA] = useState("");
-  // const [optionB, setOptionB] = useState("");
-  // const [optionC, setOptionC] = useState("");
-  // const [optionD, setOptionD] = useState("");
 
-  // 🔥 create exam
-
-  const addQuestion = (question) => {
-    setQuestions([...questions, question]);
+  // ➕ called by QuestionForm after a successful POST /questions
+  const addQuestion = (savedQuestion) => {
+    setQuestions((prev) => [...prev, savedQuestion]);
   };
 
-  const deleteQuestion = (index) => {
-    const deletedQuestions = questions.filter((q, i) => i !== index);
-    setQuestions(deletedQuestions);
-  };
-
-  const editQuestion = (index) => {
-    setEditingIndex(index);
-  };
-
+  // ✏️ called by QuestionForm after a successful PUT /questions/:id
   const updateQuestion = (updatedQuestion) => {
-    const newQuestions = questions.map((q, i) =>
-      i === editingIndex ? updatedQuestion : q,
+    setQuestions((prev) =>
+      prev.map((q) => (q._id === updatedQuestion._id ? updatedQuestion : q)),
     );
-
-    setQuestions(newQuestions);
-    setEditingIndex(null);
   };
 
+  // ❌ DELETE QUESTION — now hits the server, since questions save to Mongo immediately
+  const deleteQuestion = async (questionId) => {
+    const confirmDelete = window.confirm(
+      "Delete this question? This cannot be undone.",
+    );
+    if (!confirmDelete) return;
 
-
-  const GenerateID = () => {
-    return Math.random().toString(36).substring(2, 8);
+    try {
+      await API.delete(`/questions/${questionId}`);
+      setQuestions((prev) => prev.filter((q) => q._id !== questionId));
+    } catch (err) {
+      console.log("❌ ERROR:", err.response?.data || err.message);
+      setStatus("error");
+      setErrorMessage(
+        err.response?.data?.message || "Failed to delete question",
+      );
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
   };
 
+  // 📝 puts a question into edit-mode (QuestionForm reads editingQuestion)
+  const editQuestion = (question) => {
+    setEditingQuestion(question);
+  };
 
+  const clearEditing = () => {
+    setEditingQuestion(null);
+  };
 
+  // 🚀 PUBLISH — questions already saved to MongoDB as they were added,
+  // so this just confirms completion to the teacher and sends them back
+  // to the dashboard. No extra API call needed.
+  const handlePublish = () => {
+    if (questions.length === 0) {
+      window.alert("Add at least one question before publishing.");
+      return;
+    }
+
+    const confirmPublish = window.confirm(
+      `Publish this exam with ${questions.length} question(s)?`,
+    );
+    if (!confirmPublish) return;
+
+    navigate("/teacherdashboard");
+  };
 
   return (
- 
     <div className="create-exam-page">
       {/* HERO SECTION */}
       <div className="exam-hero">
         <div>
           <span className="hero-tag">Teacher Dashboard</span>
-
           <h1>Create & Manage Exams 📝</h1>
-
           <p>
             Build professional exams, organize questions, and publish
             assessments seamlessly for students.
@@ -84,94 +102,69 @@ function CreateExamPage() {
       </div>
 
       {/* CREATE EXAM */}
-      
-       
+      <div className="question-title">
+        <QuestionTitle
+          examCode={examCode}
+          setExamCode={setExamCode}
+          examtitle={examtitle}
+          setExamtitle={setExamtitle}
+          setSelectedExam={setSelectedExam}
+          status={status}
+          setStatus={setStatus}
+          erroMessage={erroMessage}
+          setErrorMessage={setErrorMessage}
+          level={level}
+          setLevel={setLevel}
+        />
+      </div>
 
-        <div className="question-title">
-          <QuestionTitle
-            examCode={examCode}
-            setExamCode={setExamCode}
-            examtitle={examtitle}
-            setExamtitle={setExamtitle}
-            setSelectedExam={setSelectedExam}
-            status={status}
-            setStatus={setStatus}
-            erroMessage={erroMessage}
-            setErrorMessage={setErrorMessage}
-            level={level}
-            setLevel={setLevel}
-          />
-        </div>
-    
-
-      {/* ADD QUESTION */}
-    
-
-        <div className="question-form">
-          <QuestionForm
-            examCode={examCode}
-            addQuestion={addQuestion}
-            updateQuestion={updateQuestion}
-            editingIndex={editingIndex}
-            questionToEdit={questions[editingIndex]}
-            examtitle={examtitle}
-            selectedExam={selectedExam}
-             status={status}
-            setStatus={setStatus}
-            erroMessage={erroMessage}
-            setErrorMessage={setErrorMessage}
-            level={level}
-            setLevel={setLevel}
-          />
-        </div>
-    
+      {/* ADD / EDIT QUESTION */}
+      <div className="question-form">
+        <QuestionForm
+          key={editingQuestion?._id || "new"}
+          examCode={examCode}
+          examtitle={examtitle}
+          selectedExam={selectedExam}
+          addQuestion={addQuestion}
+          updateQuestion={updateQuestion}
+          editingQuestion={editingQuestion}
+          clearEditing={clearEditing}
+        />
+      </div>
 
       {/* QUESTIONS PREVIEW */}
       <div className="exam-container">
         <div className="section-header">
           <h2>Questions Preview</h2>
-
           <p>Preview added questions before publishing.</p>
         </div>
 
         <div className="preview">
           {questions.length > 0 ? (
-            questions.map((q, index) => (
+            questions.map((q) => (
               <QuestionPreview
-                key={index}
+                key={q._id}
                 question={q}
-                index={index}
-                questiondelete={deleteQuestion}
-                questionupdate={editQuestion}
+                index={questions.findIndex((item) => item._id === q._id)}
+                questiondelete={() => deleteQuestion(q._id)}
+                questionupdate={() => editQuestion(q)}
               />
             ))
           ) : (
             <div className="empty-preview">
               <i className="fa-regular fa-folder-open"></i>
-
               <p>No questions added yet.</p>
             </div>
           )}
         </div>
-      </div>
 
-      {/* ACTION BUTTONS */}
-      <div className="bottom-actions">
-        {/* <button
-      className="save-btn"
-      onClick={saveExam}
-    >
-      Draft
-    </button> */}
-
-      {/* <button type="submit">
-          
-          {editingIndex !== null ? "Update Question" : "Add Question"}
-        </button> */}
-
-        {/* <button className="publish-btn" onClick={}>
-          Save Quiz 🚀
-        </button> */}
+        {questions.length > 0 && (
+          <div className="publish-row">
+            <button className="publish-btn" onClick={handlePublish}>
+              Publish Exam
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
