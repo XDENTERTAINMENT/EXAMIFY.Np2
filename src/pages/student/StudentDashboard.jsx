@@ -5,9 +5,31 @@ import API from "../../services/api";
 import { useRef } from "react";
 import { FaPen, FaTrash, FaUndo, FaUpload } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import OnboardingTour from "../../components/OnboardingTour";
 
 function StudentDashboard() {
   const navigate = useNavigate();
+
+  
+  const studentTourSteps = [
+    {
+      target: ".dashboard-hero",
+      content: "Welcome! This is your student dashboard.",
+    },
+    {
+      target: ".join-exam-card",
+      content: "Enter your exam name and code here to join an exam.",
+    },
+    {
+      target: ".recent-activity-card",
+      content: "Your exam history shows up here.",
+    },
+    {
+      target: ".performance-card",
+      content: "Track your average score here.",
+    },
+  ];
+
 
   const [selectedExam, setSelectedExam] = useState("");
   const [examId, setExamId] = useState("");
@@ -143,8 +165,10 @@ function StudentDashboard() {
   };
 
   return (
-    <div className="student-dashboard">
-      {/* LEFT SIDEBAR */}
+     <div className="student-dashboard">
+      <OnboardingTour steps={studentTourSteps} />
+
+       {/* LEFT SIDEBAR */}
 
         {sidebarOpen && (
         <div
@@ -234,7 +258,7 @@ function StudentDashboard() {
         </div>
 
         {/* EXAM ENTRY CARD */}
-        <div className="dashboard-card">
+        <div className="dashboard-card join-exam-card">
           <div className="card-header">
             <h2>Select Exam</h2>
             <p>Enter exam details to continue</p>
@@ -287,7 +311,7 @@ function StudentDashboard() {
         </div>
 
         {/* RECENT ACTIVITY */}
-        <div className="dashboard-card">
+        <div className="dashboard-card recent-activity-card">
           <div className="card-header">
             <h2>Recent Activity</h2>
             <p>Your latest exam performance history</p>
@@ -314,7 +338,7 @@ function StudentDashboard() {
 
       {/* RIGHT SIDEBAR */}
       <div className="student-right">
-        <div className="dashboard-card">
+        <div className="dashboard-card performance-card">
           <div className="card-header">
             <h2>Performance</h2>
           </div>

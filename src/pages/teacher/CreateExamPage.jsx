@@ -5,6 +5,7 @@ import QuestionTitle from "../Exampage/QuestionTitle";
 import QuestionPreview from "../Exampage/QuestionPreview";
 import "./createexam.css";
 import API from "../../services/api";
+import HelpButton from "../../components/HelpButton";
 
 function CreateExamPage() {
   const navigate = useNavigate();
@@ -81,7 +82,21 @@ function CreateExamPage() {
       <div className="exam-hero">
         <div>
           <span className="hero-tag">Teacher Dashboard</span>
-          <h1>Create & Manage Exams 📝</h1>
+          <h1
+            style={{ display: "flex", alignItems: "center", gap: "12px" }}
+          >
+            Create & Manage Exams 📝
+            <HelpButton
+              title="How to Create an Exam"
+              steps={[
+                "Enter title",
+                "Set duration",
+                "Add instructions",
+                "Add questions",
+                "Click Publish",
+              ]}
+            />
+          </h1>
           <p>
             Build professional exams, organize questions, and publish
             assessments seamlessly for students.

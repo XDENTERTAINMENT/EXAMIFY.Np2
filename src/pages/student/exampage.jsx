@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./exampage.css";
 import API from "../../services/api";
 import { useParams } from "react-router-dom";
+import HelpButton from "../../components/HelpButton";
 
 function Exampage() {
   const [stopTime, setStopTime] = useState(false);
@@ -184,7 +185,7 @@ function Exampage() {
   }
 
   return (
-    <div className="exam-page">
+     <div className="exam-page">
       {/* LEFT SIDEBAR */}
       <aside className="exam-sidebar">
         <h2>Questions</h2>
@@ -238,6 +239,16 @@ function Exampage() {
           <div className="question-count">
             Question {currentQuestion + 1} of {questions.length}
           </div>
+
+          <HelpButton
+            title="How to Take an Exam"
+            steps={[
+              "Read instructions carefully",
+              "Answer all questions",
+              "Use navigation buttons",
+              "Submit before the timer expires",
+            ]}
+          />
         </div>
 
         {/* TIMER */}

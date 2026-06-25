@@ -6,9 +6,32 @@ import API from "../../services/api";
 import { useRef } from "react";
 import { FaPen, FaTrash, FaUndo, FaUpload } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import HelpButton from "../../components/HelpButton";
+import OnboardingTour from "../../components/OnboardingTour";
 
 function TeacherDashboard() {
   const navigate = useNavigate();
+
+
+    const teacherTourSteps = [
+    {
+      target: ".teacher-hero",
+      content: "Welcome Teacher! This is your dashboard.",
+    },
+    {
+      target: ".sidebar-create-exam",
+      content: "Click here to create exams.",
+    },
+    {
+      target: ".teacher-stats",
+      content: "View submissions here.",
+    },
+    {
+      target: ".dashboard-card",
+      content: "Check analytics here.",
+    },
+  ];
+
 
   const [dashboardData, SetDashboardData] = useState([]);
   const [uploadedImage, setUploadedImage] = useState("");
@@ -102,7 +125,9 @@ function TeacherDashboard() {
   };
 
   return (
-    <div className="teacher-dashboard">
+     <div className="teacher-dashboard">
+      <OnboardingTour steps={teacherTourSteps} />
+
       {/* SIDEBAR */}
 
       {/* Overlay */}
@@ -173,7 +198,7 @@ function TeacherDashboard() {
         <nav className="teacher-menu">
           <button className="active">Dashboard</button>
 
-          <button onClick={() => navigate("/examexampage")}>Create Exam</button>
+          <button onClick={() => navigate("/examexampage")} className="sidebar-create-exam">Create Exam</button>
 
           <button onClick={() => navigate("/ViewQuestions")}>
             Manage Questions
@@ -207,8 +232,25 @@ function TeacherDashboard() {
           <div className="hero-content">
             <span className="hero-tag">Teacher Control Panel</span>
 
-            <h3 className="welcome">
+            <h3
+              className="welcome"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+              }}
+            >
               {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
+              <HelpButton
+                title="How to use the Teacher Dashboard"
+                steps={[
+                  "Click 'Create Exam'",
+                  "Enter exam details",
+                  "Add questions",
+                  "Publish the exam",
+                  "Monitor submissions",
+                ]}
+              />
             </h3>
 
             <p>
