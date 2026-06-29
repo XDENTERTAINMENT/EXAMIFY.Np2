@@ -1,8 +1,18 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./exampage.css";
 import API from "../../services/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import HelpButton from "../../components/HelpButton";
+
+// ✅ ADDED — simple device classification from the user agent string.
+// Good enough for result-sheet display purposes; not meant to be
+// bulletproof device detection.
+const detectDevice = () => {
+  const ua = navigator.userAgent || "";
+  if (/Tablet|iPad/i.test(ua)) return "Tablet";
+  if (/Mobi|Android|iPhone/i.test(ua)) return "Mobile";
+  return "Desktop";
+};
 
 function Exampage() {
   const [stopTime, setStopTime] = useState(false);
@@ -23,6 +33,25 @@ function Exampage() {
   const [fetchError, setFetchError] = useState("");
 
   const { examCode } = useParams();
+  const navigate = useNavigate(); // ✅ ADDED — for the monthly-limit redirect
+
+  // ✅ ADDED — counts how many times the student left this tab during the
+  // exam. A ref (not state) since we don't need a re-render on each switch,
+  // just the final count when the exam is submitted.
+  const tabSwitchCountRef = useRef(0);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        tabSwitchCountRef.current += 1;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   const current = questions[currentQuestion];
 
@@ -122,14 +151,27 @@ function Exampage() {
       return;
     }
 
-    await saveAnswerAPI({
-      student: studentId,
-      exam: examId,
-      questionId: current._id,
-      selectedOption: answers[current._id],
-    });
+    try {
+      await saveAnswerAPI({
+        student: studentId,
+        exam: examId,
+        questionId: current._id,
+        selectedOption: answers[current._id],
+      });
 
-    setCurrentQuestion((prev) => prev + 1);
+      setCurrentQuestion((prev) => prev + 1);
+    } catch (err) {
+      // ✅ ADDED — teacher's monthly student cap was hit; redirect instead
+      // of letting the student continue answering.
+      if (err.response?.data?.limitReached) {
+        navigate("/exam-limit-reached", {
+          state: { message: err.response.data.message },
+        });
+        return;
+      }
+      console.log("Save answer error:", err);
+      alert("Something went wrong saving your answer. Please try again.");
+    }
   };
   // HANDLE SUBMIT
   const submitExam = useCallback(
@@ -152,15 +194,24 @@ function Exampage() {
         await submitExamAPI({
           studentId,
           examId,
+          device: detectDevice(), // ✅ ADDED
+          tabSwitchCount: tabSwitchCountRef.current, // ✅ ADDED
         });
 
         setStopTime(true);
         setGameStatus("finished");
       } catch (err) {
+        // ✅ ADDED — same monthly-limit redirect as handleNext
+        if (err.response?.data?.limitReached) {
+          navigate("/exam-limit-reached", {
+            state: { message: err.response.data.message },
+          });
+          return;
+        }
         console.log("Submit error:", err);
       }
     },
-    [current, answers, studentId, examId],
+    [current, answers, studentId, examId, navigate],
   );
 
   // TIMER END

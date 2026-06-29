@@ -122,6 +122,8 @@ function StudentDashboard() {
     loadActivities();
   }, [user?.id]);
 
+  
+
   // ✅ AUTH GUARD (correct place)
 
   if (!token || !user) {

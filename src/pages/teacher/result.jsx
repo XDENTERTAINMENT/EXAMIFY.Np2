@@ -22,6 +22,12 @@ function ResultsPage() {
 
   const [status, setStatus] = useState(""); // "success" or "error"
 
+  // ✅ ADDED — drives which result-sheet columns render. Comes straight
+  // from the backend response (examController.verifyResults), not
+  // localStorage, since the backend is the authoritative source after
+  // checkSubscription refreshes it.
+  const [plan, setPlan] = useState("free");
+
   // const teacher = JSON.parse(localStorage.getItem("user"));
 
   //  fetch exam
@@ -57,17 +63,13 @@ useEffect(() => {
     try {
       setLoading(true);
 
-      const user = JSON.parse(localStorage.getItem("user"));
-
-      const teacherId = user?.id;
-
       const res = await API.post("/exam/verify-results", {
         examName: selectedExam,
         examCode: examCode,
-        teacherId: teacherId,
       });
 
       setResults(res.data.results);
+      setPlan(res.data.plan || "free"); // ✅ ADDED
       console.log(res.data.results);
 
       // setFilteredResults(res.data.results);
@@ -195,17 +197,30 @@ const filteredResults = useMemo(() => {
 
       {/* RESULTS TABLE */}
 
+      {/* ✅ ADDED — quick upgrade nudge so it's clear columns are missing
+          because of plan, not because data doesn't exist */}
+      {plan !== "premium" && results.length > 0 && (
+        <p style={{ color: "#6b7280", fontSize: 14, margin: "8px 0" }}>
+          🔒 {plan === "free"
+            ? "Percentage, status, date, device and tab-switch tracking are available on Pro and Premium."
+            : "Device and tab-switch tracking are available on Premium."}{" "}
+          <a href="/pricing">Upgrade</a>
+        </p>
+      )}
+
       <div className="tableContainer">
         <table className="resultsTable">
           <thead>
             <tr>
               <th>Student</th>
               <th>Score</th>
-              <th>Percentage</th>
+              {plan !== "free" && <th>Percentage</th>}
               <th>Time Used</th>
               <th>Resultstatus</th>
-              <th>Status</th>
-              <th>Date</th>
+              {plan !== "free" && <th>Status</th>}
+              {plan !== "free" && <th>Date</th>}
+              {plan === "premium" && <th>Device</th>}
+              {plan === "premium" && <th>Tab Switches</th>}
             </tr>
           </thead>
 
@@ -218,7 +233,7 @@ const filteredResults = useMemo(() => {
 
                 <td>{item.score}/{item.totalQuestions}</td>
 
-                <td>{item.percentage}%</td>
+                {plan !== "free" && <td>{item.percentage}%</td>}
 
                 <td>{item.durationUsed || 0} mins</td>
 
@@ -232,9 +247,14 @@ const filteredResults = useMemo(() => {
                   </span>
                 </td>
 
-                 <td>{item.status} </td>
+                {plan !== "free" && <td>{item.status} </td>}
 
-                <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                {plan !== "free" && (
+                  <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                )}
+
+                {plan === "premium" && <td>{item.device || "Unknown"}</td>}
+                {plan === "premium" && <td>{item.tabSwitchCount ?? 0}</td>}
               </tr>
             ))}
           </tbody>

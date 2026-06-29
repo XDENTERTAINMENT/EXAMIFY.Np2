@@ -37,6 +37,7 @@ function TeacherDashboard() {
   const [uploadedImage, setUploadedImage] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [plan, setPlan] = useState(null); // ✅ ADDED — freshest known plan
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -110,6 +111,31 @@ function TeacherDashboard() {
     };
 
     loadActivities();
+  }, [user?.id]);
+
+  // ✅ ADDED — gets the freshest plan (auto-downgraded server-side if
+  // expired, via checkSubscription), not just whatever was true at login.
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const loadPlan = async () => {
+      try {
+        const res = await API.get("/auth/me");
+        setPlan(res.data.plan || "free");
+
+        // Keep localStorage in sync so other pages reading user.plan
+        // (ViewQuestions.jsx, anlytic.jsx) also see the latest value
+        // without needing a fresh login.
+        const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+        storedUser.plan = res.data.plan;
+        localStorage.setItem("user", JSON.stringify(storedUser));
+      } catch (err) {
+        console.log("Failed to refresh plan:", err);
+        setPlan(user?.plan || "free"); // fall back to whatever's stored
+      }
+    };
+
+    loadPlan();
   }, [user?.id]);
 
   // ✅ AUTH GUARD (correct place)
@@ -241,6 +267,33 @@ function TeacherDashboard() {
               }}
             >
               {user?.username ? `Welcome ${user.username} 👋` : "Welcome"}
+              {/* ✅ ADDED — plan badge */}
+              {plan && (
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    padding: "4px 10px",
+                    borderRadius: 999,
+                    textTransform: "uppercase",
+                    letterSpacing: 0.5,
+                    background:
+                      plan === "premium"
+                        ? "#fef3c7"
+                        : plan === "pro"
+                        ? "#e0e7ff"
+                        : "#f3f4f6",
+                    color:
+                      plan === "premium"
+                        ? "#92400e"
+                        : plan === "pro"
+                        ? "#4338ca"
+                        : "#6b7280",
+                  }}
+                >
+                  {plan} plan
+                </span>
+              )}
               <HelpButton
                 title="How to use the Teacher Dashboard"
                 steps={[
@@ -257,6 +310,25 @@ function TeacherDashboard() {
               Manage exams, monitor student performance, and organize
               assessments seamlessly.
             </p>
+
+            {/* ✅ ADDED — upgrade nudge, free plan only */}
+            {plan === "free" && (
+              <p style={{ marginTop: 8 }}>
+                <button
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#4f46e5",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                  onClick={() => navigate("/pricing")}
+                >
+                  ⚡ Upgrade to Pro/Premium for analytics, more students & more →
+                </button>
+              </p>
+            )}
           </div>
 
           <div className="hero-action">

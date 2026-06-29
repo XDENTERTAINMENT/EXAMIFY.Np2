@@ -1,4 +1,5 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import "./viewquestion.css";
 
@@ -14,6 +15,15 @@ const ViewQuestion = () => {
   // ui state
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate(); // ✅ ADDED
+
+  // ✅ ADDED — Manage Questions (edit/delete) is Pro/Premium only.
+  // Read once from the locally-stored user; this is a UX nicety only —
+  // the backend route is the real enforcement, this just avoids letting
+  // a free-plan teacher click Edit/Delete and hit a confusing 403.
+  const teacher = JSON.parse(localStorage.getItem("user") || "{}");
+  const canManageQuestions = ["pro", "premium"].includes(teacher?.plan);
 
   // edit state
   const [editingId, setEditingId] = useState(null);
@@ -75,6 +85,11 @@ const ViewQuestion = () => {
 
   // ❌ DELETE QUESTION
   const handleDelete = async (questionId) => {
+    if (!canManageQuestions) {
+      navigate("/pricing");
+      return;
+    }
+
     const confirmDelete = window.confirm(
       "Delete this question? This cannot be undone."
     );
@@ -84,6 +99,12 @@ const ViewQuestion = () => {
       await API.delete(`/questions/${questionId}`);
       setQuestions((prev) => prev.filter((q) => q._id !== questionId));
     } catch (err) {
+      // ✅ ADDED — fallback in case localStorage's plan was stale and the
+      // backend's fresh check (protect.requirePlan) is the one that caught it
+      if (err.response?.data?.locked) {
+        navigate("/pricing");
+        return;
+      }
       setErrorMessage(
         err.response?.data?.message || "Failed to delete question."
       );
@@ -92,6 +113,10 @@ const ViewQuestion = () => {
 
   // ✏️ START EDIT
   const startEdit = (question) => {
+    if (!canManageQuestions) {
+      navigate("/pricing");
+      return;
+    }
     setEditingId(question._id);
     setEditForm({
       questionText: question.questionText,
@@ -131,6 +156,10 @@ const ViewQuestion = () => {
 
       setEditingId(null);
     } catch (err) {
+      if (err.response?.data?.locked) {
+        navigate("/pricing");
+        return;
+      }
       setErrorMessage(
         err.response?.data?.message || "Failed to update question."
       );
@@ -297,13 +326,13 @@ const ViewQuestion = () => {
 
                   <div className="question-actions">
                     <button className="edit-btn" onClick={() => startEdit(q)}>
-                      Edit
+                      {canManageQuestions ? "Edit" : "🔒 Edit"}
                     </button>
                     <button
                       className="delete-btn"
                       onClick={() => handleDelete(q._id)}
                     >
-                      Delete
+                      {canManageQuestions ? "Delete" : "🔒 Delete"}
                     </button>
                   </div>
                 </>
