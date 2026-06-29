@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AppRoutes from "./pages/routes/AppRoutes";
 import Footer from "./components/Footer";
-import UpdateNotice from "./components/updatenotice";
+// import UpdateNotice from "./components/updatenotice";
 import "./App.css";
 
 function App() {
