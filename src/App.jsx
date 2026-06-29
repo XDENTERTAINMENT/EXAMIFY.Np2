@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="head-office">
       <BrowserRouter>
-      <UpdateNotice/>
+      {/* <UpdateNotice/> */}
         <Navbar />
         <div className="routes-container">
           <AppRoutes />
