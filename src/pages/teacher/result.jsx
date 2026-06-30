@@ -63,9 +63,14 @@ useEffect(() => {
     try {
       setLoading(true);
 
+     const user = JSON.parse(localStorage.getItem("user"));
+
+      const teacherId = user?.id;
+
       const res = await API.post("/exam/verify-results", {
         examName: selectedExam,
         examCode: examCode,
+        teacherId: teacherId,
       });
 
       setResults(res.data.results);
@@ -96,7 +101,7 @@ useEffect(() => {
 
 const filteredResults = useMemo(() => {
   return results.filter((item) =>
-    (item.student?.lastname || item.student?.username || "")
+    (item.student?.fullname || item.student?.username || "")
       .toLowerCase()
       .includes(searchStudent.toLowerCase())
   );
@@ -189,7 +194,7 @@ const filteredResults = useMemo(() => {
       <div className="studentSearchContainer">
         <input
           type="text"
-          placeholder="Search Student by Lastname"
+          placeholder="Search Student by Name"
           value={searchStudent}
           onChange={(e) => setSearchStudent(e.target.value)}
         />
@@ -228,7 +233,7 @@ const filteredResults = useMemo(() => {
             {filteredResults.map((item) => (
               <tr key={item._id}>
                 <td>
-                  {item.student?.lastname || item.student?.username } {item.student?.firstname}
+                  {item.student?.fullname || item.student?.username}
                 </td>
 
                 <td>{item.score}/{item.totalQuestions}</td>

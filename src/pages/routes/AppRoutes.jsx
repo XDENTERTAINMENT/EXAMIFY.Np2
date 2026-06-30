@@ -20,6 +20,7 @@ import TeacherAnalytics from "../teacher/anlytic";
 import ResultsPage from "../teacher/result";
 import PaymentVerify from "../Payment/PaymentVerify";
 import ExamLimitReached from "../student/ExamLimitReached";
+import Settings from "../teacher/Settings";
 
 function AppRoutes() {
   return (
@@ -65,7 +66,16 @@ function AppRoutes() {
         />
         <Route path="/payment/verify" element={<PaymentVerify />} />
         <Route path="/exam-limit-reached" element={<ExamLimitReached />} />
+         <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+      
     </div>
   );
 }

@@ -4,6 +4,7 @@ import React from "react";
 import { useState } from "react";
 import API from "../../services/api";
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 import "./studentsignup.css";
 
 function StudentLogin() {
@@ -14,6 +15,7 @@ function StudentLogin() {
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -143,7 +145,12 @@ function StudentLogin() {
               Remember me
             </label>
 
-            <span>Forgot Password?</span>
+            <span
+              className="forgot-password-link"
+              onClick={() => setShowForgotPassword(true)}
+            >
+              Forgot Password?
+            </span>
           </div>
 
           {/* BUTTON */}
@@ -175,6 +182,13 @@ function StudentLogin() {
           />
         </div>
       </div>
+
+      {showForgotPassword && (
+        <ForgotPasswordModal
+          role="student"
+          onClose={() => setShowForgotPassword(false)}
+        />
+      )}
     </div>
   );
 }

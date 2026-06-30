@@ -53,8 +53,8 @@ function TeacherSignup() {
     }
 
     // ✅ LAST NAME
-    if (!Email) {
-      setErrorEmail("Last name is required");
+    if (Email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email)) {
+      setErrorEmail("Enter a valid email address");
       hasError = false;
 
       setTimeout(() => {

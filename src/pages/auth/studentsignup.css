@@ -373,6 +373,14 @@ body {
  transition: 0.7s;
 }
 
+/* ✅ ADDED — small helper text under the optional email field */
+.field-hint {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
 /* FORM */
 .login-form {
   display: flex;

@@ -4,6 +4,7 @@ import { useState } from "react";
 // import "./auth.css"
 import API from "../../services/api";
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 import "./teachers.css";
 
 function TeacherLogin() {
@@ -14,6 +15,7 @@ function TeacherLogin() {
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(""); // "success" or "error"
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -142,7 +144,12 @@ function TeacherLogin() {
               Remember me
             </label>
 
-            <span>Forgot Password?</span>
+            <span
+              className="forgot-password-link"
+              onClick={() => setShowForgotPassword(true)}
+            >
+              Forgot Password?
+            </span>
           </div>
 
           {/* BUTTON */}
@@ -173,6 +180,13 @@ function TeacherLogin() {
           />
         </div>
       </div>
+
+      {showForgotPassword && (
+        <ForgotPasswordModal
+          role="teacher"
+          onClose={() => setShowForgotPassword(false)}
+        />
+      )}
     </div>
   );
 }

@@ -9,10 +9,10 @@ import "./studentsignup.css";
 function StudentSignup() {
   const [errorusername, setErrorUsername] = useState("");
   const [username, setUsername] = useState("");
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [errorFirstName, setErrorFirstName] = useState("");
-  const [errorLastName, setErrorLastName] = useState("");
+  const [FullName, setFullName] = useState("");
+  const [errorFullName, setErrorFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
   const [errorpassword, setErrorPassword] = useState("");
   const [password, setPassword] = useState("");
   const [errorConfirmpassword, setErrorConfirmpassword] = useState("");
@@ -29,42 +29,26 @@ function StudentSignup() {
     e.preventDefault();
 
     // RESET ERRORS
-    setErrorFirstName("");
-    setErrorLastName("");
+    setErrorFullName("");
     setErrorUsername("");
+    setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmpassword("");
 
     let hasError = true;
 
-    // ✅ FIRST NAME
-    if (!FirstName) {
-      setErrorFirstName("First name is required");
+    // ✅ FULL NAME
+    if (!FullName) {
+      setErrorFullName("Full name is required");
       hasError = false;
       setTimeout(() => {
-        setErrorFirstName("");
+        setErrorFullName("");
       }, 3000);
-    } else if (FirstName.length < 4) {
-      setErrorFirstName("First name must be at least 4 characters");
+    } else if (FullName.trim().length < 4) {
+      setErrorFullName("Full name must be at least 4 characters");
       hasError = false;
       setTimeout(() => {
-        setErrorFirstName("");
-      }, 3000);
-    }
-
-    // ✅ LAST NAME
-    if (!LastName) {
-      setErrorLastName("Last name is required");
-      hasError = false;
-
-      setTimeout(() => {
-        setErrorLastName("");
-      }, 3000);
-    } else if (LastName.length < 4) {
-      setErrorLastName("Last name must be at least 4 characters");
-      hasError = false;
-      setTimeout(() => {
-        setErrorLastName("");
+        setErrorFullName("");
       }, 3000);
     }
 
@@ -80,6 +64,23 @@ function StudentSignup() {
       hasError = false;
       setTimeout(() => {
         setErrorUsername("");
+      }, 3000);
+    }
+
+    // ✅ EMAIL — REQUIRED (was optional). No students have signed up yet,
+    // so this is enforced from the start. Needed for the forgot-password
+    // OTP flow.
+    if (!email) {
+      setErrorEmail("Email is required");
+      hasError = false;
+      setTimeout(() => {
+        setErrorEmail("");
+      }, 3000);
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorEmail("Enter a valid email address");
+      hasError = false;
+      setTimeout(() => {
+        setErrorEmail("");
       }, 3000);
     }
 
@@ -123,9 +124,9 @@ function StudentSignup() {
     // ✅ SEND TO BACKEND
     try {
       const res = await API.post("/auth/StudentSignup", {
-        firstname: FirstName,
-        lastname: LastName,
+        fullname: FullName,
         username: username,
+        email: email,
         password: password,
       });
 
@@ -204,34 +205,38 @@ function StudentSignup() {
           </p>
 
           <form onSubmit={submithandle}>
-            {/* FIRST NAME */}
+            {/* FULL NAME */}
             <div className="input-group">
-              <label htmlFor="FirstName">First Name</label>
+              <label htmlFor="FullName">Full Name</label>
 
               <input
                 type="text"
-                placeholder="Enter first name"
-                name="FirstName"
-                value={FirstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Enter full name"
+                name="FullName"
+                value={FullName}
+                onChange={(e) => setFullName(e.target.value)}
               />
 
-              {errorFirstName && <p className="error">{errorFirstName}</p>}
+              {errorFullName && <p className="error">{errorFullName}</p>}
             </div>
 
-            {/* LAST NAME */}
+            {/* EMAIL — required, used for password recovery */}
             <div className="input-group">
-              <label htmlFor="LastName">Last Name</label>
+              <label htmlFor="Email">Email Address</label>
 
               <input
-                type="text"
-                placeholder="Enter last name"
-                name="LastName"
-                value={LastName}
-                onChange={(e) => setLastName(e.target.value)}
+                type="email"
+                placeholder="Enter your email"
+                name="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
-              {errorLastName && <p className="error">{errorLastName}</p>}
+              <small className="field-hint">
+                Used to recover your account if you forget your password.
+              </small>
+
+              {errorEmail && <p className="error">{errorEmail}</p>}
             </div>
 
             {/* USERNAME */}
