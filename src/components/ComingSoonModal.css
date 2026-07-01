@@ -1,0 +1,145 @@
+/* ComingSoonModal.css */
+/* Matches the design reference: dark blurred overlay, centered card,
+   white typography, eye icon, pill label, outline dismiss button.     */
+
+/* ── BACKDROP ────────────────────────────────────────────────────────── */
+.csm-backdrop {
+  position: fixed;
+  inset: 0;                          /* covers the entire viewport     */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+
+  /* Dark blurred overlay — mirrors the photo background in the reference */
+  background: rgba(10, 10, 14, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  animation: csm-fade-in 0.22s ease;
+}
+
+@keyframes csm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── CARD ─────────────────────────────────────────────────────────────── */
+.csm-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;                            /* controlled via margin on children */
+  max-width: 460px;
+  width: 100%;
+  padding: 0 24px;
+
+  animation: csm-slide-up 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes csm-slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── EYE ICON ─────────────────────────────────────────────────────────── */
+.csm-icon {
+  width: 88px;
+  height: auto;
+  margin-bottom: 36px;
+  opacity: 0.92;
+}
+
+/* ── HEADLINE ─────────────────────────────────────────────────────────── */
+.csm-headline {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: clamp(36px, 8vw, 62px);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  margin: 0 0 18px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* ── FEATURE PILL ─────────────────────────────────────────────────────── */
+.csm-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e0e7ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* ── BODY TEXT ────────────────────────────────────────────────────────── */
+.csm-body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+  margin: 0 0 20px;
+  max-width: 400px;
+}
+
+.csm-body strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ── TAGLINE ──────────────────────────────────────────────────────────── */
+.csm-tagline {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.70);
+  line-height: 1.65;
+  margin: 0 0 40px;
+}
+
+.csm-tagline strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ── DISMISS BUTTON ───────────────────────────────────────────────────── */
+/* Outline pill — matches the "Don't Miss it" button in the reference     */
+.csm-btn {
+  background: transparent;
+  border: 1.8px solid rgba(255, 255, 255, 0.70);
+  color: #ffffff;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.csm-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.csm-btn:active {
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .csm-card    { padding: 0 16px; }
+  .csm-icon    { width: 64px; margin-bottom: 28px; }
+  .csm-body    { font-size: 14px; }
+  .csm-tagline { font-size: 13px; }
+}

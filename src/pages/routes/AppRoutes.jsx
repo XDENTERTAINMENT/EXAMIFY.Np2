@@ -21,6 +21,8 @@ import ResultsPage from "../teacher/result";
 import PaymentVerify from "../Payment/PaymentVerify";
 import ExamLimitReached from "../student/ExamLimitReached";
 import Settings from "../teacher/Settings";
+import TeacherSupport from "../teacher/TeacherSupport";   // ✅ ADDED
+import StudentSupport from "../student/StudentSupport";   // ✅ ADDED
 
 function AppRoutes() {
   return (
@@ -66,11 +68,29 @@ function AppRoutes() {
         />
         <Route path="/payment/verify" element={<PaymentVerify />} />
         <Route path="/exam-limit-reached" element={<ExamLimitReached />} />
-         <Route
+        <Route
           path="/settings"
           element={
             <ProtectedRoute>
               <Settings />
+            </ProtectedRoute>
+          }
+        />
+        {/* ✅ ADDED — Teacher Help & Support (protected, teacher-only guard inside component) */}
+        <Route
+          path="/support"
+          element={
+            <ProtectedRoute>
+              <TeacherSupport />
+            </ProtectedRoute>
+          }
+        />
+        {/* ✅ ADDED — Student Help & Support (protected) */}
+        <Route
+          path="/student-support"
+          element={
+            <ProtectedRoute>
+              <StudentSupport />
             </ProtectedRoute>
           }
         />

@@ -239,7 +239,8 @@ function StudentDashboard() {
           <p>Smart Assessment Platform</p>
         </div>
         <div className="sidebar-bottom">
-          <button onClick={() => navigate("/support")}>Help & Support</button>
+          {/* ✅ FIXED — students go to /student-support (teacher support is at /support) */}
+          <button onClick={() => navigate("/student-support")}>Help &amp; Support</button>
 
           <button className="logout-btn" onClick={handleLogout}>
             Logout

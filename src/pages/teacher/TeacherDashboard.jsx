@@ -8,6 +8,7 @@ import { FaPen, FaTrash, FaUndo, FaUpload } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import HelpButton from "../../components/HelpButton";
 import OnboardingTour from "../../components/OnboardingTour";
+import ComingSoonModal from "../../components/ComingSoonModal"; // ✅ ADDED
 
 function TeacherDashboard() {
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ function TeacherDashboard() {
   const [showMenu, setShowMenu] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [plan, setPlan] = useState(null); // ✅ ADDED — freshest known plan
+  // ✅ ADDED — controls Coming Soon modal; feature label shown inside it
+  const [comingSoon, setComingSoon] = useState({ open: false, feature: "" });
+  const openComingSoon = (feature) => setComingSoon({ open: true, feature });
+  const closeComingSoon = () => setComingSoon({ open: false, feature: "" });
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -376,12 +381,14 @@ function TeacherDashboard() {
               Create Exam
             </button>
 
-            <button onClick={() => navigate("/uploadquestions")}>
-              Upload Questions
+            {/* ✅ UPDATED — AI feature not yet live; shows Coming Soon modal */}
+            <button onClick={() => openComingSoon("AI Upload & Question Generator")}>
+              AI powered
             </button>
 
-            <button onClick={() => navigate("/generate-exam-id")}>
-              Generate Exam ID
+            {/* ✅ UPDATED — AI feature not yet live; shows Coming Soon modal */}
+            <button onClick={() => openComingSoon("AI Exam Code Generator")}>
+              AI powered
             </button>
 
             <button onClick={() => navigate("/resultsPage")}>
@@ -422,6 +429,12 @@ function TeacherDashboard() {
           </div>
         </section>
       </main>
+      {/* ✅ ADDED — Coming Soon modal for AI features */}
+      <ComingSoonModal
+        open={comingSoon.open}
+        onClose={closeComingSoon}
+        feature={comingSoon.feature}
+      />
     </div>
   );
 }

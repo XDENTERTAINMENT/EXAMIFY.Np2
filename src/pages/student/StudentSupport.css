@@ -1,0 +1,181 @@
+/* StudentSupport.css */
+/* Intentionally lighter than TeacherSupport — brief, friendly, no tabs */
+
+.ss-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 28px 32px 60px;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #1f2937;
+  box-sizing: border-box;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── BACK ────────────────────────────────────────────────────────────── */
+.ss-back {
+  background: none;
+  border: none;
+  color: #6366f1;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.ss-back:hover { text-decoration: underline; }
+
+/* ── HERO ────────────────────────────────────────────────────────────── */
+.ss-hero {
+  margin-bottom: 32px;
+}
+.ss-hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #1f2937;
+}
+.ss-hero p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── SECTIONS ────────────────────────────────────────────────────────── */
+.ss-section { margin-bottom: 36px; }
+
+.ss-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 16px;
+}
+
+/* ── FAQ ─────────────────────────────────────────────────────────────── */
+.ss-faq-list { display: flex; flex-direction: column; gap: 10px; }
+
+.ss-faq-item {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.ss-faq-item.open { border-color: #ff7a59; }
+
+.ss-faq-q {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 18px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s;
+}
+.ss-faq-q:hover { background: #fef9f7; }
+.ss-faq-item.open .ss-faq-q {
+  background: #fff5f2;
+  color: #c0503a;
+}
+
+.ss-chevron { font-size: 11px; color: #9ca3af; flex-shrink: 0; }
+
+.ss-faq-a {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.7;
+  margin: 0;
+  padding: 0 18px 16px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 13px;
+}
+
+/* ── CONTACT CARD ────────────────────────────────────────────────────── */
+.ss-contact-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 28px 32px;
+}
+.ss-contact-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin: -8px 0 22px;
+  line-height: 1.6;
+}
+
+/* ── FORM ────────────────────────────────────────────────────────────── */
+.ss-form { display: flex; flex-direction: column; gap: 18px; }
+
+.ss-field { display: flex; flex-direction: column; gap: 6px; }
+.ss-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+.ss-field input,
+.ss-field textarea {
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1f2937;
+  background: #fafafa;
+  outline: none;
+  transition: border-color 0.15s;
+  resize: vertical;
+}
+.ss-field input:focus,
+.ss-field textarea:focus {
+  border-color: #ff7a59;
+  background: #fff;
+}
+
+.ss-char {
+  font-size: 11px;
+  color: #9ca3af;
+  text-align: right;
+}
+
+.ss-alert {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.ss-alert-success { background: #d1fae5; color: #065f46; }
+.ss-alert-error   { background: #fee2e2; color: #991b1b; }
+
+.ss-send-btn {
+  background: #ff7a59;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.15s, transform 0.1s;
+}
+.ss-send-btn:hover:not(:disabled) {
+  background: #e5633f;
+  transform: translateY(-1px);
+}
+.ss-send-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .ss-page         { padding: 20px 16px 48px; }
+  .ss-contact-card { padding: 20px 16px; }
+}
