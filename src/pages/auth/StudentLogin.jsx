@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
 // import "./auth.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../../services/api";
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 import ForgotPasswordModal from "./ForgotPasswordModal";
@@ -18,6 +18,20 @@ function StudentLogin() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const navigate = useNavigate();
+
+  // ✅ ADDED — mirrors TeacherLogin.jsx: surfaces the message stashed by
+  // services/api.js's response interceptor when this session gets
+  // force-logged-out mid-use (e.g. an admin suspends this account while
+  // the student is still active).
+  useEffect(() => {
+    const notice = localStorage.getItem("authNotice");
+    if (notice) {
+      setStatus("error");
+      setResponse(notice);
+      localStorage.removeItem("authNotice");
+      setTimeout(() => setResponse(""), 6000);
+    }
+  }, []);
 
   const submithandle = async (e) => {
     let valid = true;

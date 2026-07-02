@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import "./auth.css"
 import API from "../../services/api";
 import GoogleLoginBtn from "../../components/GoogleLoginBtn";
@@ -20,6 +20,20 @@ function TeacherLogin() {
   const navigate = useNavigate();
   const location = useLocation();
   const role = location.state?.role;
+
+  // ✅ ADDED — surfaces the message stashed by services/api.js's response
+  // interceptor when a session gets force-logged-out mid-use (e.g. an
+  // admin suspends this account while the teacher is still active). Same
+  // red banner already used for a failed login attempt below.
+  useEffect(() => {
+    const notice = localStorage.getItem("authNotice");
+    if (notice) {
+      setStatus("error");
+      setResponse(notice);
+      localStorage.removeItem("authNotice");
+      setTimeout(() => setResponse(""), 6000); // longer than the normal 3s — this one matters more
+    }
+  }, []);
 
   const submithandle = async (e) => {
     let valid = true;

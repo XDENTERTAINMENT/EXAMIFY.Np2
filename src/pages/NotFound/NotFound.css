@@ -1,0 +1,92 @@
+.notfound-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8fb;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 24px;
+}
+
+.notfound-card {
+  max-width: 560px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 10px 40px rgba(17, 24, 39, 0.08);
+}
+
+.notfound-code {
+  display: inline-block;
+  font-size: 90px;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff7a59, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 12px;
+}
+
+.notfound-card h1 {
+  font-size: 24px;
+  color: #111827;
+  margin-bottom: 14px;
+  line-height: 1.35;
+}
+
+.notfound-card p {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.notfound-home-btn {
+  display: inline-block;
+  background: #ff7a59;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.notfound-home-btn:hover {
+  background: #ff6a44;
+  transform: translateY(-1px);
+}
+
+.notfound-subtext {
+  margin-top: 22px;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.notfound-subtext a {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notfound-subtext a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .notfound-card {
+    padding: 36px 24px;
+  }
+
+  .notfound-code {
+    font-size: 72px;
+  }
+
+  .notfound-card h1 {
+    font-size: 20px;
+  }
+}

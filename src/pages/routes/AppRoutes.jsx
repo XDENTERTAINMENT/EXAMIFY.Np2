@@ -23,6 +23,11 @@ import ExamLimitReached from "../student/ExamLimitReached";
 import Settings from "../teacher/Settings";
 import TeacherSupport from "../teacher/TeacherSupport";   // ✅ ADDED
 import StudentSupport from "../student/StudentSupport";   // ✅ ADDED
+import NotFound from "../NotFound/NotFound";
+import AdminLogin from "../admin/AdminLogin";               // ✅ ADDED — Phase 2
+import AdminDashboard from "../admin/AdminDashboard";        // ✅ ADDED — Phase 2
+import AdminProtectedRoute from "./AdminProtectedRoute";     // ✅ ADDED — Phase 2
+
 
 function AppRoutes() {
   return (
@@ -94,6 +99,21 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* ✅ ADDED — Phase 2: Admin dashboard */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
+
+        {/* ✅ ADDED — must stay LAST; React Router matches top-down, and "*"
+            would swallow every route declared after it. */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       
     </div>

@@ -1,0 +1,466 @@
+* {
+  box-sizing: border-box;
+}
+
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   SIDEBAR — mirrors .teacher-sidebar1 in Teacher.css
+========================= */
+.admin-sidebar {
+  background: linear-gradient(to bottom, #9a9aac, #f3f4f7);
+  padding: 30px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.admin-brand span:first-child {
+  font-size: 22px;
+}
+
+.admin-brand h2 {
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.admin-brand h2 span {
+  color: #4f46e5;
+}
+
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-menu button {
+  border: none;
+  background: transparent;
+  color: #0f172a;
+  text-align: left;
+  padding: 13px 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.admin-menu button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.admin-menu button.active {
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
+  color: white;
+}
+
+.admin-sidebar-bottom {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.admin-whoami {
+  font-size: 12px;
+  color: #475569;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.admin-logout {
+  width: 100%;
+  border: none;
+  background: rgba(8, 0, 0, 0.8);
+  color: white;
+  text-align: left;
+  padding: 13px 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.admin-logout:hover {
+  background: #dc2626;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+.admin-main {
+  padding: 30px;
+  overflow-x: hidden;
+}
+
+.ad-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ad-title {
+  font-size: 28px;
+  color: #0f172a;
+}
+
+.ad-sub {
+  color: gray;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.ad-subheading {
+  font-size: 15px;
+  color: #0f172a;
+  margin: 18px 0 10px;
+}
+
+.ad-loading,
+.ad-empty {
+  color: #64748b;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+/* =========================
+   KPI CARDS (Overview)
+========================= */
+.ad-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.ad-kpi-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.ad-kpi-card.warn {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.ad-kpi-card.danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.ad-kpi-label {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.ad-kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* =========================
+   FILTERS
+========================= */
+.ad-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.ad-filters button {
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #475569;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: 0.15s;
+}
+
+.ad-filters button.active {
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
+  color: white;
+  border-color: transparent;
+}
+
+.ad-filters-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.ad-search {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+.ad-search:focus {
+  border-color: #6d5efc;
+}
+
+/* =========================
+   TABLE
+========================= */
+.ad-table-wrap {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  overflow-x: auto;
+}
+
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ad-table th {
+  text-align: left;
+  padding: 14px 16px;
+  color: #64748b;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.ad-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+.ad-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ad-cell-primary {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.ad-cell-secondary {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.ad-mono {
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  color: #475569;
+}
+
+.ad-capitalize {
+  text-transform: capitalize;
+}
+
+.ad-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.ad-action-btn {
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #4f46e5;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ad-action-btn:hover {
+  background: #ede9fe;
+}
+
+.ad-action-btn.suspend {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.ad-action-btn.suspend:hover {
+  background: #fef2f2;
+}
+
+.ad-action-btn.restore {
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.ad-action-btn.restore:hover {
+  background: #f0fdf4;
+}
+
+.ad-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   FLAGGED IP CARDS (Security)
+========================= */
+.ad-flagged-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.ad-flagged-card {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ad-flagged-card .ad-action-btn {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+/* =========================
+   SUPPORT TICKETS
+========================= */
+.ad-ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ad-ticket {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+
+.ad-ticket-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ad-ticket-message {
+  font-size: 13px;
+  color: #334155;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.ad-ticket-reply {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #166534;
+  margin: 10px 0;
+}
+
+.ad-reply-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.ad-reply-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ad-reply-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+}
+
+.ad-reply-form textarea:focus {
+  border-color: #6d5efc;
+}
+
+.ad-reply-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ad-reply-actions button {
+  border: none;
+  background: linear-gradient(to right, #4f46e5, #6d5efc);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ad-reply-actions button.secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.ad-reply-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .admin-dashboard {
+    grid-template-columns: 1fr;
+  }
+  .admin-sidebar {
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    padding: 16px;
+  }
+  .admin-menu {
+    flex-direction: row;
+  }
+  .admin-sidebar-bottom {
+    display: none;
+  }
+}
